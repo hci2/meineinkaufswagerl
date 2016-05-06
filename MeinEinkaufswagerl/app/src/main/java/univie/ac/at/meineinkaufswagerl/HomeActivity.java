@@ -17,6 +17,6 @@ public class HomeActivity extends AppCompatActivity {
 
         // test Alina
 
-        // Test Philipp
+        // test Philip
     }
 }
