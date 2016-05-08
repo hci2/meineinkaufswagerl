@@ -14,6 +14,9 @@ public class UserModel {
     private String username;
     private String password;
 
+    //Felix Addition Platzhalter
+
+
 
     // Default values because we have no serialisation/deserialisation
     public UserModel() {
