@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Mein Einkaufswagerl</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="speech_prompt">Sage was du kaufen willst&#8230;</string>
+    <string name="speech_change">Sage was du ändern willst&#8230;</string>
+    <string name="speech_index">Sage welche Zeile du ändern willst&#8230;</string>
+    <string name="speech_index_missunderstand">Es ist ein Fehler aufgetreten, versuch es nochmal!</string>
+    <string name="speech_not_supported">Entschuldigung! Dein Gerät unterstützt die Spracheingabe nicht!</string>
+    <string name="tap_on_ear">Drücke auf das Ohr um die Eingabe zu hören</string>
+    <string name="tap_on_mouth">Drücke auf den Mund um zu sprechen</string>
 </resources>
