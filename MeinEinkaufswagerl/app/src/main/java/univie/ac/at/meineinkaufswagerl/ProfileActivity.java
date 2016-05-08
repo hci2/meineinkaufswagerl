@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
+
 /**
  * Created by Wilson on 08.05.2016.
  * Zeigt das Zwischen Menü für die Profil Einrichtung
@@ -19,6 +23,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     Button weiterButton;
     Button vorleseButton;
 
+    //This variable is used to get access to the TextToSpeech
+    private TextToSpeechManager ttsManager = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +33,21 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
 
         initializeVariables();
+
+        //initiate TextToSpeechManager
+        ttsManager = new TextToSpeechManager();
+        ttsManager.init(this);
+
         weiterButton.setOnClickListener(ProfileActivity.this);
+
+        // This is used for TextToSpeech
+        vorleseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                String text = infotext.getText().toString();
+                ttsManager.initQueue(text);
+            }
+        });
     }
 
     // Ruft die Support PAge auf wo ma aussuchen kann welche unterstüzug man will.
@@ -48,6 +69,16 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         vorleseButton= (Button) findViewById(R.id.vorleseButton);
         infotext = (TextView) findViewById(R.id.infoText);
 
+    }
+
+    /**
+     * Releases the resources used by the TextToSpeech engine.
+     */
+    // This is used for TextToSpeech
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ttsManager.shutDown();
     }
 
 }

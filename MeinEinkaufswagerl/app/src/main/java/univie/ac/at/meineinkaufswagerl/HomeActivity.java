@@ -13,6 +13,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
 
     Button profilebutton;
+    Button listButton;
+    Button leaveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,17 +24,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         //Felix Anfang
         initializeVariables();
         profilebutton.setOnClickListener(HomeActivity.this);
-
         // Felix Ende
 
-
-        // Test
-
-        //test Felix
-
-        // test Alina
-
-        // test Philip
     }
 
 
@@ -48,10 +41,26 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    public void goToListSupportPage(View v){
+        // Startet auf Knopfdruck die ListSupportPage
+        Intent  intent= new Intent(this, ListSupportPage.class);
+        String message="";
+        intent.putExtra(EXTRA_MESSAGE,message);
+        startActivity(intent);
+    }
+
+    public void goToLeaveApp(View v){
+        // Verlässt auf Knopfdruck die App
+        finish();
+        System.exit(0);
+    }
+
 
     private void initializeVariables() {
 
         profilebutton= (Button) findViewById(R.id.profilebutton);
+        listButton= (Button) findViewById(R.id.listButton);
+        leaveButton= (Button) findViewById(R.id.leaveButton);
 
     }
 

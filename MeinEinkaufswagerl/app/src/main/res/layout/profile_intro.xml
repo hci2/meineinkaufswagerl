@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="In diesem Menü können sie ihr Ernährungsprofil bearbeiten. Zur Einrichtung wird eine zusätzliche Person empfohlen die bei Problemen helfen kann."
+        android:text="@string/recommendation_person"
         android:id="@+id/infoText"
         android:layout_weight="0.14"
         android:textAlignment="center" />

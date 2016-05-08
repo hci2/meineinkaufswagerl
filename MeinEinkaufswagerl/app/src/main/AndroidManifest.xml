@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_icon_paclist"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -15,14 +15,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ProfileActivity">
-            </activity>
-        <activity android:name=".ProfileUnvertragActivity">
-        </activity>
-        <activity android:name=".ProfileSupportPage">
-        </activity>
-
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ProfileUnvertragActivity" />
+        <activity android:name=".ProfileSupportPage" />
+        <activity android:name=".ListSupportPage" />
+        <activity android:name=".ListCreateSpeechActivity" />
+        <activity android:name=".ListCreateTextActivity"></activity>
     </application>
 
 </manifest>
