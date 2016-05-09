@@ -27,4 +27,8 @@ public class StandingOrderListModel {
     public void removeTextListElement(int index){
         standingOrderList.remove(index);
     }
+
+    public int getSize(){
+        return standingOrderList.size();
+    }
 }

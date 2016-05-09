@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
+import univie.ac.at.meineinkaufswagerl.model.StandingOrderListModel;
 import univie.ac.at.meineinkaufswagerl.model.TemporaryListModel;
 
 public class ListConfirmationSpeechActivity extends AppCompatActivity {
@@ -26,6 +27,7 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
 
     private ListView txtSpeechList;
     private TemporaryListModel tempList=new TemporaryListModel();
+    private StandingOrderListModel standList = new StandingOrderListModel();
     private ImageButton btnRead;
     private TextToSpeechManager ttsManager = null;
     private Button addStandButton;
@@ -34,16 +36,6 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
     private Button finishStandButton;
 
     //SpeechToTextManager sttManager = null;
-
-    //For Changing
-    private ImageButton btnChange;
-    private ImageButton btnIndex;
-    private boolean change=false;
-    private boolean index=false;
-    private int indexChange;
-
-    private int MY_DATA_CHECK_CODE = 0;
-    private final int REQ_CODE_SPEECH_INPUT = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,38 +47,13 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
         ttsManager = new TextToSpeechManager();
         ttsManager.init(this);
 
-        //initiate SpeechToTextManager
-        //sttManager = new SpeechToTextManager(HomeActivity.this);
-
-        //check TTS version on executing device - needed for SpeechToText
-        checkSpeech();
-
         //initialize all the elements of the layout xml
         txtSpeechList = (ListView) findViewById(R.id.textListView);
         btnRead = (ImageButton) findViewById(R.id.btnRead);
-        btnChange = (ImageButton) findViewById(R.id.btnChange);
-        btnIndex = (ImageButton) findViewById(R.id.btnIndex);
         addStandButton = (Button) findViewById(R.id.addStandButton);
         replaceStandButton = (Button) findViewById(R.id.replaceStandButton);
         finishTempButton = (Button) findViewById(R.id.finishTempButton);
         finishStandButton = (Button) findViewById(R.id.finishStandButton);
-
-        // This is used to Change an index of the List
-        btnChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                change=true;
-                speechText();
-            }
-        });
-        // This is used to get the index for changing a line of the List
-        btnIndex.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                index=true;
-                speechText();
-            }
-        });
 
 
         // This is used for TextToSpeech
@@ -118,27 +85,59 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
     //TODO: Sinnvolle Inhalte in die vier Methoden einfügen
 
     public void addStandButton(View v) {
-        Intent intent= new Intent(this, ListConfirmationSpeechActivity.class);
-        String message="";
-        intent.putExtra(EXTRA_MESSAGE,message);
-        startActivity(intent);
+        ArrayList<String> textList=tempList.getTextList();
+        if(!(textList.size()==0)){
+            for(int i=0;i<textList.size();i++){
+                standList.addTextList(textList.get(i));
+            }
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.finished_addStandingOrder),
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.notfinished_addStandingOrder),
+                    Toast.LENGTH_LONG).show();
+        }
+
     }
 
     public void replaceStandButton(View v) {
-        Intent intent= new Intent(this, ListConfirmationSpeechActivity.class);
-        String message="";
-        intent.putExtra(EXTRA_MESSAGE,message);
-        startActivity(intent);
+        ArrayList<String> textList=tempList.getTextList();
+        if(!(textList.size()==0)){
+            if(textList.size()<=standList.getSize()){
+                for(int i=0;i<standList.getSize();i++){
+                    standList.removeTextListElement(i);
+                    if(i<=textList.size()){
+                        standList.changeTextListElement(textList.get(i),i);
+                    }
+                }
+            } else if(textList.size()>standList.getSize()){
+                for(int i=0;i<textList.size();i++){
+                    if(i<=standList.getSize()){
+                        standList.removeTextListElement(i);
+                    }
+                    standList.addTextList(textList.get(i));
+                }
+            }
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.finished_replaceStandingOrder),
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.notfinished_replaceStandingOrder),
+                    Toast.LENGTH_LONG).show();
+        }
+
     }
     public void goToFinishTempPage(View v) {
-        Intent intent= new Intent(this, ListConfirmationSpeechActivity.class);
-        String message="";
+        Intent intent= new Intent(this, ListFinishedSpeechActivity.class);
+        String message="Ihr Auftrag der dauerhaften Liste wurde erfolgreich gesendet";
         intent.putExtra(EXTRA_MESSAGE,message);
         startActivity(intent);
     }
     public void goToFinishStandPage(View v) {
-        Intent intent= new Intent(this, ListConfirmationSpeechActivity.class);
-        String message="";
+        Intent intent= new Intent(this, ListFinishedSpeechActivity.class);
+        String message="Ihr Auftrag der eigenen Liste wurde erfolgreich gesendet";
         intent.putExtra(EXTRA_MESSAGE,message);
         startActivity(intent);
     }
