@@ -8,25 +8,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/recommendation_person"
+        android:text="@string/explaination_speech"
         android:id="@+id/infoText"
         android:layout_weight="0.14"
         android:textAlignment="center" />
 
     <Button
-        android:layout_width="164dp"
+        android:layout_width="192dp"
         android:layout_height="wrap_content"
         android:text="Infotext vorlesen"
-        android:id="@+id/vorleseButton"
+        android:id="@+id/readButton"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.14" />
+        android:layout_weight="0.28"
+        android:textSize="15dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="192dp"
         android:layout_height="wrap_content"
         android:text="Weiter zur Einrichtung"
-        android:id="@+id/weiterButton"
+        android:id="@+id/nextButton"
+        android:onClick="goToListCreateSpeechActivity"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.14" />
+        android:layout_weight="0.14"
+        android:layout_marginTop="30dp"
+        android:textSize="15dp" />
 
 </LinearLayout>

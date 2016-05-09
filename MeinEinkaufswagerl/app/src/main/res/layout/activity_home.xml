@@ -12,16 +12,37 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Hello World!"
+        android:id="@+id/textView" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Profil Editor"
         android:id="@+id/profilebutton"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="124dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Einkaufsliste erstellen"
+        android:id="@+id/listButton"
+        android:onClick="goToListSupportPage"
+        android:layout_marginTop="67dp"
+        android:layout_below="@+id/profilebutton"
+        android:layout_toEndOf="@+id/textView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verlassen"
+        android:id="@+id/leaveButton"
+        android:onClick="goToLeaveApp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="166dp" />
+        android:layout_marginBottom="52dp" />
 
     <Button
         android:layout_width="wrap_content"

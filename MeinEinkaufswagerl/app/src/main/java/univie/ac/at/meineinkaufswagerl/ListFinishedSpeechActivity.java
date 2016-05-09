@@ -1,0 +1,78 @@
+package univie.ac.at.meineinkaufswagerl;
+
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
+
+public class ListFinishedSpeechActivity extends AppCompatActivity {
+
+    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
+    private String city;
+    private TextView showFinishedText;
+    private Button btnHome;
+    private ImageButton btnRead;
+
+    //This variable is used to get access to the TextToSpeech
+    private TextToSpeechManager ttsManager = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_list_finished_speech);
+
+        //initialize view variables in the UI (function definition is under the onCreate() method)
+        initializeVariables();
+
+        //Unwrap the intent and get the city.
+        city = getIntent().getStringExtra(ListConfirmationSpeechActivity.EXTRA_MESSAGE);
+        //This is used to display the selected city on the view
+        showFinishedText.setText(city);
+
+        //initiate TextToSpeechManager
+        ttsManager = new TextToSpeechManager();
+        ttsManager.init(this);
+
+        // This is used for TextToSpeech
+        btnRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                String text = showFinishedText.getText().toString();
+                ttsManager.initQueue(text);
+            }
+        });
+
+    }
+
+    //The initilization function for the views controlled by your activity
+    private void initializeVariables(){
+        showFinishedText = (TextView) findViewById(R.id.showFinishedText);
+        btnHome = (Button) findViewById(R.id.btnHome);
+        btnRead = (ImageButton) findViewById(R.id.btnRead);
+    }
+
+    /**
+     * Releases the resources used by the TextToSpeech engine.
+     */
+    // This is used for TextToSpeech
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ttsManager.shutDown();
+    }
+
+    public void goToHomeScreen(View v) {
+        Intent intent= new Intent(this, HomeActivity.class);
+        String message="";
+        intent.putExtra(EXTRA_MESSAGE,message);
+        startActivity(intent);
+    }
+
+}

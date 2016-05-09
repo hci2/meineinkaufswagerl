@@ -1,15 +1,28 @@
 <resources>
     <string name="app_name">Mein Einkaufswagerl</string>
+
     <string name="action_settings">Einstellungen</string>
-    <string name="speech_prompt">Sage was du kaufen willst&#8230;</string>
-    <string name="speech_change">Sage was du ändern willst&#8230;</string>
-    <string name="speech_index">Sage welche Zeile du ändern willst&#8230;</string>
-    <string name="speech_index_missunderstand">Es ist ein Fehler aufgetreten, versuch es nochmal!</string>
-    <string name="speech_not_supported">Entschuldigung! Dein Gerät unterstützt die Spracheingabe nicht!</string>
-    <string name="tap_on_ear">Drücke auf das Ohr um die Eingabe zu hören</string>
-    <string name="tap_on_mouth">Drücke auf den Mund um zu sprechen</string>
+    <string name="speech_prompt">Sagen Sie was sie kaufen wollen&#8230;</string>
+    <string name="speech_change">Sagen Sie was sie ändern wollen&#8230;</string>
+    <string name="speech_index">Sagen Sie welche Zeile sie ändern wollen&#8230;</string>
+    <string name="speech_index_missunderstand">Es ist ein Fehler aufgetreten, versuchen Sie es nochmal!</string>
+    <string name="speech_not_supported">Entschuldigung! Ihr Gerät unterstützt die Spracheingabe nicht!</string>
+    <string name="tap_on_ear">Drücken Sie auf das Ohr um die Eingabe zu hören</string>
+    <string name="tap_on_mouth">Drücken Sie auf den Mund um zu sprechen</string>
     <string name="btn_lebensmittel">Lebensmittel</string>
     <string name="btn_haushalt">Haushalt</string>
     <string name="btn_accept">Zur Einkaufsliste hinzufügen</string>
     <string name="btn_decline">Zurück</string>
+
+    <string name="explaination_speech">Sie haben Spracheingabe gewählt. Bei dem Mund Button können Sie sprechen und beim Ohr Button können Sie sich das zuvor gesprochene anhören. Falls Sie etwas ändern wollen, können Sie mit dem # Button die Zeile angeben und mit dem Schreibblock Button den zu ändernden Inhalt. Außerdem können Sie eine einmalige Liste erstellen oder eine tägliche Liste erstellen.</string>
+    <string name="recommendation_person">In diesem Menü können Sie ihr Ernährungsprofil bearbeiten. Zur Einrichtung wird eine zusätzliche Person empfohlen die bei Problemen helfen kann.</string>
+
+    <string name="home_info_text">Info: Diese App dient zur Aufnahme Ihrer Kaufwünsche in eine Liste, die danach einer gemeinwohlnützigen Organisation übermittelt wird. \n Bitte bei erstmaliger Nutzung Profil anlegen!</string>
+
+    <string name="finished_addStandingOrder">Ihre Liste wurde erfolgreich zu Ihrer dauerhaften Liste hinzugefügt!</string>
+    <string name="notfinished_addStandingOrder">Ihre Liste konnte nicht erfolgreich zu Ihrer dauerhaften Liste hinzugefügt werden!</string>
+
+    <string name="finished_replaceStandingOrder">Die dauerhafte Liste konnte erfolgreich mit Ihrer Liste ersetzt werden!</string>
+    <string name="notfinished_replaceStandingOrder">Die dauerhafte Liste konnte nicht erfolgreich mit Ihrer Liste ersetzt werden!</string>
+
 </resources>
