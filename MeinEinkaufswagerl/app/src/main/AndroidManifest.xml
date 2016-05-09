@@ -20,7 +20,9 @@
         <activity android:name=".ProfileSupportPage" />
         <activity android:name=".ListSupportPage" />
         <activity android:name=".ListCreateSpeechActivity" />
-        <activity android:name=".ListCreateTextActivity"></activity>
+        <activity android:name=".ListCreateTextActivity" />
+        <activity android:name=".ListSpeechIntroActivity" />
+        <activity android:name=".ListConfirmationSpeechActivity"></activity>
     </application>
 
 </manifest>
