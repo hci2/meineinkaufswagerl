@@ -12,7 +12,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
 
-    Button profilebutton;
+    Button profilebutton, shoppingbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         //Felix Anfang
         initializeVariables();
         profilebutton.setOnClickListener(HomeActivity.this);
+        shoppingbutton.setOnClickListener(HomeActivity.this);
 
         // Felix Ende
 
@@ -39,12 +40,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     //Von Felix
     @Override
     public void onClick(View v){
-        // Startet auf Knopfdruck die ProfileActivity
-        Intent  intent= new Intent(this, ProfileActivity.class);
-        String message="";
-        intent.putExtra(EXTRA_MESSAGE,message);
-        startActivity(intent);
-
+        if(v == shoppingbutton) {
+            Intent  intent= new Intent(this, ShoppingManuallyActivity.class);
+            startActivity(intent);
+        }
+        else if(v == profilebutton) {
+            // Startet auf Knopfdruck die ProfileActivity
+            Intent  intent= new Intent(this, ProfileActivity.class);
+            String message="";
+            intent.putExtra(EXTRA_MESSAGE,message);
+            startActivity(intent);
+        }
     }
 
 
@@ -52,6 +58,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void initializeVariables() {
 
         profilebutton= (Button) findViewById(R.id.profilebutton);
+        shoppingbutton= (Button) findViewById(R.id.shoppingbutton);
 
     }
 

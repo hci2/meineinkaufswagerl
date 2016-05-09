@@ -8,4 +8,8 @@
     <string name="speech_not_supported">Entschuldigung! Dein Gerät unterstützt die Spracheingabe nicht!</string>
     <string name="tap_on_ear">Drücke auf das Ohr um die Eingabe zu hören</string>
     <string name="tap_on_mouth">Drücke auf den Mund um zu sprechen</string>
+    <string name="btn_lebensmittel">Lebensmittel</string>
+    <string name="btn_haushalt">Haushalt</string>
+    <string name="btn_accept">Zur Einkaufsliste hinzufügen</string>
+    <string name="btn_decline">Zurück</string>
 </resources>

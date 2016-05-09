@@ -1,0 +1,38 @@
+package univie.ac.at.meineinkaufswagerl.model;
+
+import android.media.Image;
+
+/**
+ * Created by Philip on 08.05.2016.
+ */
+public class ProductModel {
+    private String name;
+    private float price;
+    private String category;
+    private float menge;
+    private String einheit;
+    private int image;
+
+    public ProductModel(String name, float price, String category, float menge, String einheit, int image) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+        this.menge = menge;
+        this.einheit = einheit;
+        this.image = image;
+    }
+
+    public String getName() { return name; }
+
+    public float getPrice() { return price; }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public float getMenge() { return menge; }
+
+    public String getEinheit() { return einheit; }
+
+    public int getImage() { return this.image; }
+}

@@ -22,4 +22,12 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="166dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shopping"
+        android:id="@+id/shoppingbutton"
+        android:layout_marginTop="190dp"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
