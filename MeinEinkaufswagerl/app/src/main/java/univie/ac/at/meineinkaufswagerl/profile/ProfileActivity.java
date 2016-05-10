@@ -1,4 +1,4 @@
-package univie.ac.at.meineinkaufswagerl;
+package univie.ac.at.meineinkaufswagerl.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
+import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
 
 /**

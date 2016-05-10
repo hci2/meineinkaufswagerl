@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
-import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
+import univie.ac.at.meineinkaufswagerl.profile.ProfileActivity;
+import univie.ac.at.meineinkaufswagerl.shoppinglist.ListSupportPage;
+import univie.ac.at.meineinkaufswagerl.shoppinglist.ShoppingManuallyActivity;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 

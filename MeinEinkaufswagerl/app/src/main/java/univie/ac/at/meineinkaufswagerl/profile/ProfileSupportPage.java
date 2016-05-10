@@ -1,4 +1,4 @@
-package univie.ac.at.meineinkaufswagerl;
+package univie.ac.at.meineinkaufswagerl.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import univie.ac.at.meineinkaufswagerl.R;
+import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
 
 /**
  * Created by Wilson on 08.05.2016.
@@ -20,6 +23,9 @@ public class ProfileSupportPage extends AppCompatActivity implements View.OnClic
     Button sprachButton;
     Button manuellButton;
 
+    //This variable is used to get access to the TextToSpeech
+    private TextToSpeechManager ttsManager = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +34,10 @@ public class ProfileSupportPage extends AppCompatActivity implements View.OnClic
 
         initializeVariables();
         manuellButton.setOnClickListener(ProfileSupportPage.this);
+
+        //initiate TextToSpeechManager
+        ttsManager = new TextToSpeechManager();
+        ttsManager.init(this);
     }
 
     public void initializeVariables() {
@@ -43,6 +53,30 @@ public class ProfileSupportPage extends AppCompatActivity implements View.OnClic
         String message="";
         intent.putExtra(EXTRA_MESSAGE,message);
         startActivity(intent);
+    }
+
+    public void readInfoText(View v){
+        // Startet auf Knopfdruck die Sprachausgabe
+        String text = infoText.getText().toString();
+        ttsManager.initQueue(text);
+    }
+
+    public void goToNextPage(View v){
+        // Startet auf Knopfdruck die ListSupportPage
+        Intent intent= new Intent(this, ProfileNameSpeechActivity.class);
+        String message="";
+        intent.putExtra(EXTRA_MESSAGE,message);
+        startActivity(intent);
+    }
+
+    /**
+     * Releases the resources used by the TextToSpeech engine.
+     */
+    // This is used for TextToSpeech
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ttsManager.shutDown();
     }
 
 

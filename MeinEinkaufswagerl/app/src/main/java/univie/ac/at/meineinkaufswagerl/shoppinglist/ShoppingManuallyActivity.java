@@ -1,4 +1,4 @@
-package univie.ac.at.meineinkaufswagerl;
+package univie.ac.at.meineinkaufswagerl.shoppinglist;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.adapter.ListAdapter;
 import univie.ac.at.meineinkaufswagerl.fragment.AcceptDialog;
 import univie.ac.at.meineinkaufswagerl.model.ProductModel;

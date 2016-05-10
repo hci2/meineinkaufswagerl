@@ -1,4 +1,4 @@
-package univie.ac.at.meineinkaufswagerl;
+package univie.ac.at.meineinkaufswagerl.shoppinglist;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
 import univie.ac.at.meineinkaufswagerl.model.TemporaryListModel;
 

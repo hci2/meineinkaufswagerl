@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="univie.ac.at.meineinkaufswagerl" >
+    package="univie.ac.at.meineinkaufswagerl">
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/app_icon_paclist"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".HomeActivity"
             android:screenOrientation="portrait">
@@ -18,32 +18,33 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ProfileActivity"
+            android:name=".profile.ProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProfileUnvertragActivity"
+            android:name=".profile.ProfileUnvertragActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProfileSupportPage"
+            android:name=".profile.ProfileSupportPage"
             android:screenOrientation="portrait" />
-        <activity android:name=".ShoppingManuallyActivity" >
-        </activity>
+        <activity android:name=".shoppinglist.ShoppingManuallyActivity" />
         <activity
-            android:name=".ListSupportPage"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ListCreateSpeechActivity"
+            android:name=".shoppinglist.ListSupportPage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ListCreateTextActivity"
+            android:name=".shoppinglist.ListCreateSpeechActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ListSpeechIntroActivity"
+            android:name=".shoppinglist.ListCreateTextActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ListConfirmationSpeechActivity"
+            android:name=".shoppinglist.ListSpeechIntroActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ListFinishedSpeechActivity"></activity>
+        <activity
+            android:name=".shoppinglist.ListConfirmationSpeechActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".shoppinglist.ListFinishedSpeechActivity" />
+        <activity android:name=".profile.ProfileNameSpeechActivity" />
+        <activity android:name=".profile.ProfileUnvertragSpeechActivity"></activity>
     </application>
 
 </manifest>

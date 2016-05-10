@@ -14,8 +14,8 @@
     <string name="btn_accept">Zur Einkaufsliste hinzufügen</string>
     <string name="btn_decline">Zurück</string>
 
-    <string name="explaination_speech">Sie haben Spracheingabe gewählt. Bei dem Mund Button können Sie sprechen und beim Ohr Button können Sie sich das zuvor Gesprochene anhören. Falls Sie etwas ändern wollen, können Sie mit dem # Button die Zeile angeben und mit dem Schreibblock Button den zu ändernden Inhalt mitteilen. Außerdem können Sie eine einmalige Liste erstellen oder eine dauerhafte Liste erstellen.</string>
-    <string name="recommendation_person">In diesem Menü können Sie ihr Ernährungsprofil bearbeiten. Zur Einrichtung wird eine zusätzliche Person empfohlen die bei Problemen helfen kann.</string>
+    <string name="explaination_speech">Sie haben Spracheingabe gewählt. Bei dem Mund Button können Sie sprechen und beim Ohr Button können Sie sich das zuvor Gesprochene anhören. Falls Sie etwas ändern wollen, können Sie mit dem # Button die Zeile angeben und mit dem Schreibblock Button den zu ändernden Inhalt mitteilen. Außerdem können Sie eine einmalige Einkaufsliste oder eine dauerhafte Einkaufsliste erstellen und anfordern.</string>
+    <string name="recommendation_person">In diesem Menü können Sie ihr Ernährungsprofil bearbeiten. Zur Einrichtung wird eine zusätzliche Person empfohlen, die bei Problemen helfen kann.</string>
 
     <string name="home_info_text">Info: Diese App dient zur Aufnahme Ihrer Kaufwünsche in eine Liste, die danach einer gemeinwohlnützigen Organisation übermittelt wird. \nBitte bei erstmaliger Nutzung Profil anlegen!</string>
 
@@ -24,5 +24,11 @@
 
     <string name="finished_replaceStandingOrder">Die dauerhafte Liste konnte erfolgreich mit Ihrer Liste ersetzt werden!</string>
     <string name="notfinished_replaceStandingOrder">Die dauerhafte Liste konnte nicht erfolgreich mit Ihrer Liste ersetzt werden!</string>
+
+    <string name="intro_name">Geben Sie ihren Vornamen und Nachnamen mithilfe des jeweiligen Mund Buttons an</string>
+
+    <string name="speech_firstname">Sagen Sie ihren Vornamen&#8230;</string>
+    <string name="speech_lastname">Sagen Sie ihren Nachnamen&#8230;</string>
+    <string name="speech_defaultcase_name">Sagen Sie ihren Namen&#8230;</string>
 
 </resources>

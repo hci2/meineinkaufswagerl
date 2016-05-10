@@ -1,8 +1,10 @@
-package univie.ac.at.meineinkaufswagerl;
+package univie.ac.at.meineinkaufswagerl.profile;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import univie.ac.at.meineinkaufswagerl.R;
 
 /**
  * Created by Wilson on 08.05.2016.
