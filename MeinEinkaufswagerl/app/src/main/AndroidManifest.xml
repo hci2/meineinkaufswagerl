@@ -44,7 +44,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".shoppinglist.ListFinishedSpeechActivity" />
         <activity android:name=".profile.ProfileNameSpeechActivity" />
-        <activity android:name=".profile.ProfileUnvertragSpeechActivity"></activity>
+        <activity android:name=".profile.ProfileUnvertragSpeechActivity" />
+        <activity android:name=".profile.ProfileDiseasesSpeechActivity"></activity>
     </application>
 
 </manifest>

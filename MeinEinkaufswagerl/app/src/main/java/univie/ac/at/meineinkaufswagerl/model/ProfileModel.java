@@ -43,6 +43,15 @@ public class ProfileModel extends UserModel {
         }
     }
 
+    public ProfileModel() {
+        for(int i=0; i<10;i++){
+            this.unvertraeglichkeiten[i]=0;
+        }
+        for(int i=0; i<3;i++){
+            this.krankheiten[i]=0;
+        }
+    }
+
     public int getDiabetes(){
         return krankheiten[0];
     }
@@ -108,10 +117,10 @@ public class ProfileModel extends UserModel {
         unvertraeglichkeiten[5]=1;
     }
 
-    public int getHostamin(){
+    public int getHistamin(){
         return unvertraeglichkeiten[6];
     }
-    public void setHostamin(){
+    public void setHistamin(){
         unvertraeglichkeiten[6]=1;
     }
 
