@@ -26,7 +26,7 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
 
     private ListView txtSpeechList;
-    private TemporaryListModel tempList=new TemporaryListModel();
+    private TemporaryListModel tempList;
     private StandingOrderListModel standList = new StandingOrderListModel();
     private ImageButton btnRead;
     private TextToSpeechManager ttsManager = null;
@@ -42,7 +42,6 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_confirmation_speech);
 
-
         //initiate TextToSpeechManager
         ttsManager = new TextToSpeechManager();
         ttsManager.init(this);
@@ -55,6 +54,15 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
         finishTempButton = (Button) findViewById(R.id.finishTempButton);
         finishStandButton = (Button) findViewById(R.id.finishStandButton);
 
+        //Unwrap the intent and get the temporary list.
+        tempList=new TemporaryListModel();
+        ArrayList<String> stringList = getIntent().getStringArrayListExtra(ListCreateSpeechActivity.EXTRA_MESSAGE);
+        for(int i=0;i<stringList.size();i++){
+            tempList.addTextList(stringList.get(i));
+        }
+        //This is used to display the temporary list on the view
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
+        txtSpeechList.setAdapter(adapter);
 
         // This is used for TextToSpeech
         btnRead.setOnClickListener(new View.OnClickListener() {

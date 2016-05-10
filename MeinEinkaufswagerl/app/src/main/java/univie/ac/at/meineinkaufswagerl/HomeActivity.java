@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.content.Intent;
 import android.view.View;
+import android.widget.TextView;
 
+import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
 import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -15,6 +17,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     Button profilebutton, shoppingbutton;
     Button listButton;
     Button leaveButton;
+    TextView infoText;
+
+    //This variable is used to get access to the TextToSpeech
+    private TextToSpeechManager ttsManager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +29,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         //Felix Anfang
         initializeVariables();
+
+        //initiate TextToSpeechManager
+        ttsManager = new TextToSpeechManager();
+        ttsManager.init(this);
+
         profilebutton.setOnClickListener(HomeActivity.this);
         shoppingbutton.setOnClickListener(HomeActivity.this);
         // Felix Ende
@@ -61,6 +72,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         System.exit(0);
     }
 
+    public void readInfoText(View v){
+        // Startet auf Knopfdruck die Sprachausgabe
+        String text = infoText.getText().toString();
+        ttsManager.initQueue(text);
+    }
+
 
     private void initializeVariables() {
 
@@ -68,7 +85,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         shoppingbutton= (Button) findViewById(R.id.shoppingbutton);
         listButton= (Button) findViewById(R.id.listButton);
         leaveButton= (Button) findViewById(R.id.leaveButton);
+        infoText = (TextView) findViewById(R.id.infoText);
 
+    }
+
+    /**
+     * Releases the resources used by the TextToSpeech engine.
+     */
+    // This is used for TextToSpeech
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ttsManager.shutDown();
     }
 
 

@@ -16,9 +16,9 @@ public class ListSupportPage extends AppCompatActivity {
     Button manuellButton;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_support_page);
+        setContentView(R.layout.list_support_page);
 
 
         initializeVariables();
@@ -32,14 +32,14 @@ public class ListSupportPage extends AppCompatActivity {
     }
 
     public void goToSpeechSupportedList(View v) {
-        Intent intent= new Intent(this, ProfileUnvertragActivity.class);
+        Intent intent= new Intent(this, ListSpeechIntroActivity.class);
         String message="";
         intent.putExtra(EXTRA_MESSAGE,message);
         startActivity(intent);
     }
 
     public void goToTextSupportedList(View v) {
-        Intent intent= new Intent(this, ProfileUnvertragActivity.class);
+        Intent intent= new Intent(this, ListCreateTextActivity.class);
         String message="";
         intent.putExtra(EXTRA_MESSAGE,message);
         startActivity(intent);

@@ -210,8 +210,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity {
 
     public void goToNextPage(View v) {
         Intent intent= new Intent(this, ListConfirmationSpeechActivity.class);
-        String message="";
-        intent.putExtra(EXTRA_MESSAGE,message);
+        intent.putExtra(EXTRA_MESSAGE,tempList.getTextList());
         startActivity(intent);
     }
 }

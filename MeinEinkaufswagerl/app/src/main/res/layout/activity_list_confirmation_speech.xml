@@ -10,7 +10,7 @@
 
 
     <ListView
-        android:layout_width="257dp"
+        android:layout_width="231dp"
         android:layout_height="324dp"
         android:id="@+id/textListView"
         android:layout_marginLeft="20dp"
@@ -20,14 +20,14 @@
         android:layout_y="22dp" />
 
     <ImageButton
-        android:layout_width="100dp"
-        android:layout_height="89dp"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
         android:id="@+id/btnRead"
         android:layout_marginRight="20dp"
         android:src="@drawable/ear_icon"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/btnChange"
-        android:layout_x="278dp"
+        android:layout_x="260dp"
         android:layout_y="28dp" />
 
     <TableLayout
