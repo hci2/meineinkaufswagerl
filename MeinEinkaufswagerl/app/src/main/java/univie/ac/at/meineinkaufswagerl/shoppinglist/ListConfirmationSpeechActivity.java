@@ -43,7 +43,7 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
         ttsManager.init(this);
 
         //initialize all the elements of the layout xml
-        txtSpeechList = (ListView) findViewById(R.id.textListView);
+        txtSpeechList = (ListView) findViewById(R.id.extraListe);
         btnRead = (ImageButton) findViewById(R.id.btnRead);
         addStandButton = (Button) findViewById(R.id.addStandButton);
         replaceStandButton = (Button) findViewById(R.id.replaceStandButton);

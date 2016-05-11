@@ -1,4 +1,4 @@
-package univie.ac.at.meineinkaufswagerl.shoppinglist;
+package univie.ac.at.meineinkaufswagerl.profile;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,19 +20,22 @@ import java.util.Locale;
 
 import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
+import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
 import univie.ac.at.meineinkaufswagerl.model.TemporaryListModel;
+import univie.ac.at.meineinkaufswagerl.shoppinglist.ListConfirmationSpeechActivity;
 
-public class ListCreateSpeechActivity extends AppCompatActivity {
+public class ProfileExtrasSpeechActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
-    private TextView lastInputText;
+    private TextView infoText;
     private ImageButton btnSpeak;
-    private ListView txtSpeechList;
-    private TemporaryListModel tempList=new TemporaryListModel();
+    private ListView extraListe;
     private ImageButton btnRead;
     private TextToSpeechManager ttsManager = null;
     private Button btnNext;
     //SpeechToTextManager sttManager = null;
+
+    private ProfileModel profileModel;
 
     //For Changing
     private ImageButton btnChange;
@@ -46,7 +50,18 @@ public class ListCreateSpeechActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_create_speech);
+        setContentView(R.layout.activity_profile_extras_speech);
+
+        //Unwrap the intent and get the temporary list.
+        profileModel=new ProfileModel();
+        ArrayList<String> listeIntolerances = getIntent().getStringArrayListExtra(ProfileDiseasesSpeechActivity.EXTRA_INTOLERANCES);
+        ArrayList<String> listeKrankheiten = getIntent().getStringArrayListExtra(ProfileDiseasesSpeechActivity.EXTRA_DISEASES);
+        for(int i=0;i<listeIntolerances.size();i++){
+            profileModel.addUnvertraeglichkeit(listeIntolerances.get(i));
+        }
+        for(int i=0;i<listeKrankheiten.size();i++){
+            profileModel.addKrankheit(listeKrankheiten.get(i));
+        }
 
 
         //initiate TextToSpeechManager
@@ -60,9 +75,9 @@ public class ListCreateSpeechActivity extends AppCompatActivity {
         checkSpeech();
 
         //initialize all the elements of the layout xml
-        lastInputText = (TextView) findViewById(R.id.lastInputText);
+        infoText = (TextView) findViewById(R.id.infoText);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
-        txtSpeechList = (ListView) findViewById(R.id.extraListe);
+        extraListe = (ListView) findViewById(R.id.extraListe);
         btnRead = (ImageButton) findViewById(R.id.btnRead);
         btnChange = (ImageButton) findViewById(R.id.btnChange);
         btnIndex = (ImageButton) findViewById(R.id.btnIndex);
@@ -108,7 +123,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 //String text = txtTextView.getText().toString();
-                ArrayList<String> textList=tempList.getTextList();
+                ArrayList<String> textList=profileModel.getExtraListe();
                 if(!(textList.size()==0)){
                     ttsManager.initQueue(textList.get(0));
                     for(int i=1;i<textList.size();i++){
@@ -143,7 +158,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity {
                     getString(R.string.speech_change));
         } else {
             intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                    getString(R.string.speech_prompt));
+                    getString(R.string.speech_extra));
         }
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
@@ -177,23 +192,22 @@ public class ListCreateSpeechActivity extends AppCompatActivity {
                     } else if(change && index){
                         //To get just the number as String
                         //String number=resultString.replaceAll("[^0-9]", "");
-                        if(tempList.getTextList().size()==0){
+                        if(profileModel.getExtraListe().size()==0){
                             change=false;
                             index=false;
                             return;
                         }
-                        tempList.removeTextListElement(indexChange); //Integer.parseInt(number)
-                        tempList.changeTextListElement(resultString, indexChange); //resultString.substring(resultString.lastIndexOf(number)+1),Integer.parseInt(number)
-                        lastInputText.setText("Letzte Änderung: "+(indexChange+1)+" Zeile. "+resultString);
+                        profileModel.removeExtra(indexChange); //Integer.parseInt(number)
+                        profileModel.changeExtra(resultString, indexChange); //resultString.substring(resultString.lastIndexOf(number)+1),Integer.parseInt(number)
                         change=false;
                         index=false;
                     } else {
-                        lastInputText.setText("Letzte Eingabe: "+resultString);
-                        tempList.addTextList(resultString);
+                        profileModel.addExtra(resultString);
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
-                    txtSpeechList.setAdapter(adapter);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, profileModel.getExtraListe());
+                    extraListe.setAdapter(adapter);
+
                 }
                 break;
             }
@@ -210,8 +224,11 @@ public class ListCreateSpeechActivity extends AppCompatActivity {
     }
 
     public void goToNextPage(View v) {
-        Intent intent= new Intent(this, ListConfirmationSpeechActivity.class);
-        intent.putExtra(EXTRA_MESSAGE,tempList.getTextList());
+        Intent intent= new Intent(this, ProfileCharitySpeechActivity.class);
         startActivity(intent);
+    }
+
+    public void readExtraInfoText(View v) {
+        ttsManager.initQueue(infoText.getText().toString());
     }
 }

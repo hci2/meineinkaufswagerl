@@ -15,7 +15,7 @@ import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
 public class ListFinishedSpeechActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
-    private String city;
+    private String liste;
     private TextView showFinishedText;
     private Button btnHome;
     private ImageButton btnRead;
@@ -32,9 +32,9 @@ public class ListFinishedSpeechActivity extends AppCompatActivity {
         initializeVariables();
 
         //Unwrap the intent and get the city.
-        city = getIntent().getStringExtra(ListConfirmationSpeechActivity.EXTRA_MESSAGE);
+        liste = getIntent().getStringExtra(ListConfirmationSpeechActivity.EXTRA_MESSAGE);
         //This is used to display the selected city on the view
-        showFinishedText.setText(city);
+        showFinishedText.setText(liste);
 
         //initiate TextToSpeechManager
         ttsManager = new TextToSpeechManager();
