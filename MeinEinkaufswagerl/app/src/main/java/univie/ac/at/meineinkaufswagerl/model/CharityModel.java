@@ -47,6 +47,30 @@ public class CharityModel {
 
     }
 
+    public String[][] getCharityListVienna() {
+        return charityListVienna;
+    }
+
+    public void setCharityListVienna(String[][] charityListVienna) {
+        this.charityListVienna = charityListVienna;
+    }
+
+    public String getCharityForPLZ(String postalcode){
+        String result=null;
+        for (int row =0;row<charityListVienna.length;row++){
+            String[] rowObject = charityListVienna[row];
+            //if(rowObject!= null){
+                for (int col =0;col<charityListVienna[row].length;col++) {
+                    if(charityListVienna[row][col].equals(postalcode)){
+                        result= charityListVienna[row][++col];
+                        return result;
+                    }
+                }
+            //}
+        }
+        return result;
+    }
+
     public ArrayList<String> getTextList() {
         return charityList;
     }

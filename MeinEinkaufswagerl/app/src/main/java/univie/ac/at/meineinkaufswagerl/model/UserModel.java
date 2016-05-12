@@ -9,7 +9,7 @@ public class UserModel {
     private String lastname;
     private String street;
     private String streetnumber;
-    private int postalcode;
+    private String postalcode;
     private String country;
     private String username;
     private String password;
@@ -25,12 +25,14 @@ public class UserModel {
         this.lastname = "Mustermann";
         this.street = "Musterstraße";
         this.streetnumber = "63a";
-        this.postalcode = 1180;
+        this.postalcode = "1180";
         this.country = "Österreich";
         this.username = "Maxi";
         this.password = "max1234";
         this.charity = "Caritas";
-        this.createdSuccessfullyProfile =false;
+        this.createdSuccessfullyProfile =true; //Derzeitig DEAKTIVIERT
+        //TODO: Falls Serialisierung funktioniert, kann man es auf false setzen und wird bei Einkaufslisten erstellen überprüft
+
 
     }
 
@@ -76,11 +78,11 @@ public class UserModel {
         this.streetnumber = streetnumber;
     }
 
-    public int getPostalcode() {
+    public String getPostalcode() {
         return postalcode;
     }
 
-    public void setPostalcode(int postalcode) {
+    public void setPostalcode(String postalcode) {
         this.postalcode = postalcode;
     }
 

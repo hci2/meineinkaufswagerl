@@ -135,13 +135,13 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
     }
     public void goToFinishTempPage(View v) {
         Intent intent= new Intent(this, ListFinishedSpeechActivity.class);
-        String message="Ihr Auftrag der dauerhaften Liste wurde erfolgreich gesendet";
+        String message="Ihr Auftrag der eigenen Liste wurde erfolgreich gesendet";
         intent.putExtra(EXTRA_MESSAGE,message);
         startActivity(intent);
     }
     public void goToFinishStandPage(View v) {
         Intent intent= new Intent(this, ListFinishedSpeechActivity.class);
-        String message="Ihr Auftrag der eigenen Liste wurde erfolgreich gesendet";
+        String message="Ihr Auftrag der dauerhaften Liste wurde erfolgreich gesendet";
         intent.putExtra(EXTRA_MESSAGE,message);
         startActivity(intent);
     }

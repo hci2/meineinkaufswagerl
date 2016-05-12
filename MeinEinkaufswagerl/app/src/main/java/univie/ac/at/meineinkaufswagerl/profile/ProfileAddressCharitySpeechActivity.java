@@ -25,13 +25,10 @@ import univie.ac.at.meineinkaufswagerl.model.UserModel;
 
 public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
 
-    public final static String EXTRA_INTOLERANCES = "univie.ac.at.meineinkaufswagerl";
-    public final static String EXTRA_DISEASES = "univie.ac.at.meineinkaufswagerl";
-
     TextView infoText, charityOrganisation;
     ImageButton speakAddress, readAddress;
     Button readAdressButton,readCharityButton, nextButton;
-    ListView listAddress;
+    ListView listViewAddress;
 
     CharityModel charityModel=null;
     UserModel userModel=null;
@@ -44,6 +41,7 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
 
     //This variable is used to get access to the TextToSpeech
     private TextToSpeechManager ttsManager = null;
+    private boolean sprachausgabe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +74,11 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
         //check TTS version on executing device - needed for SpeechToText
         checkSpeech();
 
+        sprachausgabe=false;
+
         userModel= new UserModel();
         adressList=new ArrayList<>();
+        charityModel=new CharityModel();
 
     }
 
@@ -86,12 +87,16 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
     public void readOneAddress(View v){
         if(positionSpeech==0){
             ttsManager.addQueue("In welchen Land wohnen Sie? ");
+            sprachausgabe=true;
         } else if(positionSpeech==1){
             ttsManager.addQueue("In welcher Straße wohnen Sie?");
+            sprachausgabe=true;
         } else if(positionSpeech==2){
-            ttsManager.addQueue("Wie lautet die Nummer der Straße?");
+            ttsManager.addQueue("Wie lautet ihre Hausnummer?");
+            sprachausgabe=true;
         } else if(positionSpeech==3){
-            ttsManager.addQueue("Wie lautet die Postleitzahl?");
+            ttsManager.addQueue("Wie lautet ihre Postleitzahl?");
+            sprachausgabe=true;
         }
 
 
@@ -103,19 +108,31 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
 
     public void goToNextPage(View v){
         // Startet auf Knopfdruck die ListSupportPage
-        Intent intent= new Intent(this, ProfileExtrasSpeechActivity.class);
-        intent.putExtra(EXTRA_INTOLERANCES,profileModel.getUnvertraeglichkeitenListe());
-        intent.putExtra(EXTRA_DISEASES, profileModel.getKrankheitenListe());
+        Intent intent= new Intent(this, ProfileFinishedSpeechActivity.class);
+        //TODO: Daten des Profiles serialisieren um sie persistent zu speichern
+        //stellt sicher dass das Profil erfolgreich erstellt wurde, muss beim Listen erstellen geprüft werden
+        profileModel.setCreatedSuccessfullyProfile(true);
         startActivity(intent);
     }
 
     public void readAddress(View v){
         // Startet auf Knopfdruck die Sprachausgabe
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, adressList);
-        listAddress.setAdapter(adapter);
+        listViewAddress.setAdapter(adapter);
         if(!(adressList.size()==0)){
             for(int i=0;i<adressList.size();i++){
-                ttsManager.addQueue(adressList.get(i));
+                if(i==0){
+                    ttsManager.addQueue("Land: "+adressList.get(i));
+                } else if(i==1){
+                    ttsManager.addQueue("Straße: "+adressList.get(i));
+                }else if(i==2){
+                    ttsManager.addQueue("Hausnummer: "+adressList.get(i));
+                }else if(i==3){
+                    ttsManager.addQueue("Postleitzahl: "+adressList.get(i));
+                }else {
+                    ttsManager.addQueue(adressList.get(i));
+                }
+
             }
         }
 
@@ -124,7 +141,7 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
     public void readMyCharity(View v){
         // Startet auf Knopfdruck die Sprachausgabe
         charityOrganisation.setText(userModel.getCharity());
-        ttsManager.initQueue(userModel.getCharity());
+        ttsManager.initQueue("Ihre Einkaufsliste wird von der Organisation "+userModel.getCharity()+" ausgeliefert.");
     }
 
     public void readInfoText(View v){
@@ -135,12 +152,20 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
 
     // This is used for SpeechToText
     private void speechText(){
-        //TODO: Weiter bearbeiten
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.GERMAN);
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_diseases));
+        if(positionSpeech==0){
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_country));
+        } else if(positionSpeech==1){
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_street));
+        } else if(positionSpeech==2){
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_streetnumber));
+        } else if(positionSpeech==3){
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_plz));
+        }
+
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
         } catch (ActivityNotFoundException a) {
@@ -153,7 +178,6 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
     // This is used for SpeechToText
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //TODO: Weiter bearbeiten
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
@@ -163,37 +187,63 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String resultString=result.get(0);
-                    if(resultString.equals("ja") || resultString.equals("Ja") || resultString.contains("ja") || resultString.contains("Ja")){
-                        switch (positionSpeech){
-                            case 0: profileModel.setDiabetes(1);
-                                profileModel.addKrankheit(diseases.get(positionSpeech));
+                    if(sprachausgabe) {
+
+                        switch (positionSpeech) {
+                            case 0: userModel.setCountry(resultString);
+                                if (adressList.size() == 4) {
+                                    adressList.remove(positionSpeech);
+                                }
+                                adressList.add(positionSpeech, resultString);
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, adressList);
+                                listViewAddress.setAdapter(adapter);
+                                sprachausgabe=false;
                                 break;
-                            case 1: profileModel.setMorbus(1);
-                                profileModel.addKrankheit(diseases.get(positionSpeech));
+                            case 1:
+                                userModel.setStreet(resultString);
+                                if (adressList.size() == 4) {
+                                    adressList.remove(positionSpeech);
+                                }
+                                adressList.add(positionSpeech, resultString);
+                                ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, adressList);
+                                listViewAddress.setAdapter(adapter1);
+                                sprachausgabe=false;
                                 break;
-                            case 2: profileModel.setGicht(1);
-                                profileModel.addKrankheit(diseases.get(positionSpeech));
+                            case 2:
+                                userModel.setStreetnumber(resultString);
+                                if (adressList.size() == 4) {
+                                    adressList.remove(positionSpeech);
+                                }
+                                adressList.add(positionSpeech, resultString);
+                                ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, adressList);
+                                listViewAddress.setAdapter(adapter2);
+                                sprachausgabe=false;
                                 break;
-                            default: break;
+                            case 3:
+                                if (!(resultString.matches("[0-9]+"))) {
+                                    Toast.makeText(getApplicationContext(),
+                                            getString(R.string.speech_noPlz),
+                                            Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                userModel.setPostalcode(resultString);
+                                if (adressList.size() == 4) {
+                                    adressList.remove(positionSpeech);
+                                }
+                                adressList.add(positionSpeech, resultString);
+                                ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, adressList);
+                                listViewAddress.setAdapter(adapter3);
+                                userModel.setCharity(charityModel.getCharityForPLZ(resultString));
+                                charityOrganisation.setText(userModel.getCharity());
+                                sprachausgabe=false;
+                                break;
+                            default:
+                                sprachausgabe=false;
+                                break;
                         }
-                        if(positionSpeech==2){
-                            positionSpeech=0;
-                        } else{
-                            positionSpeech++;
-                        }
-                    } else if(resultString.equals("nein") || resultString.equals("Nein") || resultString.contains("nein") || resultString.contains("Nein")){
-                        switch (positionSpeech){
-                            case 0: profileModel.setDiabetes(0);
-                                break;
-                            case 1: profileModel.setMorbus(0);
-                                break;
-                            case 2: profileModel.setGicht(0);
-                                break;
-                            default: break;
-                        }
-                        if(positionSpeech==2){
-                            positionSpeech=0;
-                        } else{
+                        if (positionSpeech == 3) {
+                            positionSpeech = 0;
+                        } else {
                             positionSpeech++;
                         }
                     }
@@ -220,7 +270,7 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
         readAddress=(ImageButton) findViewById(R.id.readOneButton);
         infoText = (TextView) findViewById(R.id.infoText);
         charityOrganisation = (TextView) findViewById(R.id.charityOrganisation);
-        listAddress = (ListView) findViewById(R.id.addressList);
+        listViewAddress = (ListView) findViewById(R.id.addressList);
 
     }
 
