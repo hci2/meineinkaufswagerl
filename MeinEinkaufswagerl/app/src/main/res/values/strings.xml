@@ -13,6 +13,7 @@
     <string name="btn_haushalt">Haushalt</string>
     <string name="btn_accept">Zur Einkaufsliste hinzufügen</string>
     <string name="btn_decline">Zurück</string>
+    <string name="btn_toList">Zur Einkaufsliste</string>
 
     <string name="explaination_speech">Sie haben Spracheingabe gewählt. Bei dem Mund Button können Sie sprechen und beim Ohr Button können Sie sich das zuvor Gesprochene anhören. Falls Sie etwas ändern wollen, können Sie mit dem # Button die Zeile angeben und mit dem Schreibblock Button den zu ändernden Inhalt mitteilen. Außerdem können Sie eine einmalige Einkaufsliste oder eine dauerhafte Einkaufsliste erstellen und anfordern.</string>
     <string name="recommendation_person">In diesem Menü können Sie ihr Ernährungsprofil bearbeiten. Zur Einrichtung wird eine zusätzliche Person empfohlen, die bei Problemen helfen kann.</string>

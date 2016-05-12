@@ -20,14 +20,17 @@ import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.adapter.ListAdapter;
 import univie.ac.at.meineinkaufswagerl.fragment.AcceptDialog;
 import univie.ac.at.meineinkaufswagerl.model.ProductModel;
+import univie.ac.at.meineinkaufswagerl.model.ShoppingListModel;
 
-public class ShoppingManuallyActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener{
+public class ShoppingManuallyActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, AcceptDialog.OnDialogButtonEvent{
 
-    ArrayList<ProductModel>lebensmittel, haushalt;
-    Button buttonLebensmittel, buttonHaushalt, buttonSearch;
-    ListView listview;
-    ListAdapter adapter;
-    EditText editText;
+    private ArrayList<ProductModel>lebensmittel, haushalt, currentList;
+    private Button buttonLebensmittel, buttonHaushalt, buttonSearch, buttonToList;
+    private ListView listview;
+    private ListAdapter adapter;
+    private EditText editText;
+    private ShoppingListModel shoppingList;
+    private int currentPos = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +42,16 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
         this.buttonLebensmittel.setOnClickListener(this);
         this.buttonSearch = (Button)findViewById(R.id.buttonSearch);
         this.buttonSearch.setOnClickListener(this);
+        this.buttonToList = (Button)findViewById(R.id.buttonToList);
+        this.buttonToList.setOnClickListener(this);
         this.listview = (ListView)findViewById(R.id.listview);
         this.editText = (EditText)findViewById(R.id.editText);
         createProducts();
         this.adapter = new ListAdapter(this,lebensmittel,haushalt);
         this.listview.setAdapter(adapter);
         this.listview.setOnItemClickListener(this);
+        this.shoppingList = new ShoppingListModel();
+        this.currentList = this.lebensmittel;
     }
 
     private void createProducts() {
@@ -65,6 +72,9 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
     public void showDialog() {
         FragmentManager manager=getFragmentManager();
         AcceptDialog acceptDialog = new AcceptDialog();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("productName", this.currentList.get(this.currentPos).getName());
+        acceptDialog.setArguments(bundle);
         acceptDialog.show(manager, "Produkt hinzufügen?");
     }
 
@@ -75,10 +85,12 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
         if(v == this.buttonLebensmittel) {
             this.adapter.settype("lebensmittel");
             this.listview.setAdapter(adapter);
+            this.currentList = this.lebensmittel;
         }
         else if(v == this.buttonHaushalt) {
             this.adapter.settype("haushalt");
             this.listview.setAdapter(adapter);
+            this.currentList = this.haushalt;
         }
         else if(v == this.buttonSearch) {
             String search = this.editText.getText().toString();
@@ -92,12 +104,19 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
                     this.listview.smoothScrollToPosition(i);
                     return;
                 }
-            Toast.makeText(this,"Kein passendes Produkt gefunden !", Toast.LENGTH_LONG);
+            Toast.makeText(this,"Kein passendes Produkt gefunden !", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        this.currentPos = position;
         showDialog();
+    }
+
+    @Override
+    public void DialogButtonEvent(boolean accepted) {
+        if(accepted)
+            this.shoppingList.addProduct(this.currentList.get(this.currentPos));
     }
 }
