@@ -13,10 +13,10 @@ public class UserModel {
     private String country;
     private String username;
     private String password;
+    private String charity;
+    private boolean createdSuccessfullyProfile;
 
     //Felix Addition Platzhalter
-
-
 
     // Default values because we have no serialisation/deserialisation
     public UserModel() {
@@ -29,6 +29,9 @@ public class UserModel {
         this.country = "Österreich";
         this.username = "Maxi";
         this.password = "max1234";
+        this.charity = "Caritas";
+        this.createdSuccessfullyProfile =false;
+
     }
 
     // Getter and Setter for the all the private variables
@@ -103,5 +106,20 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getCharity() {
+        return charity;
+    }
+
+    public void setCharity(String charity) {
+        this.charity = charity;
+    }
+    public boolean getCreatedSuccessfullyProfile() {
+        return createdSuccessfullyProfile;
+    }
+
+    public void setCreatedSuccessfullyProfile(boolean createdSuccessfullyProfile) {
+        this.createdSuccessfullyProfile = createdSuccessfullyProfile;
     }
 }

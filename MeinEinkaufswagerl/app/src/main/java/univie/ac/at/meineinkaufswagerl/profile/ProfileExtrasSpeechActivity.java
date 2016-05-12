@@ -6,7 +6,6 @@ import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,12 +20,12 @@ import java.util.Locale;
 import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
 import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
-import univie.ac.at.meineinkaufswagerl.model.TemporaryListModel;
-import univie.ac.at.meineinkaufswagerl.shoppinglist.ListConfirmationSpeechActivity;
 
 public class ProfileExtrasSpeechActivity extends AppCompatActivity {
 
-    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
+    public final static String EXTRA_INTOLERANCES = "univie.ac.at.meineinkaufswagerl";
+    public final static String EXTRA_DISEASES = "univie.ac.at.meineinkaufswagerl";
+    public final static String EXTRA_EXTRAS = "univie.ac.at.meineinkaufswagerl";
     private TextView infoText;
     private ImageButton btnSpeak;
     private ListView extraListe;
@@ -224,7 +223,10 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity {
     }
 
     public void goToNextPage(View v) {
-        Intent intent= new Intent(this, ProfileCharitySpeechActivity.class);
+        Intent intent= new Intent(this, ProfileAddressCharitySpeechActivity.class);
+        intent.putExtra(EXTRA_INTOLERANCES,profileModel.getUnvertraeglichkeitenListe());
+        intent.putExtra(EXTRA_DISEASES, profileModel.getKrankheitenListe());
+        intent.putExtra(EXTRA_EXTRAS,profileModel.getExtraListe());
         startActivity(intent);
     }
 

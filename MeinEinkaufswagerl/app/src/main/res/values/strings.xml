@@ -42,4 +42,7 @@
 
     <string name="intro_extras">Sie können zusätzliche Dinge auf die geachtet werden soll mit dem Mund Button angeben und sich mit dem Ohr Button anhören. Mithilfe des # Button können Sie die Zeile angeben und mit dem Schreibblock Button den Inhalt der Zeile ändern.</string>
     <string name="speech_extra">Sagen Sie auf was zusätzlich geachtet werden soll&#8230;</string>
+
+    <string name="intro_addressCharity">Geben Sie ihre Adresse mit Hilfe des Mund Button an und beantworten Sie die mit dem Ohr Button jeweilig gehörte Frage. Danach wird Ihnen eine Hilfsorganisation zur Auslieferung zugeordnet.</string>
+
 </resources>

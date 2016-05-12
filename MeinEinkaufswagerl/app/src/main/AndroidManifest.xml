@@ -47,7 +47,7 @@
         <activity android:name=".profile.ProfileUnvertragSpeechActivity" />
         <activity android:name=".profile.ProfileDiseasesSpeechActivity" />
         <activity android:name=".profile.ProfileExtrasSpeechActivity" />
-        <activity android:name=".profile.ProfileCharitySpeechActivity" />
+        <activity android:name=".profile.ProfileAddressCharitySpeechActivity" />
         <activity android:name=".profile.ProfilePaymentSpeechActivity" />
         <activity android:name=".profile.ProfileFinishedSpeechActivity"></activity>
     </application>
