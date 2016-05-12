@@ -37,6 +37,10 @@ public class TextToSpeechManager {
         }
     };
 
+    public void makePause(){
+        mTts.playSilentUtterance(3500,TextToSpeech.QUEUE_ADD,null);
+    }
+
     public void shutDown() {
         mTts.shutdown();
     }
