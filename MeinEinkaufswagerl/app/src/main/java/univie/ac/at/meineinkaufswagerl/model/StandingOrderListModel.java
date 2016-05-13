@@ -1,34 +1,41 @@
 package univie.ac.at.meineinkaufswagerl.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Philipp on 5/8/2016.
  */
-public class StandingOrderListModel {
-    private ArrayList<String> standingOrderList;
+public final class StandingOrderListModel implements Serializable{
 
+    private static final long serialVersionUID = 0L;
+
+    private static ArrayList<String> standingOrderList= new ArrayList<>();
+
+    private StandingOrderListModel(){}
+
+    /*
     public StandingOrderListModel() {
-        this.standingOrderList = new ArrayList<>();
+        StandingOrderListModel.standingOrderList = new ArrayList<>();
     }
-
-    public ArrayList<String> getTextList() {
+    */
+    public static  ArrayList<String> getTextList() {
         return standingOrderList;
     }
 
-    public void addTextList(String speechInput) {
-        this.standingOrderList.add(speechInput);
+    public static void addTextList(String speechInput) {
+        StandingOrderListModel.standingOrderList.add(speechInput);
     }
 
-    public void changeTextListElement(String speechInput, int index){
+    public static void changeTextListElement(String speechInput, int index){
         standingOrderList.add(index,speechInput);
     }
 
-    public void removeTextListElement(int index){
+    public static void removeTextListElement(int index){
         standingOrderList.remove(index);
     }
 
-    public int getSize(){
+    public static int getSize(){
         return standingOrderList.size();
     }
 }

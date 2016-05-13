@@ -1,11 +1,14 @@
 package univie.ac.at.meineinkaufswagerl.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Philip on 09.05.2016.
  */
-public class ShoppingListModel {
+public class ShoppingListModel implements Serializable{
+
+    private static final long serialVersionUID = 0L;
 
     private ArrayList<ProductModel> products;
 

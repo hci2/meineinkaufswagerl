@@ -23,7 +23,7 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
 
     private ListView txtSpeechList;
     private TemporaryListModel tempList;
-    private StandingOrderListModel standList = new StandingOrderListModel();
+    //private StandingOrderListModel standList = new StandingOrderListModel();
     private ImageButton btnRead;
     private TextToSpeechManager ttsManager = null;
     private Button addStandButton;
@@ -92,7 +92,7 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
         ArrayList<String> textList=tempList.getTextList();
         if(!(textList.size()==0)){
             for(int i=0;i<textList.size();i++){
-                standList.addTextList(textList.get(i));
+                StandingOrderListModel.addTextList(textList.get(i));
             }
             Toast.makeText(getApplicationContext(),
                     getString(R.string.finished_addStandingOrder),
@@ -108,7 +108,7 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
     public void replaceStandButton(View v) {
         ArrayList<String> textList=tempList.getTextList();
         if(!(textList.size()==0)){
-            if(textList.size()<=standList.getSize()){
+            if(textList.size()<=StandingOrderListModel.getSize()){ //TODO: anpassen Methode für getSize() machen
                 for(int i=0;i<standList.getSize();i++){
                     standList.removeTextListElement(i);
                     if(i<=textList.size()){

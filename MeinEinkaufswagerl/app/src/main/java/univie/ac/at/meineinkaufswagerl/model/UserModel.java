@@ -1,99 +1,106 @@
 package univie.ac.at.meineinkaufswagerl.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Philipp on 5/8/2016.
  */
-public class UserModel {
-    private int id;
-    private String firstname;
-    private String lastname;
-    private String street;
-    private String streetnumber;
-    private String postalcode;
-    private String country;
-    private String username;
-    private String password;
-    private String charity;
-    private boolean createdSuccessfullyProfile;
+public final class UserModel implements Serializable {
+
+    private static final long serialVersionUID = 0L;
+
+    private static int id=1;
+    private static String firstname  = "Max";
+    private static String lastname= "Mustermann";
+    private static String street="Musterstraße";
+    private static String streetnumber= "63a";
+    private static String postalcode="1180";
+    private static String country= "Österreich";
+    //private static String username;
+    //private static String password;
+    private static String charity= "Caritas";
+    private static boolean createdSuccessfullyProfile=true; //Derzeitig DEAKTIVIERT
 
     //Felix Addition Platzhalter
 
     // Default values because we have no serialisation/deserialisation
-    public UserModel() {
-        this.id = 1;
-        this.firstname = "Max";
-        this.lastname = "Mustermann";
-        this.street = "Musterstraße";
-        this.streetnumber = "63a";
-        this.postalcode = "1180";
-        this.country = "Österreich";
-        this.username = "Maxi";
-        this.password = "max1234";
-        this.charity = "Caritas";
-        this.createdSuccessfullyProfile =true; //Derzeitig DEAKTIVIERT
+    private UserModel() {
+        /*
+        UserModel.id = 1;
+        UserModel.firstname = "Max";
+        UserModel.lastname = "Mustermann";
+        UserModel.street = "Musterstraße";
+        UserModel.streetnumber = "63a";
+        UserModel.postalcode = "1180";
+        UserModel.country = "Österreich";
+        //UserModel.username = "Maxi";
+        //UserModel.password = "max1234";
+        UserModel.charity = "Caritas";
+        UserModel.createdSuccessfullyProfile =true; //Derzeitig DEAKTIVIERT
         //TODO: Falls Serialisierung funktioniert, kann man es auf false setzen und wird bei Einkaufslisten erstellen überprüft
-
+        */
 
     }
 
     // Getter and Setter for the all the private variables
 
-    public int getId() {
+    public static int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public static void setId(int id) {
+        UserModel.id = id;
     }
 
-    public String getFirstname() {
+    public static String getFirstname() {
         return firstname;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public static void setFirstname(String firstname) {
+        UserModel.firstname = firstname;
     }
 
-    public String getLastname() {
+    public static String getLastname() {
         return lastname;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public static void setLastname(String lastname) {
+        UserModel.lastname = lastname;
     }
 
-    public String getStreet() {
+    public static String getStreet() {
         return street;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public static void setStreet(String street) {
+        UserModel.street = street;
     }
 
-    public String getStreetnumber() {
+    public static String getStreetnumber() {
         return streetnumber;
     }
 
-    public void setStreetnumber(String streetnumber) {
-        this.streetnumber = streetnumber;
+    public static void setStreetnumber(String streetnumber) {
+        UserModel.streetnumber = streetnumber;
     }
 
-    public String getPostalcode() {
+    public static String getPostalcode() {
         return postalcode;
     }
 
-    public void setPostalcode(String postalcode) {
-        this.postalcode = postalcode;
+    public static void setPostalcode(String postalcode) {
+        UserModel.postalcode = postalcode;
     }
 
-    public String getCountry() {
+    public static String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public static void setCountry(String country) {
+        UserModel.country = country;
     }
 
+    /*
     public String getUsername() {
         return username;
     }
@@ -109,19 +116,19 @@ public class UserModel {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getCharity() {
+    */
+    public static String getCharity() {
         return charity;
     }
 
-    public void setCharity(String charity) {
-        this.charity = charity;
+    public static void setCharity(String charity) {
+        UserModel.charity = charity;
     }
-    public boolean getCreatedSuccessfullyProfile() {
+    public static boolean getCreatedSuccessfullyProfile() {
         return createdSuccessfullyProfile;
     }
 
-    public void setCreatedSuccessfullyProfile(boolean createdSuccessfullyProfile) {
-        this.createdSuccessfullyProfile = createdSuccessfullyProfile;
+    public static void setCreatedSuccessfullyProfile(boolean createdSuccessfullyProfile) {
+        UserModel.createdSuccessfullyProfile = createdSuccessfullyProfile;
     }
 }
