@@ -1,6 +1,10 @@
 package univie.ac.at.meineinkaufswagerl.shoppinglist;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.os.Handler;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
@@ -30,6 +35,10 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
     private Button replaceStandButton;
     private Button finishTempButton;
     private Button finishStandButton;
+
+    private int MY_DATA_CHECK_CODE = 0;
+    private final int REQ_CODE_SPEECH_INPUT = 100;
+    private boolean temp;
 
     //SpeechToTextManager sttManager = null;
 
@@ -74,6 +83,12 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //check TTS version on executing device - needed for SpeechToText
+        checkSpeech();
+
+        temp=false;
+
     }
 
     /**
@@ -85,8 +100,6 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
         super.onDestroy();
         ttsManager.shutDown();
     }
-
-    //TODO: Sinnvolle Inhalte in die vier Methoden einfügen
 
     public void addStandButton(View v) {
         ArrayList<String> textList=tempList.getTextList();
@@ -134,16 +147,94 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
 
     }
     public void goToFinishTempPage(View v) {
-        Intent intent= new Intent(this, ListFinishedSpeechActivity.class);
-        String message="Ihr Auftrag der eigenen Liste wurde erfolgreich gesendet";
-        intent.putExtra(EXTRA_MESSAGE,message);
-        startActivity(intent);
+        temp=true;
+        ttsManager.initQueue("Sind Sie sicher, ob sie die eigene Liste kaufen wollen?");
+        //This is used to make a 4 second pause
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 4000ms
+                speechText();
+            }
+        }, 4000);
     }
     public void goToFinishStandPage(View v) {
-        Intent intent= new Intent(this, ListFinishedSpeechActivity.class);
-        String message="Ihr Auftrag der dauerhaften Liste wurde erfolgreich gesendet";
-        intent.putExtra(EXTRA_MESSAGE,message);
-        startActivity(intent);
+        temp=false;
+        ttsManager.initQueue("Sind Sie sicher, ob sie die dauerhafte Liste kaufen wollen?");
+        //This is used to make a 4 second pause
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 4000ms
+                speechText();
+            }
+        }, 4000);
+    }
+
+    // This is used for SpeechToText
+    //check TTS version on executing device
+    private void checkSpeech() {
+        Intent checkTTSIntent = new Intent();
+        checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
+    }
+
+    // This is used for SpeechToText
+    private void speechText(){
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.GERMAN);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                    getString(R.string.speech_confirmation));
+
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.speech_not_supported),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // This is used for SpeechToText
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    String resultString=result.get(0);
+                    if((!temp) && (resultString.equals("ja") || resultString.equals("Ja") || resultString.contains("ja") || resultString.contains("Ja"))){
+                        //TODO: dauerhafte Einkaufsliste + Adresse des Empfängers der Hilfsorganisation übermitteln
+                        //TODO: Dauerhafte Liste serialisieren!
+                        Intent intent= new Intent(this, ListFinishedSpeechActivity.class);
+                        String message="Ihr Auftrag der dauerhaften Liste wurde erfolgreich gesendet";
+                        intent.putExtra(EXTRA_MESSAGE,message);
+                        startActivity(intent);
+
+                    } else if ((temp) && (resultString.equals("ja") || resultString.equals("Ja") || resultString.contains("ja") || resultString.contains("Ja"))) {
+                        //TODO: temporäre Einkaufsliste + Adresse des Empfängers der Hilfsorganisation übermitteln
+                        Intent intent= new Intent(this, ListFinishedSpeechActivity.class);
+                        String message="Ihr Auftrag der eigenen Liste wurde erfolgreich gesendet";
+                        intent.putExtra(EXTRA_MESSAGE,message);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                getString(R.string.speech_abort),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+            }
+
+        }
     }
 
 }

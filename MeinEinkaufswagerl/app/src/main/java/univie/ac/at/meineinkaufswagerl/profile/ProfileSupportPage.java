@@ -62,7 +62,7 @@ public class ProfileSupportPage extends AppCompatActivity implements View.OnClic
     }
 
     public void goToNextPage(View v){
-        // Startet auf Knopfdruck die ListSupportPage
+        // Startet auf Knopfdruck die Speech Seite für die Namenseingabe
         Intent intent= new Intent(this, ProfileNameSpeechActivity.class);
         String message="";
         intent.putExtra(EXTRA_MESSAGE,message);

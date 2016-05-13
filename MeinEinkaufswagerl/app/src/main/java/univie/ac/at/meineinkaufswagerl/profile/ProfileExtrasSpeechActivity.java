@@ -34,7 +34,7 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity {
     private Button btnNext;
     //SpeechToTextManager sttManager = null;
 
-    private ProfileModel profileModel;
+    //private ProfileModel profileModel;
 
     //For Changing
     private ImageButton btnChange;
@@ -51,15 +51,16 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_extras_speech);
 
+        //profileModel=new ProfileModel();
+
         //Unwrap the intent and get the temporary list.
-        profileModel=new ProfileModel();
         ArrayList<String> listeIntolerances = getIntent().getStringArrayListExtra(ProfileDiseasesSpeechActivity.EXTRA_INTOLERANCES);
         ArrayList<String> listeKrankheiten = getIntent().getStringArrayListExtra(ProfileDiseasesSpeechActivity.EXTRA_DISEASES);
         for(int i=0;i<listeIntolerances.size();i++){
-            profileModel.addUnvertraeglichkeit(listeIntolerances.get(i));
+            ProfileModel.addUnvertraeglichkeit(listeIntolerances.get(i));
         }
         for(int i=0;i<listeKrankheiten.size();i++){
-            profileModel.addKrankheit(listeKrankheiten.get(i));
+            ProfileModel.addKrankheit(listeKrankheiten.get(i));
         }
 
 
@@ -122,7 +123,7 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 //String text = txtTextView.getText().toString();
-                ArrayList<String> textList=profileModel.getExtraListe();
+                ArrayList<String> textList=ProfileModel.getExtraListe();
                 if(!(textList.size()==0)){
                     ttsManager.initQueue(textList.get(0));
                     for(int i=1;i<textList.size();i++){
@@ -191,20 +192,20 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity {
                     } else if(change && index){
                         //To get just the number as String
                         //String number=resultString.replaceAll("[^0-9]", "");
-                        if(profileModel.getExtraListe().size()==0){
+                        if(ProfileModel.getExtraListe().size()==0){
                             change=false;
                             index=false;
                             return;
                         }
-                        profileModel.removeExtra(indexChange); //Integer.parseInt(number)
-                        profileModel.changeExtra(resultString, indexChange); //resultString.substring(resultString.lastIndexOf(number)+1),Integer.parseInt(number)
+                        ProfileModel.removeExtra(indexChange); //Integer.parseInt(number)
+                        ProfileModel.changeExtra(resultString, indexChange); //resultString.substring(resultString.lastIndexOf(number)+1),Integer.parseInt(number)
                         change=false;
                         index=false;
                     } else {
-                        profileModel.addExtra(resultString);
+                        ProfileModel.addExtra(resultString);
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, profileModel.getExtraListe());
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, ProfileModel.getExtraListe());
                     extraListe.setAdapter(adapter);
 
                 }
@@ -224,9 +225,9 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity {
 
     public void goToNextPage(View v) {
         Intent intent= new Intent(this, ProfileAddressCharitySpeechActivity.class);
-        intent.putExtra(EXTRA_INTOLERANCES,profileModel.getUnvertraeglichkeitenListe());
-        intent.putExtra(EXTRA_DISEASES, profileModel.getKrankheitenListe());
-        intent.putExtra(EXTRA_EXTRAS,profileModel.getExtraListe());
+        //intent.putExtra(EXTRA_INTOLERANCES,ProfileModel.getUnvertraeglichkeitenListe());
+        //intent.putExtra(EXTRA_DISEASES, ProfileModel.getKrankheitenListe());
+        //intent.putExtra(EXTRA_EXTRAS,ProfileModel.getExtraListe());
         startActivity(intent);
     }
 

@@ -31,8 +31,8 @@ public class ProfileUnvertragSpeechActivity extends AppCompatActivity {
     Button readButton, nextButton;
     ListView listIntolerances;
 
-    UserModel userModel=null;
-    ProfileModel profileModel=null;
+    //UserModel userModel=null;
+    //ProfileModel profileModel=null;
     ArrayList<String> intolerances=null;
     private int positionSpeech;
 
@@ -58,7 +58,9 @@ public class ProfileUnvertragSpeechActivity extends AppCompatActivity {
         //check TTS version on executing device - needed for SpeechToText
         checkSpeech();
 
-        userModel= new UserModel();
+        //userModel= new UserModel();
+        //profileModel=new ProfileModel();
+
         intolerances=new ArrayList<>();
         intolerances.add("Lactose");
         intolerances.add("Gluten");
@@ -72,8 +74,6 @@ public class ProfileUnvertragSpeechActivity extends AppCompatActivity {
         intolerances.add("Erdnüsse");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, intolerances);
         listIntolerances.setAdapter(adapter);
-
-        profileModel=new ProfileModel();
 
     }
 
@@ -106,7 +106,7 @@ public class ProfileUnvertragSpeechActivity extends AppCompatActivity {
     public void goToNextPage(View v){
         // Startet auf Knopfdruck die ListSupportPage
         Intent intent= new Intent(this, ProfileDiseasesSpeechActivity.class);
-        intent.putExtra(EXTRA_MESSAGE,profileModel.getUnvertraeglichkeitenListe());
+        //intent.putExtra(EXTRA_MESSAGE,ProfileModel.getUnvertraeglichkeitenListe());
         startActivity(intent);
     }
 
@@ -124,11 +124,11 @@ public class ProfileUnvertragSpeechActivity extends AppCompatActivity {
 
     public void readMyIntolerances(View v){
         // Startet auf Knopfdruck die Sprachausgabe
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, profileModel.getUnvertraeglichkeitenListe());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, ProfileModel.getUnvertraeglichkeitenListe());
         listIntolerances.setAdapter(adapter);
-        if(!(profileModel.getUnvertraeglichkeitenListe().size()==0)){
-            for(int i=0;i<profileModel.getUnvertraeglichkeitenListe().size();i++){
-                ttsManager.addQueue(profileModel.getUnvertraeglichkeitenListe().get(i));
+        if(!(ProfileModel.getUnvertraeglichkeitenListe().size()==0)){
+            for(int i=0;i<ProfileModel.getUnvertraeglichkeitenListe().size();i++){
+                ttsManager.addQueue(ProfileModel.getUnvertraeglichkeitenListe().get(i));
             }
         } else {
             ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, intolerances);
@@ -176,25 +176,25 @@ public class ProfileUnvertragSpeechActivity extends AppCompatActivity {
                     String resultString=result.get(0);
                     if(resultString.equals("ja") || resultString.equals("Ja") || resultString.contains("ja") || resultString.contains("Ja")){
                         switch (positionSpeech){
-                            case 0: profileModel.setLactose(0);
+                            case 0: ProfileModel.setLactose(0);
                                 break;
-                            case 1: profileModel.setGluten(0);
+                            case 1: ProfileModel.setGluten(0);
                                 break;
-                            case 2: profileModel.setFructose(0);
+                            case 2: ProfileModel.setFructose(0);
                                 break;
-                            case 3: profileModel.setEi(0);
+                            case 3: ProfileModel.setEi(0);
                                 break;
-                            case 4: profileModel.setFisch(0);
+                            case 4: ProfileModel.setFisch(0);
                                 break;
-                            case 5: profileModel.setPhenylalanin(0);
+                            case 5: ProfileModel.setPhenylalanin(0);
                                 break;
-                            case 6: profileModel.setHistamin(0);
+                            case 6: ProfileModel.setHistamin(0);
                                 break;
-                            case 7: profileModel.setSorbin(0);
+                            case 7: ProfileModel.setSorbin(0);
                                 break;
-                            case 8: profileModel.setSaccharose(0);
+                            case 8: ProfileModel.setSaccharose(0);
                                 break;
-                            case 9: profileModel.setErdnüsse(0);
+                            case 9: ProfileModel.setErdnüsse(0);
                                 break;
                             default: break;
                         }
@@ -205,35 +205,35 @@ public class ProfileUnvertragSpeechActivity extends AppCompatActivity {
                         }
                     } else if(resultString.equals("nein") || resultString.equals("Nein") || resultString.contains("nein") || resultString.contains("Nein")){
                         switch (positionSpeech){
-                            case 0: profileModel.setLactose(1);
-                                profileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
+                            case 0: ProfileModel.setLactose(1);
+                                ProfileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
                                 break;
-                            case 1: profileModel.setGluten(1);
-                                profileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
+                            case 1: ProfileModel.setGluten(1);
+                                ProfileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
                                 break;
-                            case 2: profileModel.setFructose(1);
-                                profileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
+                            case 2: ProfileModel.setFructose(1);
+                                ProfileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
                                 break;
-                            case 3: profileModel.setEi(1);
-                                profileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
+                            case 3: ProfileModel.setEi(1);
+                                ProfileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
                                 break;
-                            case 4: profileModel.setFisch(1);
-                                profileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
+                            case 4: ProfileModel.setFisch(1);
+                                ProfileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
                                 break;
-                            case 5: profileModel.setPhenylalanin(1);
-                                profileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
+                            case 5: ProfileModel.setPhenylalanin(1);
+                                ProfileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
                                 break;
-                            case 6: profileModel.setHistamin(1);
-                                profileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
+                            case 6: ProfileModel.setHistamin(1);
+                                ProfileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
                                 break;
-                            case 7: profileModel.setSorbin(1);
-                                profileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
+                            case 7: ProfileModel.setSorbin(1);
+                                ProfileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
                                 break;
-                            case 8: profileModel.setSaccharose(1);
-                                profileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
+                            case 8: ProfileModel.setSaccharose(1);
+                                ProfileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
                                 break;
-                            case 9: profileModel.setErdnüsse(1);
-                                profileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
+                            case 9: ProfileModel.setErdnüsse(1);
+                                ProfileModel.addUnvertraeglichkeit(intolerances.get(positionSpeech));
                                 break;
                             default: break;
                         }

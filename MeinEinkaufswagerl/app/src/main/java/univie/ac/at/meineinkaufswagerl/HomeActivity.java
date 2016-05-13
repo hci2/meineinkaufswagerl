@@ -22,7 +22,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     Button listButton;
     Button leaveButton;
     TextView infoText;
-    UserModel userModel=null;
+    //UserModel userModel=null;
 
     //This variable is used to get access to the TextToSpeech
     private TextToSpeechManager ttsManager = null;
@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         shoppingbutton.setOnClickListener(HomeActivity.this);
         // Felix Ende
 
-        userModel = new UserModel();
+        //userModel = new UserModel();
 
     }
 
@@ -67,7 +67,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     public void goToListSupportPage(View v){
         //Prüft ob ein Profil angelegt worden ist, falls nein dann wird eine Fehler Meldung angezeigt. derzeigig für Test und Vorzeigezwecke DEAKTIVIERT
-        if(userModel.getCreatedSuccessfullyProfile()){
+        if(UserModel.getCreatedSuccessfullyProfile()){
             // Startet auf Knopfdruck die ListSupportPage
             Intent  intent= new Intent(this, ListSupportPage.class);
             startActivity(intent);

@@ -26,6 +26,8 @@
 
     <string name="finished_replaceStandingOrder">Die dauerhafte Liste konnte erfolgreich mit Ihrer Liste ersetzt werden!</string>
     <string name="notfinished_replaceStandingOrder">Die dauerhafte Liste konnte nicht erfolgreich mit Ihrer Liste ersetzt werden!</string>
+    <string name="speech_confirmation">Stimmen Sie den Kauf der Einkaufsliste zu?</string>
+    <string name="speech_abort">Der Kaufvorgang wurde abgebrochen!</string>
 
     <string name="intro_name">Geben Sie ihren Vornamen und Nachnamen mithilfe des jeweiligen Mund Buttons an</string>
     <string name="speech_firstname">Sagen Sie ihren Vornamen&#8230;</string>
