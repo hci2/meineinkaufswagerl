@@ -108,19 +108,19 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
     public void replaceStandButton(View v) {
         ArrayList<String> textList=tempList.getTextList();
         if(!(textList.size()==0)){
-            if(textList.size()<=StandingOrderListModel.getSize()){ //TODO: anpassen Methode für getSize() machen
-                for(int i=0;i<standList.getSize();i++){
-                    standList.removeTextListElement(i);
+            if(textList.size()<=StandingOrderListModel.getSize()){
+                for(int i=0;i<StandingOrderListModel.getSize();i++){
+                    StandingOrderListModel.removeTextListElement(i);
                     if(i<=textList.size()){
-                        standList.changeTextListElement(textList.get(i),i);
+                        StandingOrderListModel.changeTextListElement(textList.get(i),i);
                     }
                 }
-            } else if(textList.size()>standList.getSize()){
+            } else if(textList.size()>StandingOrderListModel.getSize()){
                 for(int i=0;i<textList.size();i++){
-                    if(i<=standList.getSize()){
-                        standList.removeTextListElement(i);
+                    if(i<=StandingOrderListModel.getSize()){
+                        StandingOrderListModel.removeTextListElement(i);
                     }
-                    standList.addTextList(textList.get(i));
+                    StandingOrderListModel.addTextList(textList.get(i));
                 }
             }
             Toast.makeText(getApplicationContext(),
