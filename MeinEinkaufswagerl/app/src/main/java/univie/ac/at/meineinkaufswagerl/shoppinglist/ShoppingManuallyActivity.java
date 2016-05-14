@@ -2,8 +2,7 @@ package univie.ac.at.meineinkaufswagerl.shoppinglist;
 
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.content.Context;
-import android.media.Image;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,17 +24,23 @@ import univie.ac.at.meineinkaufswagerl.model.ShoppingListModel;
 public class ShoppingManuallyActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, AcceptDialog.OnDialogButtonEvent{
 
     private ArrayList<ProductModel>lebensmittel, haushalt, currentList;
+    private ArrayList<Integer> prodAmounts;
     private Button buttonLebensmittel, buttonHaushalt, buttonSearch, buttonToList;
     private ListView listview;
     private ListAdapter adapter;
     private EditText editText;
-    private ShoppingListModel shoppingList;
+    private ShoppingListModel shoppingList = null;
     private int currentPos = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_manually);
+
+        this.shoppingList = (ShoppingListModel)getIntent().getSerializableExtra("list");
+        if(this.shoppingList == null)
+            this.shoppingList = new ShoppingListModel();
+
         this.buttonHaushalt = (Button)findViewById(R.id.buttonHaushalt);
         this.buttonHaushalt.setOnClickListener(this);
         this.buttonLebensmittel = (Button)findViewById(R.id.buttonLebensmittel);
@@ -47,11 +52,12 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
         this.listview = (ListView)findViewById(R.id.listview);
         this.editText = (EditText)findViewById(R.id.editText);
         createProducts();
-        this.adapter = new ListAdapter(this,lebensmittel,haushalt);
+        this.adapter = new ListAdapter(this,lebensmittel,haushalt, null);
+        this.adapter.showAmount(false);
         this.listview.setAdapter(adapter);
         this.listview.setOnItemClickListener(this);
-        this.shoppingList = new ShoppingListModel();
         this.currentList = this.lebensmittel;
+        prodAmounts = new ArrayList<Integer>();
     }
 
     private void createProducts() {
@@ -106,6 +112,11 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
                 }
             Toast.makeText(this,"Kein passendes Produkt gefunden !", Toast.LENGTH_LONG).show();
         }
+        else if(v == this.buttonToList) {
+            Intent intent= new Intent(this, AdjustShoppingListActivity.class);
+            intent.putExtra("list", this.shoppingList);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -115,8 +126,10 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
     }
 
     @Override
-    public void DialogButtonEvent(boolean accepted) {
-        if(accepted)
+    public void DialogButtonEvent(boolean accepted, int anzahl) {
+        if(accepted) {
             this.shoppingList.addProduct(this.currentList.get(this.currentPos));
+            this.shoppingList.addAmount(anzahl);
+        }
     }
 }

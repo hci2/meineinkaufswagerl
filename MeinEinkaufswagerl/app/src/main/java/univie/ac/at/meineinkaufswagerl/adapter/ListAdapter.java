@@ -23,12 +23,19 @@ public class ListAdapter extends BaseAdapter{
     private LayoutInflater mInflater;
     private Context context;
     private String type="lebensmittel";
+    private boolean showAmount;
+    private ArrayList anzahl;
 
-    public ListAdapter(Context context, ArrayList<ProductModel> lebensmittel, ArrayList<ProductModel> haushalt) {
+    public ListAdapter(Context context, ArrayList<ProductModel> lebensmittel, ArrayList<ProductModel> haushalt, ArrayList<Integer> anzahl) {
         this.context = context;
         this.lebensmittel = lebensmittel;
         this.haushalt = haushalt;
+        this.anzahl = anzahl;
         this.mInflater = LayoutInflater.from(context);
+    }
+
+    public void showAmount(boolean show) {
+        this.showAmount = show;
     }
 
     public void settype(String type) {
@@ -69,12 +76,14 @@ public class ListAdapter extends BaseAdapter{
         TextView textName = (TextView)linkrow.findViewById(R.id.textName);
         TextView textMenge = (TextView)linkrow.findViewById(R.id.textMenge);
         TextView textPrice = (TextView)linkrow.findViewById(R.id.textPrice);
+        TextView textAnzahl = (TextView)linkrow.findViewById(R.id.textAnzahl);
 
         imageProduct.setImageResource(products.get(position).getImage());
         textName.setText(products.get(position).getName());
         textMenge.setText(products.get(position).getMenge() + " " + products.get(position).getEinheit());
         textPrice.setText(String.valueOf(products.get(position).getPrice()) + " Euro");
-
+        if(showAmount)
+            textAnzahl.setText(String.valueOf("Stückanzahl: " + anzahl.get(position)));
         linkrow.setPadding(0,0,0,0);
         return linkrow;
     }

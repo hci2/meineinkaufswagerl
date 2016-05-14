@@ -2,10 +2,12 @@ package univie.ac.at.meineinkaufswagerl.model;
 
 import android.media.Image;
 
+import java.io.Serializable;
+
 /**
  * Created by Philip on 08.05.2016.
  */
-public class ProductModel {
+public class ProductModel implements Serializable{
     private String name;
     private float price;
     private String category;

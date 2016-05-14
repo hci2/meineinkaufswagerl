@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import univie.ac.at.meineinkaufswagerl.R;
@@ -19,6 +20,7 @@ public class AcceptDialog extends DialogFragment implements View.OnClickListener
     private Button buttonAccept, buttonDecline;
     private TextView textProductName;
     private String productName;
+    private EditText editAnzahl;
     OnDialogButtonEvent listener;
 
 
@@ -29,6 +31,7 @@ public class AcceptDialog extends DialogFragment implements View.OnClickListener
         this.buttonDecline = (Button)view.findViewById(R.id.buttonDecline);
         this.buttonDecline.setOnClickListener(this);
         this.textProductName = (TextView)view.findViewById(R.id.textProductName);
+        this.editAnzahl = (EditText)view.findViewById(R.id.editAnzahl);
         Bundle bundle = getArguments();
         this.productName = bundle.getString("productName");
         this.textProductName.setText(this.productName);
@@ -36,15 +39,16 @@ public class AcceptDialog extends DialogFragment implements View.OnClickListener
     }
 
     public interface OnDialogButtonEvent {
-        public void DialogButtonEvent(boolean accepted);
+        public void DialogButtonEvent(boolean accepted, int anzahl);
     }
 
     @Override
     public void onClick(View v) {
+        int anzahl = Integer.parseInt(this.editAnzahl.getText().toString());
         if(v == this.buttonAccept)
-            listener.DialogButtonEvent(true);
+            listener.DialogButtonEvent(true,anzahl);
         else if(v == this.buttonDecline)
-            listener.DialogButtonEvent(false);
+            listener.DialogButtonEvent(false,0);
         dismiss();
     }
 
@@ -56,6 +60,5 @@ public class AcceptDialog extends DialogFragment implements View.OnClickListener
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement OnArticleSelectedListener");
         }
-
     }
 }
