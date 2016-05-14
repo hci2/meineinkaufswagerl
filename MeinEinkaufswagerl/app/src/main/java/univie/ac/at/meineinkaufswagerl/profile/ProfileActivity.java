@@ -8,22 +8,33 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.Serializable;
+
+import univie.ac.at.meineinkaufswagerl.HomeActivity;
 import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
+import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
+import univie.ac.at.meineinkaufswagerl.model.StandingOrderListModel;
+import univie.ac.at.meineinkaufswagerl.model.UserModel;
 
 /**
  * Created by Wilson on 08.05.2016.
  * Zeigt das Zwischen Menü für die Profil Einrichtung
  */
-public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener,Serializable {
 
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
+    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl";
+
     TextView infotext;
     Button weiterButton;
     Button vorleseButton;
 
     //This variable is used to get access to the TextToSpeech
     private TextToSpeechManager ttsManager = null;
+
+    UserModel userModel;
+    ProfileModel profileModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +43,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
 
         initializeVariables();
+
+        //TODO: check auf null Object bei beiden
+        //Unwrap the intent and get the temporary list.
+        userModel = new UserModel();
+        userModel = (UserModel)getIntent().getExtras().getSerializable(HomeActivity.EXTRA_MESSAGE);
+        profileModel = new ProfileModel();
+        profileModel = (ProfileModel)getIntent().getExtras().getSerializable(HomeActivity.EXTRA_LIST);
+
+
 
         //initiate TextToSpeechManager
         ttsManager = new TextToSpeechManager();
@@ -53,8 +73,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v1){
         Intent  intent1= new Intent(this, ProfileSupportPage.class);
-        String message="";
-        intent1.putExtra(EXTRA_MESSAGE,message);
+        if(profileModel!=null){
+            intent1.putExtra(EXTRA_LIST,profileModel);
+        }
+        if(userModel!=null){
+            intent1.putExtra(EXTRA_MESSAGE,userModel);
+        }
         startActivity(intent1);
 
     }

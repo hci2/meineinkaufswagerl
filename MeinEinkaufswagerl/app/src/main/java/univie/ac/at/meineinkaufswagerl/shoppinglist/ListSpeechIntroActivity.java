@@ -8,15 +8,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.Serializable;
+
 import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
+import univie.ac.at.meineinkaufswagerl.model.StandingOrderListModel;
 
-public class ListSpeechIntroActivity extends AppCompatActivity {
+public class ListSpeechIntroActivity extends AppCompatActivity implements Serializable {
 
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
     TextView infoText;
     Button nextButton;
     Button readButton;
+
+    StandingOrderListModel standingOrderListModel;
 
     //This variable is used to get access to the TextToSpeech
     private TextToSpeechManager ttsManager = null;
@@ -25,6 +30,10 @@ public class ListSpeechIntroActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_speech_intro);
+
+        //Unwrap the intent and get the temporary list.
+        standingOrderListModel = new StandingOrderListModel();
+        standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListSupportPage.EXTRA_MESSAGE);
 
 
         initializeVariables();
@@ -45,8 +54,9 @@ public class ListSpeechIntroActivity extends AppCompatActivity {
 
     public void goToListCreateSpeechActivity(View v) {
         Intent intent= new Intent(this, ListCreateSpeechActivity.class);
-        String message="";
-        intent.putExtra(EXTRA_MESSAGE,message);
+        if(standingOrderListModel!=null){
+            intent.putExtra(EXTRA_MESSAGE,standingOrderListModel);
+        }
         startActivity(intent);
     }
     private void initializeVariables() {

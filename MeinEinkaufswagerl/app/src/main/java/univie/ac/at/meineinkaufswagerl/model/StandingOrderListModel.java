@@ -6,36 +6,46 @@ import java.util.ArrayList;
 /**
  * Created by Philipp on 5/8/2016.
  */
-public final class StandingOrderListModel implements Serializable{
+public class StandingOrderListModel implements Serializable{
 
     private static final long serialVersionUID = 0L;
 
-    private static ArrayList<String> standingOrderList= new ArrayList<>();
-
-    private StandingOrderListModel(){}
-
     /*
-    public StandingOrderListModel() {
-        StandingOrderListModel.standingOrderList = new ArrayList<>();
+    //Singleton Construction
+    private static StandingOrderListModel ourInstance = new StandingOrderListModel();
+
+    public static StandingOrderListModel getInstance() {
+        return ourInstance;
+    }
+
+    private StandingOrderListModel() {
     }
     */
-    public static  ArrayList<String> getTextList() {
+    private  ArrayList<String> standingOrderList= new ArrayList<>();
+
+
+
+    public StandingOrderListModel() {
+        standingOrderList = new ArrayList<>();
+    }
+
+    public   ArrayList<String> getTextList() {
         return standingOrderList;
     }
 
-    public static void addTextList(String speechInput) {
-        StandingOrderListModel.standingOrderList.add(speechInput);
+    public  void addTextList(String speechInput) {
+        this.standingOrderList.add(speechInput);
     }
 
-    public static void changeTextListElement(String speechInput, int index){
+    public  void changeTextListElement(String speechInput, int index){
         standingOrderList.add(index,speechInput);
     }
 
-    public static void removeTextListElement(int index){
+    public  void removeTextListElement(int index){
         standingOrderList.remove(index);
     }
 
-    public static int getSize(){
+    public  int getSize(){
         return standingOrderList.size();
     }
 }

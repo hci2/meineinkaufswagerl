@@ -30,7 +30,7 @@ public class SerializableManager {
      //* @param fileName The name of the file.
      //* @param <T> The type of the object.
      */
-/*
+
     public static <T extends Serializable> void saveSerializable(Context context, T objectToSave, String fileName) { //Parameter String fileName
         try {
             FileOutputStream fileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
@@ -44,8 +44,8 @@ public class SerializableManager {
             e.printStackTrace();
         }
     }
-*/
 
+    /*
     public static void saveSerializableProfile(Context context, ProfileModel objectToSave, String fileName) { //Parameter String fileName
         try {
             FileOutputStream fileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
@@ -87,7 +87,7 @@ public class SerializableManager {
             e.printStackTrace();
         }
     }
-
+    */
     /**
      * Loads a serializable object.
      *
@@ -97,7 +97,7 @@ public class SerializableManager {
      *
      * @return the serializable object.
      */
-/*
+
     public static<T extends Serializable> T readSerializable(Context context,String fileName) {//Parameter String fileName
         T objectToReturn = null;
 
@@ -114,8 +114,8 @@ public class SerializableManager {
 
         return objectToReturn;
     }
-*/
 
+    /*
     public static ProfileModel readSerializableProfile(Context context,String fileName) {//Parameter String fileName
         ProfileModel objectToReturn = null;
 
@@ -166,6 +166,7 @@ public class SerializableManager {
 
         return objectToReturn;
     }
+    */
 
     /**
      * Removes a specified file.

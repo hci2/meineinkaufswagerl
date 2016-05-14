@@ -6,10 +6,21 @@ import java.util.ArrayList;
 /**
  * Created by Wilson on 08.05.2016.
  */
-public final class ProfileModel implements Serializable{ //extends UserModel
+public class ProfileModel implements Serializable{ //extends UserModel
 
     private static final long serialVersionUID = 0L;
 
+    /*
+    //Singleton Construction
+    private static ProfileModel ourInstance = new ProfileModel();
+
+    public static ProfileModel getInstance() {
+        return ourInstance;
+    }
+
+    private ProfileModel() {
+    }
+    */
      /*
     Erstellen des Arrays um die Krankheiten zu speichern.
     Position 1: Diabetes
@@ -17,8 +28,8 @@ public final class ProfileModel implements Serializable{ //extends UserModel
     Position 3: Gicht
      */
 
-    private static int[] krankheiten = {0, 0, 0}; //new int[3];
-    private static ArrayList<String> krankheitenListe=new ArrayList<String>();
+    private  int[] krankheiten= new int[3];// = {0, 0, 0}; //new int[3];
+    private  ArrayList<String> krankheitenListe;//=new ArrayList<String>();
 
      /*
     Erstellen des Arrays um die Unverträglichkeiten zu speichern.
@@ -34,12 +45,10 @@ public final class ProfileModel implements Serializable{ //extends UserModel
     Position 10: Erdnüsse
      */
 
-    private static int[] unvertraeglichkeiten ={0, 0, 0,0,0,0,0,0,0,0};// new int[10] ;
-    private static ArrayList<String> unvertraeglichkeitenListe=new ArrayList<String>();
-    private static ArrayList<String> extraListe=new ArrayList<String>();
+    private  int[] unvertraeglichkeiten = new int[10];// ={0, 0, 0,0,0,0,0,0,0,0};// new int[10] ;
+    private  ArrayList<String> unvertraeglichkeitenListe;//=new ArrayList<String>();
+    private  ArrayList<String> extraListe;//=new ArrayList<String>();
 
-
-    private ProfileModel(){}
 
 /*
     public ProfileModel(int[] unvertraeglichkeiten,int[] krankheiten ) {
@@ -52,7 +61,7 @@ public final class ProfileModel implements Serializable{ //extends UserModel
             krankheiten[i]=0;
         }
     }
-
+*/
     public ProfileModel() {
         this.krankheitenListe=new ArrayList<String>();
         this.unvertraeglichkeitenListe=new ArrayList<String>();
@@ -64,144 +73,144 @@ public final class ProfileModel implements Serializable{ //extends UserModel
             this.krankheiten[i]=0;
         }
     }
-*/
-    public static ArrayList<String> getKrankheitenListe() {
+
+    public  ArrayList<String> getKrankheitenListe() {
         return krankheitenListe;
     }
 
-    public static void addKrankheit(String speechInput) {
-        ProfileModel.krankheitenListe.add(speechInput);
+    public  void addKrankheit(String speechInput) {
+        this.krankheitenListe.add(speechInput);
     }
 
-    public static void changeKrankheit (String speechInput, int index){
+    public  void changeKrankheit (String speechInput, int index){
         krankheitenListe.add(index,speechInput);
     }
 
-    public static void removeKrankheit(int index){
+    public  void removeKrankheit(int index){
         krankheitenListe.remove(index);
     }
 
-    public static int getDiabetes(){
+    public  int getDiabetes(){
         return krankheiten[0];
     }
-    public static void setDiabetes(int trigger){
+    public  void setDiabetes(int trigger){
         krankheiten[0]=trigger;
     }
 
-    public static int getMohrbus(){
+    public  int getMohrbus(){
         return krankheiten[1];
     }
-    public static void setMorbus(int trigger){
+    public  void setMorbus(int trigger){
         krankheiten[1]=trigger;
     }
 
-    public static int getGicht(){
+    public  int getGicht(){
         return krankheiten[2];
     }
-    public static void setGicht(int trigger){
+    public  void setGicht(int trigger){
         krankheiten[2]=trigger;
     }
 
-    public static ArrayList<String> getUnvertraeglichkeitenListe() {
+    public  ArrayList<String> getUnvertraeglichkeitenListe() {
         return unvertraeglichkeitenListe;
     }
 
-    public static void addUnvertraeglichkeit(String speechInput) {
-        ProfileModel.unvertraeglichkeitenListe.add(speechInput);
+    public  void addUnvertraeglichkeit(String speechInput) {
+        this.unvertraeglichkeitenListe.add(speechInput);
     }
 
-    public static void changeUnvertraeglichkeit (String speechInput, int index){
+    public  void changeUnvertraeglichkeit (String speechInput, int index){
         unvertraeglichkeitenListe.add(index,speechInput);
     }
 
-    public static void removeUnvertraeglichkeit(int index){
+    public  void removeUnvertraeglichkeit(int index){
         unvertraeglichkeitenListe.remove(index);
     }
 
 
-    public static int getLactose(){
+    public  int getLactose(){
         return unvertraeglichkeiten[0];
     }
-    public static void setLactose(int trigger){
+    public  void setLactose(int trigger){
          unvertraeglichkeiten[0]=trigger;
     }
 
-    public static int getGluten(){
+    public  int getGluten(){
         return unvertraeglichkeiten[1];
     }
-    public static void setGluten(int trigger){
+    public  void setGluten(int trigger){
         unvertraeglichkeiten[1]=trigger;
     }
 
-    public static int getFructose(){
+    public  int getFructose(){
         return unvertraeglichkeiten[2];
     }
-    public static void setFructose(int trigger){
+    public  void setFructose(int trigger){
         unvertraeglichkeiten[2]=trigger;
     }
 
-    public static int getEi(){
+    public  int getEi(){
         return unvertraeglichkeiten[3];
     }
-    public static void setEi(int trigger){
+    public  void setEi(int trigger){
         unvertraeglichkeiten[3]=trigger;
     }
 
-    public static int getFisch(){
+    public  int getFisch(){
         return unvertraeglichkeiten[4];
     }
-    public static void setFisch(int trigger){
+    public  void setFisch(int trigger){
         unvertraeglichkeiten[4]=trigger;
     }
 
-    public static int getPhenylalanin(){
+    public  int getPhenylalanin(){
         return unvertraeglichkeiten[5];
     }
-    public static void setPhenylalanin(int trigger){
+    public  void setPhenylalanin(int trigger){
         unvertraeglichkeiten[5]=trigger;
     }
 
-    public static int getHistamin(){
+    public  int getHistamin(){
         return unvertraeglichkeiten[6];
     }
-    public static void setHistamin(int trigger){
+    public  void setHistamin(int trigger){
         unvertraeglichkeiten[6]=trigger;
     }
 
-    public static int getSorbin(){
+    public  int getSorbin(){
         return unvertraeglichkeiten[7];
     }
-    public static void setSorbin(int trigger){
+    public  void setSorbin(int trigger){
         unvertraeglichkeiten[7]=trigger;
     }
 
-    public static int getSaccharose(){
+    public  int getSaccharose(){
         return unvertraeglichkeiten[8];
     }
-    public static void setSaccharose(int trigger){
+    public  void setSaccharose(int trigger){
         unvertraeglichkeiten[8]=trigger;
     }
 
-    public static int getErdnüsse(){
+    public  int getErdnüsse(){
         return unvertraeglichkeiten[9];
     }
-    public static void setErdnüsse(int trigger){
+    public  void setErdnüsse(int trigger){
         unvertraeglichkeiten[9]=trigger;
     }
 
-    public static ArrayList<String> getExtraListe() {
+    public  ArrayList<String> getExtraListe() {
         return extraListe;
     }
 
-    public static void addExtra(String speechInput) {
-        ProfileModel.extraListe.add(speechInput);
+    public  void addExtra(String speechInput) {
+        this.extraListe.add(speechInput);
     }
 
-    public static void changeExtra (String speechInput, int index){
+    public  void changeExtra (String speechInput, int index){
         extraListe.add(index,speechInput);
     }
 
-    public static void removeExtra(int index){
+    public  void removeExtra(int index){
         extraListe.remove(index);
     }
 

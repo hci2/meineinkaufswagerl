@@ -8,20 +8,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.Serializable;
+
 import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
+import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
+import univie.ac.at.meineinkaufswagerl.model.UserModel;
 
 /**
  * Created by Wilson on 08.05.2016.
  * Hier wählt der NUtzer aus welche Art vvon Hilfe er bei der Eingabe haben will.
  */
-public class ProfileSupportPage extends AppCompatActivity implements View.OnClickListener {
+public class ProfileSupportPage extends AppCompatActivity implements View.OnClickListener,Serializable {
 
 
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
+    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl";
+
     TextView infoText;
     Button sprachButton;
     Button manuellButton;
+
+    UserModel userModel;
+    ProfileModel profileModel;
 
     //This variable is used to get access to the TextToSpeech
     private TextToSpeechManager ttsManager = null;
@@ -30,6 +39,12 @@ public class ProfileSupportPage extends AppCompatActivity implements View.OnClic
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_support_page);
+
+        //Unwrap the intent and get the temporary list.
+        userModel = new UserModel();
+        userModel = (UserModel)getIntent().getExtras().getSerializable(ProfileActivity.EXTRA_MESSAGE);
+        profileModel = new ProfileModel();
+        profileModel = (ProfileModel)getIntent().getExtras().getSerializable(ProfileActivity.EXTRA_LIST);
 
 
         initializeVariables();
@@ -64,8 +79,12 @@ public class ProfileSupportPage extends AppCompatActivity implements View.OnClic
     public void goToNextPage(View v){
         // Startet auf Knopfdruck die Speech Seite für die Namenseingabe
         Intent intent= new Intent(this, ProfileNameSpeechActivity.class);
-        String message="";
-        intent.putExtra(EXTRA_MESSAGE,message);
+        if(profileModel!=null){
+            intent.putExtra(EXTRA_LIST,profileModel);
+        }
+        if(userModel!=null){
+            intent.putExtra(EXTRA_MESSAGE,userModel);
+        }
         startActivity(intent);
     }
 

@@ -14,14 +14,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Locale;
 
 import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
+import univie.ac.at.meineinkaufswagerl.model.StandingOrderListModel;
 import univie.ac.at.meineinkaufswagerl.model.TemporaryListModel;
 
-public class ListCreateSpeechActivity extends AppCompatActivity {
+public class ListCreateSpeechActivity extends AppCompatActivity implements Serializable {
 
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
     private TextView lastInputText;
@@ -43,10 +45,16 @@ public class ListCreateSpeechActivity extends AppCompatActivity {
     private int MY_DATA_CHECK_CODE = 0;
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
+    StandingOrderListModel standingOrderListModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_create_speech);
+
+        //Unwrap the intent and get the temporary list.
+        standingOrderListModel = new StandingOrderListModel();
+        standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListSupportPage.EXTRA_MESSAGE);
 
 
         //initiate TextToSpeechManager
@@ -212,6 +220,9 @@ public class ListCreateSpeechActivity extends AppCompatActivity {
     public void goToNextPage(View v) {
         Intent intent= new Intent(this, ListConfirmationSpeechActivity.class);
         intent.putExtra(EXTRA_MESSAGE,tempList.getTextList());
+        if(standingOrderListModel!=null){
+            intent.putExtra(EXTRA_MESSAGE,standingOrderListModel);
+        }
         startActivity(intent);
     }
 }
