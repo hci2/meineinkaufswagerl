@@ -32,8 +32,8 @@ public class ProfileDiseasesSpeechActivity extends AppCompatActivity {
     Button readButton, nextButton;
     ListView listDiseases;
 
-    UserModel userModel=null;
-    ProfileModel profileModel=null;
+   //UserModel userModel=null;
+    //ProfileModel profileModel=null;
     ArrayList<String> diseases=null;
     private int positionSpeech;
 
@@ -50,11 +50,13 @@ public class ProfileDiseasesSpeechActivity extends AppCompatActivity {
 
         initializeVariables();
 
+        //userModel= new UserModel();
+        //profileModel=new ProfileModel();
+
         //Unwrap the intent and get the temporary list.
-        profileModel=new ProfileModel();
         ArrayList<String> listeIntolerances = getIntent().getStringArrayListExtra(ProfileUnvertragSpeechActivity.EXTRA_MESSAGE);
         for(int i=0;i<listeIntolerances.size();i++){
-            profileModel.addUnvertraeglichkeit(listeIntolerances.get(i));
+            ProfileModel.addUnvertraeglichkeit(listeIntolerances.get(i));
         }
 
         positionSpeech=0;
@@ -66,7 +68,6 @@ public class ProfileDiseasesSpeechActivity extends AppCompatActivity {
         //check TTS version on executing device - needed for SpeechToText
         checkSpeech();
 
-        userModel= new UserModel();
         diseases=new ArrayList<>();
         diseases.add("Diabetes");
         diseases.add("Morbus Crohn");
@@ -75,7 +76,7 @@ public class ProfileDiseasesSpeechActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, diseases);
         listDiseases.setAdapter(adapter);
 
-        profileModel=new ProfileModel();
+
 
     }
 
@@ -108,8 +109,8 @@ public class ProfileDiseasesSpeechActivity extends AppCompatActivity {
     public void goToNextPage(View v){
         // Startet auf Knopfdruck die ListSupportPage
         Intent intent= new Intent(this, ProfileExtrasSpeechActivity.class);
-        intent.putExtra(EXTRA_INTOLERANCES,profileModel.getUnvertraeglichkeitenListe());
-        intent.putExtra(EXTRA_DISEASES, profileModel.getKrankheitenListe());
+        intent.putExtra(EXTRA_INTOLERANCES,ProfileModel.getUnvertraeglichkeitenListe());
+        intent.putExtra(EXTRA_DISEASES, ProfileModel.getKrankheitenListe());
         startActivity(intent);
     }
 
@@ -127,11 +128,11 @@ public class ProfileDiseasesSpeechActivity extends AppCompatActivity {
 
     public void readMyDiseases(View v){
         // Startet auf Knopfdruck die Sprachausgabe
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, profileModel.getKrankheitenListe());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, ProfileModel.getKrankheitenListe());
         listDiseases.setAdapter(adapter);
-        if(!(profileModel.getKrankheitenListe().size()==0)){
-            for(int i=0;i<profileModel.getKrankheitenListe().size();i++){
-                ttsManager.addQueue(profileModel.getKrankheitenListe().get(i));
+        if(!(ProfileModel.getKrankheitenListe().size()==0)){
+            for(int i=0;i<ProfileModel.getKrankheitenListe().size();i++){
+                ttsManager.addQueue(ProfileModel.getKrankheitenListe().get(i));
             }
         } else {
             ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, diseases);
@@ -179,14 +180,14 @@ public class ProfileDiseasesSpeechActivity extends AppCompatActivity {
                     String resultString=result.get(0);
                     if(resultString.equals("ja") || resultString.equals("Ja") || resultString.contains("ja") || resultString.contains("Ja")){
                         switch (positionSpeech){
-                            case 0: profileModel.setDiabetes(1);
-                                profileModel.addKrankheit(diseases.get(positionSpeech));
+                            case 0: ProfileModel.setDiabetes(1);
+                                ProfileModel.addKrankheit(diseases.get(positionSpeech));
                                 break;
-                            case 1: profileModel.setMorbus(1);
-                                profileModel.addKrankheit(diseases.get(positionSpeech));
+                            case 1: ProfileModel.setMorbus(1);
+                                ProfileModel.addKrankheit(diseases.get(positionSpeech));
                                 break;
-                            case 2: profileModel.setGicht(1);
-                                profileModel.addKrankheit(diseases.get(positionSpeech));
+                            case 2: ProfileModel.setGicht(1);
+                                ProfileModel.addKrankheit(diseases.get(positionSpeech));
                                 break;
                             default: break;
                         }
@@ -197,11 +198,11 @@ public class ProfileDiseasesSpeechActivity extends AppCompatActivity {
                         }
                     } else if(resultString.equals("nein") || resultString.equals("Nein") || resultString.contains("nein") || resultString.contains("Nein")){
                         switch (positionSpeech){
-                            case 0: profileModel.setDiabetes(0);
+                            case 0: ProfileModel.setDiabetes(0);
                                 break;
-                            case 1: profileModel.setMorbus(0);
+                            case 1: ProfileModel.setMorbus(0);
                                 break;
-                            case 2: profileModel.setGicht(0);
+                            case 2: ProfileModel.setGicht(0);
                                 break;
                             default: break;
                         }

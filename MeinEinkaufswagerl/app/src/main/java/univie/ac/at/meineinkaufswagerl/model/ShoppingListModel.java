@@ -8,6 +8,8 @@ import java.util.ArrayList;
  */
 public class ShoppingListModel implements Serializable{
 
+    private static final long serialVersionUID = 0L;
+
     private ArrayList<ProductModel> products;
     private ArrayList<Integer> prodAmount;
 

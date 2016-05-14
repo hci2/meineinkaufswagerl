@@ -22,12 +22,10 @@ import univie.ac.at.meineinkaufswagerl.model.UserModel;
 
 public class ProfileNameSpeechActivity extends AppCompatActivity {
 
-    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
-
     TextView infoText, firstnameText, lastnameText;
     ImageButton firstnameMouth, lastnameMouth;
     Button readButton, nextButton;
-    UserModel userModel=null;
+    //UserModel userModel=null;
 
     private int MY_DATA_CHECK_CODE = 0;
     private final int REQ_CODE_SPEECH_INPUT = 100;
@@ -51,16 +49,14 @@ public class ProfileNameSpeechActivity extends AppCompatActivity {
         //check TTS version on executing device - needed for SpeechToText
         checkSpeech();
 
-        userModel= new UserModel();
-        firstnameText.setText(userModel.getFirstname());
-        lastnameText.setText(userModel.getLastname());
+        //userModel= new UserModel();
+        firstnameText.setText(UserModel.getFirstname());
+        lastnameText.setText(UserModel.getLastname());
     }
 
     public void goToNextPage(View v){
         // Startet auf Knopfdruck die ListSupportPage
         Intent intent= new Intent(this, ProfileUnvertragSpeechActivity.class);
-        String message="";
-        intent.putExtra(EXTRA_MESSAGE,message);
         startActivity(intent);
     }
 
@@ -126,11 +122,11 @@ public class ProfileNameSpeechActivity extends AppCompatActivity {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String resultString=result.get(0);
                     if(firstname && !lastname){
-                        userModel.setFirstname(resultString);
+                        UserModel.setFirstname(resultString);
                         firstnameText.setText(resultString);
                         firstname=false;
                     } else if(!firstname && lastname){
-                        userModel.setLastname(resultString);
+                        UserModel.setLastname(resultString);
                         lastnameText.setText(resultString);
                         lastname=false;
                     }

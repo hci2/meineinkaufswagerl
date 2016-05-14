@@ -6,8 +6,10 @@ import android.widget.Button;
 import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
+import univie.ac.at.meineinkaufswagerl.model.UserModel;
 import univie.ac.at.meineinkaufswagerl.profile.ProfileActivity;
 import univie.ac.at.meineinkaufswagerl.shoppinglist.ListSupportPage;
 import univie.ac.at.meineinkaufswagerl.shoppinglist.ShoppingManuallyActivity;
@@ -20,6 +22,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     Button listButton;
     Button leaveButton;
     TextView infoText;
+    //UserModel userModel=null;
 
     //This variable is used to get access to the TextToSpeech
     private TextToSpeechManager ttsManager = null;
@@ -39,6 +42,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         profilebutton.setOnClickListener(HomeActivity.this);
         shoppingbutton.setOnClickListener(HomeActivity.this);
         // Felix Ende
+
+        //userModel = new UserModel();
 
     }
 
@@ -61,11 +66,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void goToListSupportPage(View v){
-        // Startet auf Knopfdruck die ListSupportPage
-        Intent  intent= new Intent(this, ListSupportPage.class);
-        String message="";
-        intent.putExtra(EXTRA_MESSAGE,message);
-        startActivity(intent);
+        //Prüft ob ein Profil angelegt worden ist, falls nein dann wird eine Fehler Meldung angezeigt. derzeigig für Test und Vorzeigezwecke DEAKTIVIERT
+        if(UserModel.getCreatedSuccessfullyProfile()){
+            // Startet auf Knopfdruck die ListSupportPage
+            Intent  intent= new Intent(this, ListSupportPage.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.noProfileCreated),
+                    Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public void goToLeaveApp(View v){

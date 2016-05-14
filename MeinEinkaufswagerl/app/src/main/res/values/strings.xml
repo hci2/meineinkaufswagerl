@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Mein Einkaufswagerl</string>
+    <string name="noProfileCreated">Sie können keine Einkaufsliste erstellen vor einmaliger Profilerstellung&#8230;</string>
 
     <string name="action_settings">Einstellungen</string>
     <string name="speech_prompt">Sagen Sie was sie kaufen wollen&#8230;</string>
@@ -30,6 +31,8 @@
 
     <string name="finished_replaceStandingOrder">Die dauerhafte Liste konnte erfolgreich mit Ihrer Liste ersetzt werden!</string>
     <string name="notfinished_replaceStandingOrder">Die dauerhafte Liste konnte nicht erfolgreich mit Ihrer Liste ersetzt werden!</string>
+    <string name="speech_confirmation">Stimmen Sie den Kauf der Einkaufsliste zu?</string>
+    <string name="speech_abort">Der Kaufvorgang wurde abgebrochen!</string>
 
     <string name="intro_name">Geben Sie ihren Vornamen und Nachnamen mithilfe des jeweiligen Mund Buttons an</string>
     <string name="speech_firstname">Sagen Sie ihren Vornamen&#8230;</string>
@@ -47,4 +50,13 @@
 
     <string name="intro_extras">Sie können zusätzliche Dinge auf die geachtet werden soll mit dem Mund Button angeben und sich mit dem Ohr Button anhören. Mithilfe des # Button können Sie die Zeile angeben und mit dem Schreibblock Button den Inhalt der Zeile ändern.</string>
     <string name="speech_extra">Sagen Sie auf was zusätzlich geachtet werden soll&#8230;</string>
+
+    <string name="intro_addressCharity">Geben Sie ihre Adresse mit Hilfe des Mund Button an und beantworten Sie die mit dem Ohr Button jeweilig gehörte Frage. Danach wird Ihnen eine Hilfsorganisation zur Auslieferung zugeordnet.</string>
+    <string name="speech_country">Sagen Sie in welchen Land Sie wohnen&#8230;</string>
+    <string name="speech_street">Sagen Sie in welcher Straße Sie wohnen&#8230;</string>
+    <string name="speech_streetnumber">Sagen Sie ihre Hausnummer&#8230;</string>
+    <string name="speech_plz">Sagen Sie welche Postleitzahl sie haben&#8230;</string>
+    <string name="speech_noPlz">Entschuldigung! Wiederholen Sie bitte ihre Postleitzahl!</string>
+
+    <string name="speech_profile_finished">Ihr Profil wurde erfolgreich eingerichtet. Die Daten können jederzeit nachträglich geändert werden. Die Bezahlung erfolgt bar beim Empfang der Ware.</string>
 </resources>
