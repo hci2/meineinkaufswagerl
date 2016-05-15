@@ -20,6 +20,7 @@
     <string name="btn_dauerauftrag">Dauerauftrag?</string>
     <string name="btn_absenden">Absenden</string>
     <string name="txt_stueckanzahl">Stückanzahl:</string>
+    <string name="btn_delete">Produkt löschen</string>
 
     <string name="explaination_speech">Sie haben Spracheingabe gewählt. Bei dem Mund Button können Sie sprechen und beim Ohr Button können Sie sich das zuvor Gesprochene anhören. Falls Sie etwas ändern wollen, können Sie mit dem # Button die Zeile angeben und mit dem Schreibblock Button den zu ändernden Inhalt mitteilen. Außerdem können Sie eine einmalige Einkaufsliste oder eine dauerhafte Einkaufsliste erstellen und anfordern.</string>
     <string name="recommendation_person">In diesem Menü können Sie ihr Ernährungsprofil bearbeiten. Zur Einrichtung wird eine zusätzliche Person empfohlen, die bei Problemen helfen kann.</string>

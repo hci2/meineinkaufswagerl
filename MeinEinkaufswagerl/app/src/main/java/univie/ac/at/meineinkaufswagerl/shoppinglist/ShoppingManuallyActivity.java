@@ -75,7 +75,7 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
         this.haushalt.add(new ProductModel("Staubsauger", 80.0f, "Haushalt", 1.0f, "Stück", R.drawable.staubsauger));
     }
 
-    public void showDialog() {
+    private void showDialog() {
         FragmentManager manager=getFragmentManager();
         AcceptDialog acceptDialog = new AcceptDialog();
         Bundle bundle = new Bundle();
@@ -113,7 +113,7 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
             Toast.makeText(this,"Kein passendes Produkt gefunden !", Toast.LENGTH_LONG).show();
         }
         else if(v == this.buttonToList) {
-            Intent intent= new Intent(this, ListCreateSpeechActivity.class); //AdjustShoppingListActivity.class
+            Intent intent= new Intent(this, AdjustShoppingListActivity.class); //ListCreateSpeechActivity.class
             intent.putExtra("list", this.shoppingList);
             startActivity(intent);
         }
