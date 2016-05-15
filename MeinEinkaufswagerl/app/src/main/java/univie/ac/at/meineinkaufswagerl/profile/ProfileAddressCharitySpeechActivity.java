@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -24,7 +25,10 @@ import univie.ac.at.meineinkaufswagerl.model.CharityModel;
 import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
 import univie.ac.at.meineinkaufswagerl.model.UserModel;
 
-public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
+public class ProfileAddressCharitySpeechActivity extends AppCompatActivity implements Serializable {
+
+    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl.MESSAGE";
+    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl.LIST";
 
     TextView infoText, charityOrganisation;
     ImageButton speakAddress, readAddress;
@@ -44,6 +48,9 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
     private TextToSpeechManager ttsManager = null;
     private boolean sprachausgabe;
 
+    UserModel userModel;
+    ProfileModel profileModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,23 +58,39 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
 
         initializeVariables();
 
+        //Unwrap the intent and get the temporary list.
+        userModel = new UserModel();
+        profileModel = new ProfileModel();
+        if(getIntent() != null && getIntent().getExtras() != null){
+            userModel = (UserModel)getIntent().getExtras().getSerializable(ProfileDiseasesSpeechActivity.EXTRA_MESSAGE);
+            profileModel = (ProfileModel)getIntent().getExtras().getSerializable(ProfileDiseasesSpeechActivity.EXTRA_LIST);
+        }
+
 
         //userModel= new UserModel();
         //profileModel=new ProfileModel();
-
+        /*
         //Unwrap the intent and get the temporary list.
         ArrayList<String> listeIntolerances = getIntent().getStringArrayListExtra(ProfileExtrasSpeechActivity.EXTRA_INTOLERANCES);
         ArrayList<String> listeKrankheiten = getIntent().getStringArrayListExtra(ProfileExtrasSpeechActivity.EXTRA_DISEASES);
         ArrayList<String> listeExtras = getIntent().getStringArrayListExtra(ProfileExtrasSpeechActivity.EXTRA_EXTRAS);
-        for(int i=0;i<listeIntolerances.size();i++){
-            ProfileModel.addUnvertraeglichkeit(listeIntolerances.get(i));
+        if(listeIntolerances.size()!=0){
+            for(int i=0;i<listeIntolerances.size();i++){
+                ProfileModel.addUnvertraeglichkeit(listeIntolerances.get(i));
+            }
         }
-        for(int i=0;i<listeKrankheiten.size();i++){
-            ProfileModel.addKrankheit(listeKrankheiten.get(i));
+        if(listeKrankheiten.size()!=0){
+            for(int i=0;i<listeKrankheiten.size();i++){
+                ProfileModel.addKrankheit(listeKrankheiten.get(i));
+            }
         }
-        for(int i=0;i<listeExtras.size();i++){
-            ProfileModel.addExtra(listeExtras.get(i));
+        if(listeExtras.size()!=0){
+            for(int i=0;i<listeExtras.size();i++){
+                ProfileModel.addExtra(listeExtras.get(i));
+            }
         }
+        */
+
 
         positionSpeech=0;
 
@@ -113,10 +136,11 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
     public void goToNextPage(View v){
         // Startet auf Knopfdruck die ListSupportPage
         Intent intent= new Intent(this, ProfileFinishedSpeechActivity.class);
-        UserModel.setCreatedSuccessfullyProfile(true);
+        userModel.setCreatedSuccessfullyProfile(true);
         //TODO: Daten des Profiles serialisieren um sie persistent zu speichern
-        //SerializableManager.saveSerializableProfile(getApplicationContext(),ProfileModel,"Profile.ser");
-        //SerializableManager.saveSerializableUser(getApplicationContext(),UserModel,"Profile.ser");
+        SerializableManager.saveSerializable(this, profileModel,"Profile.ser");
+        SerializableManager.saveSerializable(this, userModel,"User.ser");
+
         //stellt sicher dass das Profil erfolgreich erstellt wurde, muss beim Listen erstellen geprüft werden
         startActivity(intent);
     }
@@ -146,8 +170,8 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
 
     public void readMyCharity(View v){
         // Startet auf Knopfdruck die Sprachausgabe
-        charityOrganisation.setText(UserModel.getCharity());
-        ttsManager.initQueue("Ihre Einkaufsliste wird von der Organisation "+UserModel.getCharity()+" ausgeliefert.");
+        charityOrganisation.setText(userModel.getCharity());
+        ttsManager.initQueue("Ihre Einkaufsliste wird von der Organisation "+userModel.getCharity()+" ausgeliefert.");
     }
 
     public void readInfoText(View v){
@@ -196,7 +220,7 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
                     if(sprachausgabe) {
 
                         switch (positionSpeech) {
-                            case 0: UserModel.setCountry(resultString);
+                            case 0: userModel.setCountry(resultString);
                                 if (adressList.size() == 4) {
                                     adressList.remove(positionSpeech);
                                 }
@@ -206,7 +230,7 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
                                 sprachausgabe=false;
                                 break;
                             case 1:
-                                UserModel.setStreet(resultString);
+                                userModel.setStreet(resultString);
                                 if (adressList.size() == 4) {
                                     adressList.remove(positionSpeech);
                                 }
@@ -216,7 +240,7 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
                                 sprachausgabe=false;
                                 break;
                             case 2:
-                                UserModel.setStreetnumber(resultString);
+                                userModel.setStreetnumber(resultString);
                                 if (adressList.size() == 4) {
                                     adressList.remove(positionSpeech);
                                 }
@@ -232,15 +256,15 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-                                UserModel.setPostalcode(resultString);
+                                userModel.setPostalcode(resultString);
                                 if (adressList.size() == 4) {
                                     adressList.remove(positionSpeech);
                                 }
                                 adressList.add(positionSpeech, resultString);
                                 ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, adressList);
                                 listViewAddress.setAdapter(adapter3);
-                                UserModel.setCharity(charityModel.getCharityForPLZ(resultString));
-                                charityOrganisation.setText(UserModel.getCharity());
+                                userModel.setCharity(charityModel.getCharityForPLZ(resultString));
+                                charityOrganisation.setText(userModel.getCharity());
                                 sprachausgabe=false;
                                 break;
                             default:

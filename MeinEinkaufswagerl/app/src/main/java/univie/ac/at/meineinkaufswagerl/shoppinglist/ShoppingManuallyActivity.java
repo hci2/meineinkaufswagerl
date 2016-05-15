@@ -113,7 +113,7 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
             Toast.makeText(this,"Kein passendes Produkt gefunden !", Toast.LENGTH_LONG).show();
         }
         else if(v == this.buttonToList) {
-            Intent intent= new Intent(this, AdjustShoppingListActivity.class);
+            Intent intent= new Intent(this, ListCreateSpeechActivity.class); //AdjustShoppingListActivity.class
             intent.putExtra("list", this.shoppingList);
             startActivity(intent);
         }

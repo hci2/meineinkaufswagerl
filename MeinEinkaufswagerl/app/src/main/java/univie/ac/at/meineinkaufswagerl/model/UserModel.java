@@ -5,26 +5,33 @@ import java.io.Serializable;
 /**
  * Created by Philipp on 5/8/2016.
  */
-public final class UserModel implements Serializable {
+public class UserModel implements Serializable {
 
     private static final long serialVersionUID = 0L;
+    /*
+    //Singleton Construction
+    private static UserModel ourInstance = new UserModel();
+    public static UserModel getInstance() {
+        return ourInstance;
+    }
+       */
 
-    private static int id=1;
-    private static String firstname  = "Max";
-    private static String lastname= "Mustermann";
-    private static String street="Musterstraße";
-    private static String streetnumber= "63a";
-    private static String postalcode="1180";
-    private static String country= "Österreich";
+    private int id=1;
+    private String firstname  = "Max";
+    private String lastname= "Mustermann";
+    private String street="Musterstraße";
+    private String streetnumber= "63a";
+    private String postalcode="1180";
+    private String country= "Österreich";
     //private static String username;
     //private static String password;
-    private static String charity= "Caritas";
-    private static boolean createdSuccessfullyProfile=true; //Derzeitig DEAKTIVIERT
+    private String charity= "Caritas";
+    private boolean createdSuccessfullyProfile=true; //Derzeitig DEAKTIVIERT
 
     //Felix Addition Platzhalter
 
     // Default values because we have no serialisation/deserialisation
-    private UserModel() {
+    public UserModel() {
         /*
         UserModel.id = 1;
         UserModel.firstname = "Max";
@@ -42,62 +49,74 @@ public final class UserModel implements Serializable {
 
     }
 
+    /*
+    public static void setAllAttributes(String firstname, String lastname, String street, String streetnumber, String postalcode, String country,String charity, boolean createdSuccessfullyProfile){
+        setFirstname(firstname);
+        setLastname(lastname);
+        setStreet(street);
+        setStreetnumber(streetnumber);
+        setPostalcode(postalcode);
+        setCountry(country);
+        setCharity(charity);
+        setCreatedSuccessfullyProfile(createdSuccessfullyProfile);
+    }
+    */
     // Getter and Setter for the all the private variables
 
-    public static int getId() {
+    public int getId() {
         return id;
     }
 
-    public static void setId(int id) {
-        UserModel.id = id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public static String getFirstname() {
+    public  String getFirstname() {
         return firstname;
     }
 
-    public static void setFirstname(String firstname) {
-        UserModel.firstname = firstname;
+    public  void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public static String getLastname() {
+    public  String getLastname() {
         return lastname;
     }
 
-    public static void setLastname(String lastname) {
-        UserModel.lastname = lastname;
+    public  void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public static String getStreet() {
+    public  String getStreet() {
         return street;
     }
 
-    public static void setStreet(String street) {
-        UserModel.street = street;
+    public  void setStreet(String street) {
+        this.street = street;
     }
 
-    public static String getStreetnumber() {
+    public  String getStreetnumber() {
         return streetnumber;
     }
 
-    public static void setStreetnumber(String streetnumber) {
-        UserModel.streetnumber = streetnumber;
+    public  void setStreetnumber(String streetnumber) {
+        this.streetnumber = streetnumber;
     }
 
-    public static String getPostalcode() {
+    public  String getPostalcode() {
         return postalcode;
     }
 
-    public static void setPostalcode(String postalcode) {
-        UserModel.postalcode = postalcode;
+    public  void setPostalcode(String postalcode) {
+        this.postalcode = postalcode;
     }
 
-    public static String getCountry() {
+    public  String getCountry() {
         return country;
     }
 
-    public static void setCountry(String country) {
-        UserModel.country = country;
+    public  void setCountry(String country) {
+        this.country = country;
     }
 
     /*
@@ -117,18 +136,18 @@ public final class UserModel implements Serializable {
         this.password = password;
     }
     */
-    public static String getCharity() {
+    public  String getCharity() {
         return charity;
     }
 
-    public static void setCharity(String charity) {
-        UserModel.charity = charity;
+    public  void setCharity(String charity) {
+        this.charity = charity;
     }
-    public static boolean getCreatedSuccessfullyProfile() {
+    public  boolean getCreatedSuccessfullyProfile() {
         return createdSuccessfullyProfile;
     }
 
-    public static void setCreatedSuccessfullyProfile(boolean createdSuccessfullyProfile) {
-        UserModel.createdSuccessfullyProfile = createdSuccessfullyProfile;
+    public  void setCreatedSuccessfullyProfile(boolean createdSuccessfullyProfile) {
+        this.createdSuccessfullyProfile = createdSuccessfullyProfile;
     }
 }

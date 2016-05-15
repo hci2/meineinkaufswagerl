@@ -14,20 +14,24 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Locale;
 
 import univie.ac.at.meineinkaufswagerl.R;
+import univie.ac.at.meineinkaufswagerl.management.SerializableManager;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
 import univie.ac.at.meineinkaufswagerl.model.StandingOrderListModel;
 import univie.ac.at.meineinkaufswagerl.model.TemporaryListModel;
+import univie.ac.at.meineinkaufswagerl.model.UserModel;
 
-public class ListConfirmationSpeechActivity extends AppCompatActivity {
+public class ListConfirmationSpeechActivity extends AppCompatActivity implements Serializable {
 
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
 
     private ListView txtSpeechList;
     private TemporaryListModel tempList;
+    StandingOrderListModel standingOrderListModel;
     //private StandingOrderListModel standList = new StandingOrderListModel();
     private ImageButton btnRead;
     private TextToSpeechManager ttsManager = null;
@@ -61,13 +65,35 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
 
         //Unwrap the intent and get the temporary list.
         tempList=new TemporaryListModel();
-        ArrayList<String> stringList = getIntent().getStringArrayListExtra(ListCreateSpeechActivity.EXTRA_MESSAGE);
-        for(int i=0;i<stringList.size();i++){
-            tempList.addTextList(stringList.get(i));
+
+        //Unwrap the intent and get the temporary list.
+        standingOrderListModel = new StandingOrderListModel();
+        if(getIntent() != null && getIntent().getExtras() != null){
+            standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListCreateSpeechActivity.EXTRA_MESSAGE);
+            tempList = (TemporaryListModel) getIntent().getExtras().getSerializable(ListCreateSpeechActivity.EXTRA_LIST);
+            /*ArrayList<String> stringList = getIntent().getStringArrayListExtra(ListCreateSpeechActivity.EXTRA_LIST);
+            if (stringList != null){
+                if (stringList.size() != 0) {
+                    for (int i = 0; i < stringList.size(); i++) {
+                        tempList.addTextList(stringList.get(i));
+                    }
+                    //This is used to display the temporary list on the view
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
+                    txtSpeechList.setAdapter(adapter);
+                }
+            } else{
+                //This is used to display the standing order list on the view
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, standingOrderListModel.getTextList());
+                txtSpeechList.setAdapter(adapter);
+            }*/
+            if(tempList!=null && tempList.getSize()!=0){
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
+                txtSpeechList.setAdapter(adapter);
+            } else if(standingOrderListModel.getSize()!=0){
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, standingOrderListModel.getTextList());
+                txtSpeechList.setAdapter(adapter);
+            }
         }
-        //This is used to display the temporary list on the view
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
-        txtSpeechList.setAdapter(adapter);
 
         // This is used for TextToSpeech
         btnRead.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +131,7 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
         ArrayList<String> textList=tempList.getTextList();
         if(!(textList.size()==0)){
             for(int i=0;i<textList.size();i++){
-                StandingOrderListModel.addTextList(textList.get(i));
+                standingOrderListModel.addTextList(textList.get(i));
             }
             Toast.makeText(getApplicationContext(),
                     getString(R.string.finished_addStandingOrder),
@@ -121,19 +147,20 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
     public void replaceStandButton(View v) {
         ArrayList<String> textList=tempList.getTextList();
         if(!(textList.size()==0)){
-            if(textList.size()<=StandingOrderListModel.getSize()){
-                for(int i=0;i<StandingOrderListModel.getSize();i++){
-                    StandingOrderListModel.removeTextListElement(i);
+            if(textList.size()<=standingOrderListModel.getSize()){
+                for(int i=0;i<standingOrderListModel.getSize();i++){
+                    standingOrderListModel.removeTextListElement(i);
                     if(i<=textList.size()){
-                        StandingOrderListModel.changeTextListElement(textList.get(i),i);
+                        standingOrderListModel.changeTextListElement(textList.get(i),i);
                     }
                 }
-            } else if(textList.size()>StandingOrderListModel.getSize()){
+            } else if(textList.size()>standingOrderListModel.getSize()){
                 for(int i=0;i<textList.size();i++){
-                    if(i<=StandingOrderListModel.getSize()){
-                        StandingOrderListModel.removeTextListElement(i);
+                    if(i<standingOrderListModel.getSize()){
+                        standingOrderListModel.removeTextListElement(i);
+                        //TODO: Überarbeiten der Länge bis wohin löschen...
                     }
-                    StandingOrderListModel.addTextList(textList.get(i));
+                    standingOrderListModel.addTextList(textList.get(i));
                 }
             }
             Toast.makeText(getApplicationContext(),
@@ -214,6 +241,8 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity {
                     if((!temp) && (resultString.equals("ja") || resultString.equals("Ja") || resultString.contains("ja") || resultString.contains("Ja"))){
                         //TODO: dauerhafte Einkaufsliste + Adresse des Empfängers der Hilfsorganisation übermitteln
                         //TODO: Dauerhafte Liste serialisieren!
+                        SerializableManager.saveSerializable(this, standingOrderListModel,"StandingOrder.ser");
+
                         Intent intent= new Intent(this, ListFinishedSpeechActivity.class);
                         String message="Ihr Auftrag der dauerhaften Liste wurde erfolgreich gesendet";
                         intent.putExtra(EXTRA_MESSAGE,message);

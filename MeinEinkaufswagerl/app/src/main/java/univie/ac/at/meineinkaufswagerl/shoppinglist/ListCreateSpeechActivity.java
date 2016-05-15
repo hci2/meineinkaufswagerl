@@ -14,20 +14,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Locale;
 
 import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
+import univie.ac.at.meineinkaufswagerl.model.StandingOrderListModel;
 import univie.ac.at.meineinkaufswagerl.model.TemporaryListModel;
 
-public class ListCreateSpeechActivity extends AppCompatActivity {
+public class ListCreateSpeechActivity extends AppCompatActivity implements Serializable {
 
-    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
+    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl.MESSAGE";
+    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl.LIST";
     private TextView lastInputText;
     private ImageButton btnSpeak;
     private ListView txtSpeechList;
-    private TemporaryListModel tempList=new TemporaryListModel();
     private ImageButton btnRead;
     private TextToSpeechManager ttsManager = null;
     private Button btnNext;
@@ -43,10 +45,21 @@ public class ListCreateSpeechActivity extends AppCompatActivity {
     private int MY_DATA_CHECK_CODE = 0;
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
+    private StandingOrderListModel standingOrderListModel;
+    private TemporaryListModel tempList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_create_speech);
+
+        //Unwrap the intent and get the temporary list.
+        standingOrderListModel = new StandingOrderListModel();
+        if(getIntent() != null && getIntent().getExtras() != null){
+            standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListSupportPage.EXTRA_MESSAGE);
+        }
+        tempList=new TemporaryListModel();
+
 
 
         //initiate TextToSpeechManager
@@ -211,7 +224,13 @@ public class ListCreateSpeechActivity extends AppCompatActivity {
 
     public void goToNextPage(View v) {
         Intent intent= new Intent(this, ListConfirmationSpeechActivity.class);
-        intent.putExtra(EXTRA_MESSAGE,tempList.getTextList());
+        //intent.putExtra(EXTRA_LIST,tempList.getTextList());
+        if(tempList!=null){
+            intent.putExtra(EXTRA_LIST,tempList);
+        }
+        if(standingOrderListModel!=null){
+            intent.putExtra(EXTRA_MESSAGE,standingOrderListModel);
+        }
         startActivity(intent);
     }
 }

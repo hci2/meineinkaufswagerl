@@ -1,11 +1,15 @@
 package univie.ac.at.meineinkaufswagerl.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Philipp on 5/8/2016.
  */
-public class TemporaryListModel {
+public class TemporaryListModel implements Serializable{
+
+    private static final long serialVersionUID = 0L;
+
     private ArrayList<String> temporaryList;
 
     public TemporaryListModel() {
@@ -26,5 +30,9 @@ public class TemporaryListModel {
 
     public void removeTextListElement(int index){
         temporaryList.remove(index);
+    }
+
+    public  int getSize(){
+        return temporaryList.size();
     }
 }

@@ -13,14 +13,19 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Locale;
 
 import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
+import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
 import univie.ac.at.meineinkaufswagerl.model.UserModel;
 
-public class ProfileNameSpeechActivity extends AppCompatActivity {
+public class ProfileNameSpeechActivity extends AppCompatActivity implements Serializable {
+
+    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl.MESSAGE";
+    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl.LIST";
 
     TextView infoText, firstnameText, lastnameText;
     ImageButton firstnameMouth, lastnameMouth;
@@ -35,12 +40,23 @@ public class ProfileNameSpeechActivity extends AppCompatActivity {
     //This variable is used to get access to the TextToSpeech
     private TextToSpeechManager ttsManager = null;
 
+    UserModel userModel;
+    ProfileModel profileModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_name_speech);
 
         initializeVariables();
+
+        //Unwrap the intent and get the temporary list.
+        userModel = new UserModel();
+        profileModel = new ProfileModel();
+        if(getIntent() != null && getIntent().getExtras() != null){
+            userModel = (UserModel)getIntent().getExtras().getSerializable(ProfileActivity.EXTRA_MESSAGE);
+            profileModel = (ProfileModel)getIntent().getExtras().getSerializable(ProfileActivity.EXTRA_LIST);
+        }
 
         //initiate TextToSpeechManager
         ttsManager = new TextToSpeechManager();
@@ -50,13 +66,19 @@ public class ProfileNameSpeechActivity extends AppCompatActivity {
         checkSpeech();
 
         //userModel= new UserModel();
-        firstnameText.setText(UserModel.getFirstname());
-        lastnameText.setText(UserModel.getLastname());
+        firstnameText.setText(userModel.getFirstname());
+        lastnameText.setText(userModel.getLastname());
     }
 
     public void goToNextPage(View v){
         // Startet auf Knopfdruck die ListSupportPage
         Intent intent= new Intent(this, ProfileUnvertragSpeechActivity.class);
+        if(profileModel!=null){
+            intent.putExtra(EXTRA_LIST,profileModel);
+        }
+        if(userModel!=null){
+            intent.putExtra(EXTRA_MESSAGE,userModel);
+        }
         startActivity(intent);
     }
 
@@ -122,11 +144,11 @@ public class ProfileNameSpeechActivity extends AppCompatActivity {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String resultString=result.get(0);
                     if(firstname && !lastname){
-                        UserModel.setFirstname(resultString);
+                        userModel.setFirstname(resultString);
                         firstnameText.setText(resultString);
                         firstname=false;
                     } else if(!firstname && lastname){
-                        UserModel.setLastname(resultString);
+                        userModel.setLastname(resultString);
                         lastnameText.setText(resultString);
                         lastname=false;
                     }

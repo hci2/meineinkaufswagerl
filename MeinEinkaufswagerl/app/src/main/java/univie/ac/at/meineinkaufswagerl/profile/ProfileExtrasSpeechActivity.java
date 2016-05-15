@@ -14,18 +14,24 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Locale;
 
 import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
 import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
+import univie.ac.at.meineinkaufswagerl.model.UserModel;
 
-public class ProfileExtrasSpeechActivity extends AppCompatActivity {
+public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Serializable{
 
-    public final static String EXTRA_INTOLERANCES = "univie.ac.at.meineinkaufswagerl";
-    public final static String EXTRA_DISEASES = "univie.ac.at.meineinkaufswagerl";
-    public final static String EXTRA_EXTRAS = "univie.ac.at.meineinkaufswagerl";
+    //public final static String EXTRA_INTOLERANCES = "univie.ac.at.meineinkaufswagerl";
+    //public final static String EXTRA_DISEASES = "univie.ac.at.meineinkaufswagerl";
+    //public final static String EXTRA_EXTRAS = "univie.ac.at.meineinkaufswagerl";
+
+    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl.MESSAGE";
+    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl.LIST";
+
     private TextView infoText;
     private ImageButton btnSpeak;
     private ListView extraListe;
@@ -46,22 +52,38 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity {
     private int MY_DATA_CHECK_CODE = 0;
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
+    UserModel userModel;
+    ProfileModel profileModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_extras_speech);
 
-        //profileModel=new ProfileModel();
+        //Unwrap the intent and get the temporary list.
+        userModel = new UserModel();
+        profileModel = new ProfileModel();
+        if(getIntent() != null && getIntent().getExtras() != null){
+            userModel = (UserModel)getIntent().getExtras().getSerializable(ProfileDiseasesSpeechActivity.EXTRA_MESSAGE);
+            profileModel = (ProfileModel)getIntent().getExtras().getSerializable(ProfileDiseasesSpeechActivity.EXTRA_LIST);
+        }
 
+        //profileModel=new ProfileModel();
+        /*
         //Unwrap the intent and get the temporary list.
         ArrayList<String> listeIntolerances = getIntent().getStringArrayListExtra(ProfileDiseasesSpeechActivity.EXTRA_INTOLERANCES);
         ArrayList<String> listeKrankheiten = getIntent().getStringArrayListExtra(ProfileDiseasesSpeechActivity.EXTRA_DISEASES);
-        for(int i=0;i<listeIntolerances.size();i++){
-            ProfileModel.addUnvertraeglichkeit(listeIntolerances.get(i));
+        if(listeIntolerances.size()!=0){
+            for(int i=0;i<listeIntolerances.size();i++){
+                ProfileModel.addUnvertraeglichkeit(listeIntolerances.get(i));
+            }
         }
-        for(int i=0;i<listeKrankheiten.size();i++){
-            ProfileModel.addKrankheit(listeKrankheiten.get(i));
+        if(listeKrankheiten.size()!=0){
+            for(int i=0;i<listeKrankheiten.size();i++){
+                ProfileModel.addKrankheit(listeKrankheiten.get(i));
+            }
         }
+        */
 
 
         //initiate TextToSpeechManager
@@ -123,7 +145,7 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 //String text = txtTextView.getText().toString();
-                ArrayList<String> textList=ProfileModel.getExtraListe();
+                ArrayList<String> textList=profileModel.getExtraListe();
                 if(!(textList.size()==0)){
                     ttsManager.initQueue(textList.get(0));
                     for(int i=1;i<textList.size();i++){
@@ -192,20 +214,20 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity {
                     } else if(change && index){
                         //To get just the number as String
                         //String number=resultString.replaceAll("[^0-9]", "");
-                        if(ProfileModel.getExtraListe().size()==0){
+                        if(profileModel.getExtraListe().size()==0){
                             change=false;
                             index=false;
                             return;
                         }
-                        ProfileModel.removeExtra(indexChange); //Integer.parseInt(number)
-                        ProfileModel.changeExtra(resultString, indexChange); //resultString.substring(resultString.lastIndexOf(number)+1),Integer.parseInt(number)
+                        profileModel.removeExtra(indexChange); //Integer.parseInt(number)
+                        profileModel.changeExtra(resultString, indexChange); //resultString.substring(resultString.lastIndexOf(number)+1),Integer.parseInt(number)
                         change=false;
                         index=false;
                     } else {
-                        ProfileModel.addExtra(resultString);
+                        profileModel.addExtra(resultString);
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, ProfileModel.getExtraListe());
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, profileModel.getExtraListe());
                     extraListe.setAdapter(adapter);
 
                 }
@@ -228,6 +250,12 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity {
         //intent.putExtra(EXTRA_INTOLERANCES,ProfileModel.getUnvertraeglichkeitenListe());
         //intent.putExtra(EXTRA_DISEASES, ProfileModel.getKrankheitenListe());
         //intent.putExtra(EXTRA_EXTRAS,ProfileModel.getExtraListe());
+        if(profileModel!=null){
+            intent.putExtra(EXTRA_LIST,profileModel);
+        }
+        if(userModel!=null){
+            intent.putExtra(EXTRA_MESSAGE,userModel);
+        }
         startActivity(intent);
     }
 

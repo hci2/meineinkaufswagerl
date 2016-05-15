@@ -7,15 +7,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
+import univie.ac.at.meineinkaufswagerl.HomeActivity;
 import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
+import univie.ac.at.meineinkaufswagerl.model.StandingOrderListModel;
 
-public class ListSupportPage extends AppCompatActivity {
+public class ListSupportPage extends AppCompatActivity implements Serializable {
 
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
     TextView infoText;
     Button sprachButton;
     Button manuellButton;
+
+    StandingOrderListModel standingOrderListModel;
 
     //This variable is used to get access to the TextToSpeech
     private TextToSpeechManager ttsManager = null;
@@ -25,6 +32,18 @@ public class ListSupportPage extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_support_page);
+
+        //Unwrap the intent and get the temporary list.
+        standingOrderListModel = new StandingOrderListModel();
+        if(getIntent() != null && getIntent().getExtras() != null){
+            standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(HomeActivity.EXTRA_MESSAGE);
+        }
+        /*
+        ArrayList<String> stringList = getIntent().getStringArrayListExtra(ListCreateSpeechActivity.EXTRA_MESSAGE);
+        for(int i=0;i<stringList.size();i++){
+            tempList.addTextList(stringList.get(i));
+        }
+        */
 
         initializeVariables();
 
@@ -42,8 +61,9 @@ public class ListSupportPage extends AppCompatActivity {
 
     public void goToSpeechSupportedList(View v) {
         Intent intent= new Intent(this, ListSpeechIntroActivity.class);
-        String message="";
-        intent.putExtra(EXTRA_MESSAGE,message);
+        if(standingOrderListModel!=null){
+            intent.putExtra(EXTRA_MESSAGE,standingOrderListModel);
+        }
         startActivity(intent);
     }
 

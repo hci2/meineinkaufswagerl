@@ -1,5 +1,6 @@
 package univie.ac.at.meineinkaufswagerl;
 
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -8,30 +9,40 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.Serializable;
+
+import univie.ac.at.meineinkaufswagerl.management.SerializableManager;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
+import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
+import univie.ac.at.meineinkaufswagerl.model.StandingOrderListModel;
 import univie.ac.at.meineinkaufswagerl.model.UserModel;
 import univie.ac.at.meineinkaufswagerl.profile.ProfileActivity;
 import univie.ac.at.meineinkaufswagerl.shoppinglist.ListSupportPage;
 import univie.ac.at.meineinkaufswagerl.shoppinglist.ShoppingManuallyActivity;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener,Serializable {
 
-    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
+    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl.MESSAGE";
+    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl.LIST";
 
     Button profilebutton, shoppingbutton;
     Button listButton;
     Button leaveButton;
     TextView infoText;
-    //UserModel userModel=null;
 
     //This variable is used to get access to the TextToSpeech
     private TextToSpeechManager ttsManager = null;
+
+    //This is used for deserialisation
+    UserModel userModel;
+    ProfileModel profileModel;
+    StandingOrderListModel standingOrderListModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         //Felix Anfang
         initializeVariables();
 
@@ -43,7 +54,29 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         shoppingbutton.setOnClickListener(HomeActivity.this);
         // Felix Ende
 
-        //userModel = new UserModel();
+
+        userModel=new UserModel();
+        //userModel=UserModel.getInstance();
+        if(new File("User.ser").exists()){
+            userModel=SerializableManager.readSerializable(this,"User.ser");
+        }
+
+        profileModel=new ProfileModel();
+        //profileModel=ProfileModel.getInstance();
+        if(new File("Profile.ser").exists()){
+            profileModel=SerializableManager.readSerializable(this,"Profile.ser");
+        }
+
+        /*
+        if(profileModel!=null){
+            profileModel.set
+        }
+        */
+        standingOrderListModel=new StandingOrderListModel();
+        //standingOrderListModel=StandingOrderListModel.getInstance();
+        if(new File("StandingOrder.ser").exists()){
+            standingOrderListModel=SerializableManager.readSerializable(this,"StandingOrder.ser");
+        }
 
     }
 
@@ -58,8 +91,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         else if(v == profilebutton) {
             // Startet auf Knopfdruck die ProfileActivity
             Intent  intent= new Intent(this, ProfileActivity.class);
-            String message="";
-            intent.putExtra(EXTRA_MESSAGE,message);
+            if(profileModel!=null){
+                intent.putExtra(EXTRA_LIST,profileModel);
+            }
+            if(userModel!=null){
+                intent.putExtra(EXTRA_MESSAGE,userModel);
+            }
             startActivity(intent);
         }
     }
@@ -67,9 +104,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     public void goToListSupportPage(View v){
         //Prüft ob ein Profil angelegt worden ist, falls nein dann wird eine Fehler Meldung angezeigt. derzeigig für Test und Vorzeigezwecke DEAKTIVIERT
-        if(UserModel.getCreatedSuccessfullyProfile()){
+        if(userModel.getCreatedSuccessfullyProfile()){
             // Startet auf Knopfdruck die ListSupportPage
             Intent  intent= new Intent(this, ListSupportPage.class);
+            if(standingOrderListModel!=null){
+                intent.putExtra(EXTRA_MESSAGE,standingOrderListModel);
+            }
             startActivity(intent);
         } else {
             Toast.makeText(getApplicationContext(),
