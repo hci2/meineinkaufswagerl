@@ -33,7 +33,9 @@ public class ListSpeechIntroActivity extends AppCompatActivity implements Serial
 
         //Unwrap the intent and get the temporary list.
         standingOrderListModel = new StandingOrderListModel();
-        standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListSupportPage.EXTRA_MESSAGE);
+        if(getIntent() != null && getIntent().getExtras() != null){
+            standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListSupportPage.EXTRA_MESSAGE);
+        }
 
 
         initializeVariables();

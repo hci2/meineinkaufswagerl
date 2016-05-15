@@ -56,9 +56,12 @@ public class ProfileUnvertragSpeechActivity extends AppCompatActivity implements
 
         //Unwrap the intent and get the temporary list.
         userModel = new UserModel();
-        userModel = (UserModel)getIntent().getExtras().getSerializable(ProfileNameSpeechActivity.EXTRA_MESSAGE);
         profileModel = new ProfileModel();
-        profileModel = (ProfileModel)getIntent().getExtras().getSerializable(ProfileNameSpeechActivity.EXTRA_LIST);
+        if(getIntent() != null && getIntent().getExtras() != null){
+            userModel = (UserModel)getIntent().getExtras().getSerializable(ProfileNameSpeechActivity.EXTRA_MESSAGE);
+            profileModel = (ProfileModel)getIntent().getExtras().getSerializable(ProfileNameSpeechActivity.EXTRA_LIST);
+        }
+
 
         positionSpeech=0;
 

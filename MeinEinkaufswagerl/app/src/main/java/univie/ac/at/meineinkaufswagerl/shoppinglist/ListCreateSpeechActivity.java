@@ -26,6 +26,7 @@ import univie.ac.at.meineinkaufswagerl.model.TemporaryListModel;
 public class ListCreateSpeechActivity extends AppCompatActivity implements Serializable {
 
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
+    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl";
     private TextView lastInputText;
     private ImageButton btnSpeak;
     private ListView txtSpeechList;
@@ -54,7 +55,10 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
 
         //Unwrap the intent and get the temporary list.
         standingOrderListModel = new StandingOrderListModel();
-        standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListSupportPage.EXTRA_MESSAGE);
+        if(getIntent() != null && getIntent().getExtras() != null){
+            standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListSupportPage.EXTRA_MESSAGE);
+        }
+
 
 
         //initiate TextToSpeechManager
@@ -219,7 +223,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
 
     public void goToNextPage(View v) {
         Intent intent= new Intent(this, ListConfirmationSpeechActivity.class);
-        intent.putExtra(EXTRA_MESSAGE,tempList.getTextList());
+        intent.putExtra(EXTRA_LIST,tempList.getTextList());
         if(standingOrderListModel!=null){
             intent.putExtra(EXTRA_MESSAGE,standingOrderListModel);
         }

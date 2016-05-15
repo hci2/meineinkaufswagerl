@@ -65,18 +65,27 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
 
         //Unwrap the intent and get the temporary list.
         tempList=new TemporaryListModel();
-        ArrayList<String> stringList = getIntent().getStringArrayListExtra(ListCreateSpeechActivity.EXTRA_MESSAGE);
-        for(int i=0;i<stringList.size();i++){
-            tempList.addTextList(stringList.get(i));
-        }
 
         //Unwrap the intent and get the temporary list.
         standingOrderListModel = new StandingOrderListModel();
-        standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListCreateSpeechActivity.EXTRA_MESSAGE);
-
-        //This is used to display the temporary list on the view
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
-        txtSpeechList.setAdapter(adapter);
+        if(getIntent() != null && getIntent().getExtras() != null){
+            standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListCreateSpeechActivity.EXTRA_MESSAGE);
+            ArrayList<String> stringList = getIntent().getStringArrayListExtra(ListCreateSpeechActivity.EXTRA_LIST);
+            if (stringList != null){
+                if (stringList.size() != 0) {
+                    for (int i = 0; i < stringList.size(); i++) {
+                        tempList.addTextList(stringList.get(i));
+                    }
+                    //This is used to display the temporary list on the view
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
+                    txtSpeechList.setAdapter(adapter);
+                }
+            } else{
+                //This is used to display the temporary list on the view
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, standingOrderListModel.getTextList());
+                txtSpeechList.setAdapter(adapter);
+            }
+        }
 
         // This is used for TextToSpeech
         btnRead.setOnClickListener(new View.OnClickListener() {

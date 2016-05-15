@@ -42,9 +42,12 @@ public class ProfileSupportPage extends AppCompatActivity implements View.OnClic
 
         //Unwrap the intent and get the temporary list.
         userModel = new UserModel();
-        userModel = (UserModel)getIntent().getExtras().getSerializable(ProfileActivity.EXTRA_MESSAGE);
         profileModel = new ProfileModel();
-        profileModel = (ProfileModel)getIntent().getExtras().getSerializable(ProfileActivity.EXTRA_LIST);
+        if(getIntent() != null && getIntent().getExtras() != null){
+            userModel = (UserModel)getIntent().getExtras().getSerializable(ProfileActivity.EXTRA_MESSAGE);
+            profileModel = (ProfileModel)getIntent().getExtras().getSerializable(ProfileActivity.EXTRA_LIST);
+        }
+
 
 
         initializeVariables();

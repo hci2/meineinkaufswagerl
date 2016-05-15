@@ -55,12 +55,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         // Felix Ende
 
 
-
+        userModel=new UserModel();
         //userModel=UserModel.getInstance();
         if(new File("User.ser").exists()){
             userModel=SerializableManager.readSerializable(this,"User.ser");
         }
 
+        profileModel=new ProfileModel();
         //profileModel=ProfileModel.getInstance();
         if(new File("Profile.ser").exists()){
             profileModel=SerializableManager.readSerializable(this,"Profile.ser");
@@ -71,6 +72,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             profileModel.set
         }
         */
+        standingOrderListModel=new StandingOrderListModel();
         //standingOrderListModel=StandingOrderListModel.getInstance();
         if(new File("StandingOrder.ser").exists()){
             standingOrderListModel=SerializableManager.readSerializable(this,"StandingOrder.ser");

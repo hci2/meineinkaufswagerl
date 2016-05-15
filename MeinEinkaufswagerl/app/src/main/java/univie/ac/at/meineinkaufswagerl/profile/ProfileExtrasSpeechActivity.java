@@ -62,9 +62,11 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
 
         //Unwrap the intent and get the temporary list.
         userModel = new UserModel();
-        userModel = (UserModel)getIntent().getExtras().getSerializable(ProfileDiseasesSpeechActivity.EXTRA_MESSAGE);
         profileModel = new ProfileModel();
-        profileModel = (ProfileModel)getIntent().getExtras().getSerializable(ProfileDiseasesSpeechActivity.EXTRA_LIST);
+        if(getIntent() != null && getIntent().getExtras() != null){
+            userModel = (UserModel)getIntent().getExtras().getSerializable(ProfileDiseasesSpeechActivity.EXTRA_MESSAGE);
+            profileModel = (ProfileModel)getIntent().getExtras().getSerializable(ProfileDiseasesSpeechActivity.EXTRA_LIST);
+        }
 
         //profileModel=new ProfileModel();
         /*

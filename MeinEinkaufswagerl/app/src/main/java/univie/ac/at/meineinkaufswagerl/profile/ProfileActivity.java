@@ -44,12 +44,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         initializeVariables();
 
-        //TODO: check auf null Object bei beiden
         //Unwrap the intent and get the temporary list.
         userModel = new UserModel();
-        userModel = (UserModel)getIntent().getExtras().getSerializable(HomeActivity.EXTRA_MESSAGE);
         profileModel = new ProfileModel();
-        profileModel = (ProfileModel)getIntent().getExtras().getSerializable(HomeActivity.EXTRA_LIST);
+        if(getIntent() != null && getIntent().getExtras() != null){
+            userModel = (UserModel)getIntent().getExtras().getSerializable(HomeActivity.EXTRA_MESSAGE);
+            profileModel = (ProfileModel)getIntent().getExtras().getSerializable(HomeActivity.EXTRA_LIST);
+        }
+
 
 
 
