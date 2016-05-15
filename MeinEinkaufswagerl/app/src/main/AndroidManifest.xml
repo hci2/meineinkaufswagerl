@@ -10,8 +10,11 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".HomeActivity"
+
+            android:screenOrientation="portrait" >
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,35 +52,16 @@
             android:configChanges="orientation|keyboardHidden"/>
         <activity
             android:name=".shoppinglist.ListConfirmationSpeechActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
-        <activity
-            android:name=".shoppinglist.ListFinishedSpeechActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
-        <activity android:name=".profile.ProfileNameSpeechActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
-        <activity
-            android:name=".profile.ProfileUnvertragSpeechActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
-        <activity
-            android:name=".profile.ProfileDiseasesSpeechActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
-        <activity
-            android:name=".profile.ProfileExtrasSpeechActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
-        <activity
-            android:name=".profile.ProfileAddressCharitySpeechActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
-        <activity
-            android:name=".profile.ProfileFinishedSpeechActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"></activity>
+
+            android:screenOrientation="portrait" />
+        <activity android:name=".shoppinglist.ListFinishedSpeechActivity" />
+        <activity android:name=".profile.ProfileNameSpeechActivity" />
+        <activity android:name=".profile.ProfileUnvertragSpeechActivity" />
+        <activity android:name=".profile.ProfileDiseasesSpeechActivity" />
+        <activity android:name=".profile.ProfileExtrasSpeechActivity" />
+        <activity android:name=".profile.ProfileFinishedSpeechActivity" />
+        <activity android:name=".shoppinglist.AdjustShoppingListActivity" />
+
     </application>
 
 </manifest>
