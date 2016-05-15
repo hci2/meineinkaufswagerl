@@ -27,8 +27,8 @@ import univie.ac.at.meineinkaufswagerl.model.UserModel;
 
 public class ProfileAddressCharitySpeechActivity extends AppCompatActivity implements Serializable {
 
-    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
-    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl";
+    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl.MESSAGE";
+    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl.LIST";
 
     TextView infoText, charityOrganisation;
     ImageButton speakAddress, readAddress;

@@ -23,8 +23,8 @@ import univie.ac.at.meineinkaufswagerl.shoppinglist.ShoppingManuallyActivity;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener,Serializable {
 
-    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
-    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl";
+    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl.MESSAGE";
+    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl.LIST";
 
     Button profilebutton, shoppingbutton;
     Button listButton;

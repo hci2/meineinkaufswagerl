@@ -23,8 +23,8 @@ import univie.ac.at.meineinkaufswagerl.model.UserModel;
  */
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener,Serializable {
 
-    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
-    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl";
+    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl.MESSAGE";
+    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl.LIST";
 
     TextView infotext;
     Button weiterButton;
@@ -48,8 +48,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         userModel = new UserModel();
         profileModel = new ProfileModel();
         if(getIntent() != null && getIntent().getExtras() != null){
-            userModel = (UserModel)getIntent().getExtras().getSerializable(HomeActivity.EXTRA_MESSAGE);
             profileModel = (ProfileModel)getIntent().getExtras().getSerializable(HomeActivity.EXTRA_LIST);
+            userModel = (UserModel)getIntent().getExtras().getSerializable(HomeActivity.EXTRA_MESSAGE);
         }
 
 

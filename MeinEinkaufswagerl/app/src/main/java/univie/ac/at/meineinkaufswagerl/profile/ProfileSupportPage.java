@@ -22,8 +22,8 @@ import univie.ac.at.meineinkaufswagerl.model.UserModel;
 public class ProfileSupportPage extends AppCompatActivity implements View.OnClickListener,Serializable {
 
 
-    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
-    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl";
+    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl.MESSAGE";
+    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl.LIST";
 
     TextView infoText;
     Button sprachButton;

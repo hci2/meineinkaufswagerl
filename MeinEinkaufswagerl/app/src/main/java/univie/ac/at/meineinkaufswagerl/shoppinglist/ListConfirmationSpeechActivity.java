@@ -70,7 +70,8 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
         standingOrderListModel = new StandingOrderListModel();
         if(getIntent() != null && getIntent().getExtras() != null){
             standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListCreateSpeechActivity.EXTRA_MESSAGE);
-            ArrayList<String> stringList = getIntent().getStringArrayListExtra(ListCreateSpeechActivity.EXTRA_LIST);
+            tempList = (TemporaryListModel) getIntent().getExtras().getSerializable(ListCreateSpeechActivity.EXTRA_LIST);
+            /*ArrayList<String> stringList = getIntent().getStringArrayListExtra(ListCreateSpeechActivity.EXTRA_LIST);
             if (stringList != null){
                 if (stringList.size() != 0) {
                     for (int i = 0; i < stringList.size(); i++) {
@@ -81,7 +82,14 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
                     txtSpeechList.setAdapter(adapter);
                 }
             } else{
-                //This is used to display the temporary list on the view
+                //This is used to display the standing order list on the view
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, standingOrderListModel.getTextList());
+                txtSpeechList.setAdapter(adapter);
+            }*/
+            if(tempList!=null && tempList.getSize()!=0){
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
+                txtSpeechList.setAdapter(adapter);
+            } else if(standingOrderListModel.getSize()!=0){
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, standingOrderListModel.getTextList());
                 txtSpeechList.setAdapter(adapter);
             }
@@ -148,8 +156,9 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
                 }
             } else if(textList.size()>standingOrderListModel.getSize()){
                 for(int i=0;i<textList.size();i++){
-                    if(i<=standingOrderListModel.getSize()){
+                    if(i<standingOrderListModel.getSize()){
                         standingOrderListModel.removeTextListElement(i);
+                        //TODO: Überarbeiten der Länge bis wohin löschen...
                     }
                     standingOrderListModel.addTextList(textList.get(i));
                 }

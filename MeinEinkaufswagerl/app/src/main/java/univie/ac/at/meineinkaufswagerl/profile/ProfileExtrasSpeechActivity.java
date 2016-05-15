@@ -29,8 +29,8 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
     //public final static String EXTRA_DISEASES = "univie.ac.at.meineinkaufswagerl";
     //public final static String EXTRA_EXTRAS = "univie.ac.at.meineinkaufswagerl";
 
-    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
-    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl";
+    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl.MESSAGE";
+    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl.LIST";
 
     private TextView infoText;
     private ImageButton btnSpeak;

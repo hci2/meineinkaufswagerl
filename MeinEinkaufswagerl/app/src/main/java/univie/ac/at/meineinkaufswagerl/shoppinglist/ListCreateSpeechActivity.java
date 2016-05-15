@@ -25,12 +25,11 @@ import univie.ac.at.meineinkaufswagerl.model.TemporaryListModel;
 
 public class ListCreateSpeechActivity extends AppCompatActivity implements Serializable {
 
-    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
-    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl";
+    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl.MESSAGE";
+    public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl.LIST";
     private TextView lastInputText;
     private ImageButton btnSpeak;
     private ListView txtSpeechList;
-    private TemporaryListModel tempList=new TemporaryListModel();
     private ImageButton btnRead;
     private TextToSpeechManager ttsManager = null;
     private Button btnNext;
@@ -46,7 +45,8 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
     private int MY_DATA_CHECK_CODE = 0;
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
-    StandingOrderListModel standingOrderListModel;
+    private StandingOrderListModel standingOrderListModel;
+    private TemporaryListModel tempList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
         if(getIntent() != null && getIntent().getExtras() != null){
             standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListSupportPage.EXTRA_MESSAGE);
         }
+        tempList=new TemporaryListModel();
 
 
 
@@ -223,7 +224,10 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
 
     public void goToNextPage(View v) {
         Intent intent= new Intent(this, ListConfirmationSpeechActivity.class);
-        intent.putExtra(EXTRA_LIST,tempList.getTextList());
+        //intent.putExtra(EXTRA_LIST,tempList.getTextList());
+        if(tempList!=null){
+            intent.putExtra(EXTRA_LIST,tempList);
+        }
         if(standingOrderListModel!=null){
             intent.putExtra(EXTRA_MESSAGE,standingOrderListModel);
         }
