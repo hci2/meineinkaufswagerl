@@ -57,14 +57,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         userModel=new UserModel();
         //userModel=UserModel.getInstance();
-        if(new File("User.ser").exists()){
-            userModel=SerializableManager.readSerializable(this,"User.ser");
+        String pathToAppFolder = getExternalFilesDir(null).getAbsolutePath();
+        String filePathProfile = pathToAppFolder +File.separator + "profile.ser";
+        String filePathUser = pathToAppFolder +File.separator + "user.ser";
+        String filePathStandingOrder = pathToAppFolder +File.separator + "standingorder.ser";
+        if(new File(filePathUser).exists()){
+            userModel=SerializableManager.readSerializable(filePathUser); // this,
         }
 
         profileModel=new ProfileModel();
         //profileModel=ProfileModel.getInstance();
-        if(new File("Profile.ser").exists()){
-            profileModel=SerializableManager.readSerializable(this,"Profile.ser");
+        if(new File(filePathProfile).exists()){
+            profileModel=SerializableManager.readSerializable(filePathProfile); //this,
         }
 
         /*
@@ -74,8 +78,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         */
         standingOrderListModel=new StandingOrderListModel();
         //standingOrderListModel=StandingOrderListModel.getInstance();
-        if(new File("StandingOrder.ser").exists()){
-            standingOrderListModel=SerializableManager.readSerializable(this,"StandingOrder.ser");
+        if(new File(filePathStandingOrder).exists()){
+            standingOrderListModel=SerializableManager.readSerializable(filePathStandingOrder); //this,
         }
 
     }

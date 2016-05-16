@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -86,13 +87,13 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, standingOrderListModel.getTextList());
                 txtSpeechList.setAdapter(adapter);
             }*/
-            if(tempList!=null && tempList.getSize()!=0){
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
-                txtSpeechList.setAdapter(adapter);
-            } else if(standingOrderListModel.getSize()!=0){
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, standingOrderListModel.getTextList());
-                txtSpeechList.setAdapter(adapter);
-            }
+        }
+        if(tempList!=null && tempList.getSize()!=0){
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
+            txtSpeechList.setAdapter(adapter);
+        } else if(standingOrderListModel!= null && standingOrderListModel.getSize()!=0){
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, standingOrderListModel.getTextList());
+            txtSpeechList.setAdapter(adapter);
         }
 
         // This is used for TextToSpeech
@@ -156,11 +157,14 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
                 }
             } else if(textList.size()>standingOrderListModel.getSize()){
                 for(int i=0;i<textList.size();i++){
-                    if(i<standingOrderListModel.getSize()){
+                    if(standingOrderListModel.getTextList().isEmpty()){
+                        standingOrderListModel.addTextList(textList.get(i));
+                    } else if(i<standingOrderListModel.getSize()){
                         standingOrderListModel.removeTextListElement(i);
-                        //TODO: Überarbeiten der Länge bis wohin löschen...
+                        standingOrderListModel.changeTextListElement(textList.get(i),i);
+                    } else {
+                        standingOrderListModel.addTextList(textList.get(i));
                     }
-                    standingOrderListModel.addTextList(textList.get(i));
                 }
             }
             Toast.makeText(getApplicationContext(),
@@ -241,8 +245,13 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
                     if((!temp) && (resultString.equals("ja") || resultString.equals("Ja") || resultString.contains("ja") || resultString.contains("Ja"))){
                         //TODO: dauerhafte Einkaufsliste + Adresse des Empfängers der Hilfsorganisation übermitteln
                         //TODO: Dauerhafte Liste serialisieren!
-                        SerializableManager.saveSerializable(this, standingOrderListModel,"StandingOrder.ser");
-
+                        String pathToAppFolder = getExternalFilesDir(null).getAbsolutePath();
+                        String filePathStandingOrder = pathToAppFolder +File.separator + "standingorder.ser";
+                        /*if(new File(filePathStandingOrder).exists()){
+                            SerializableManager.removeSerializable(this,filePathStandingOrder);
+                        }
+                        */
+                        SerializableManager.saveSerializable(standingOrderListModel,filePathStandingOrder); //this,
                         Intent intent= new Intent(this, ListFinishedSpeechActivity.class);
                         String message="Ihr Auftrag der dauerhaften Liste wurde erfolgreich gesendet";
                         intent.putExtra(EXTRA_MESSAGE,message);

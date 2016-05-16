@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -67,6 +68,7 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity imple
         }
 
 
+
         //userModel= new UserModel();
         //profileModel=new ProfileModel();
         /*
@@ -107,6 +109,9 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity imple
         adressList=new ArrayList<>();
         charityModel=new CharityModel();
 
+        //Test
+        charityOrganisation.setText(userModel.getFirstname()+" "+userModel.getLastname());
+
     }
 
 
@@ -138,8 +143,19 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity imple
         Intent intent= new Intent(this, ProfileFinishedSpeechActivity.class);
         userModel.setCreatedSuccessfullyProfile(true);
         //TODO: Daten des Profiles serialisieren um sie persistent zu speichern
-        SerializableManager.saveSerializable(this, profileModel,"Profile.ser");
-        SerializableManager.saveSerializable(this, userModel,"User.ser");
+        String pathToAppFolder = getExternalFilesDir(null).getAbsolutePath();
+        String filePathProfile = pathToAppFolder +File.separator + "profile.ser";
+        String filePathUser = pathToAppFolder +File.separator + "user.ser";
+        /*if(new File(filePathProfile).exists()){
+            SerializableManager.removeSerializable(this,filePathProfile);
+        }
+        */
+        SerializableManager.saveSerializable(profileModel,filePathProfile); //this,
+        /*if(new File(filePathUser).exists()){
+            SerializableManager.removeSerializable(this,filePathUser);
+        }
+        */
+        SerializableManager.saveSerializable(userModel,filePathUser); //this,
 
         //stellt sicher dass das Profil erfolgreich erstellt wurde, muss beim Listen erstellen geprüft werden
         startActivity(intent);

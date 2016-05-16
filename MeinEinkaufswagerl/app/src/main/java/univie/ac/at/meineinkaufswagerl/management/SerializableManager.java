@@ -25,21 +25,22 @@ public class SerializableManager {
     /**
      * Saves a serializable object.
      *
-     * @param context The application context.
+     //* @param context The application context.
      * @param objectToSave The object to save.
      //* @param fileName The name of the file.
      //* @param <T> The type of the object.
      */
 
-    public static <T extends Serializable> void saveSerializable(Context context, T objectToSave, String fileName) { //Parameter String fileName
+    public static <T extends Serializable> void saveSerializable(T objectToSave, String fileName) { //Parameter String fileName Context context,
         try {
-            FileOutputStream fileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            //FileOutputStream fileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(fileName));
+            //ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
             objectOutputStream.writeObject(objectToSave);
 
             objectOutputStream.close();
-            fileOutputStream.close();
+            //fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,23 +92,24 @@ public class SerializableManager {
     /**
      * Loads a serializable object.
      *
-     * @param context The application context.
+     //* @param context The application context.
      //* @param fileName The filename.
      //* @param <T> The object type.
      *
      * @return the serializable object.
      */
 
-    public static<T extends Serializable> T readSerializable(Context context,String fileName) {//Parameter String fileName
+    public static<T extends Serializable> T readSerializable(String fileName) {//Parameter String fileName Context context,
         T objectToReturn = null;
 
         try {
-            FileInputStream fileInputStream = context.openFileInput(fileName);
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            //FileInputStream fileInputStream = context.openFileInput(fileName);
+            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(fileName));
+            //ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             objectToReturn = (T) objectInputStream.readObject();
 
             objectInputStream.close();
-            fileInputStream.close();
+            //fileInputStream.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -174,9 +176,9 @@ public class SerializableManager {
      * @param context The application context.
      //* @param filename The name of the file.
      */
-
+    /*
     public static void removeSerializable(Context context,String fileName) { //Parameter: String filename
         context.deleteFile(fileName);
     }
-
+    */
 }
