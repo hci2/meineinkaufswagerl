@@ -3,8 +3,8 @@
     <string name="noProfileCreated">Sie können keine Einkaufsliste erstellen vor einmaliger Profilerstellung&#8230;</string>
 
     <string name="action_settings">Einstellungen</string>
-    <string name="speech_prompt">Sagen Sie was sie kaufen wollen&#8230;</string>
-    <string name="speech_change">Sagen Sie was sie ändern wollen&#8230;</string>
+    <string name="speech_prompt">Sagen Sie was (Menge,Produkt) sie kaufen wollen&#8230;</string>
+    <string name="speech_change">Sagen Sie was (Menge,Produkt) sie ändern wollen&#8230;</string>
     <string name="speech_index">Sagen Sie welche Zeile sie ändern wollen&#8230;</string>
     <string name="speech_index_missunderstand">Es ist ein Fehler aufgetreten, versuchen Sie es nochmal!</string>
     <string name="speech_not_supported">Entschuldigung! Ihr Gerät unterstützt die Spracheingabe nicht!</string>
@@ -22,8 +22,9 @@
     <string name="txt_stueckanzahl">Stückanzahl:</string>
     <string name="btn_delete">Produkt löschen</string>
 
-    <string name="explaination_speech">Sie haben Spracheingabe gewählt. Bei dem Mund Button können Sie sprechen und beim Ohr Button können Sie sich das zuvor Gesprochene anhören. Falls Sie etwas ändern wollen, können Sie mit dem # Button die Zeile angeben und mit dem Schreibblock Button den zu ändernden Inhalt mitteilen. Außerdem können Sie eine einmalige Einkaufsliste oder eine dauerhafte Einkaufsliste erstellen und anfordern.</string>
+    <string name="explaination_speech">Sie haben Spracheingabe gewählt. Bei dem Mund Button können Sie mitteilen was (Menge,Produkt) Sie kaufen wollen und beim Ohr Button können Sie sich das zuvor Gesprochene anhören. Falls Sie etwas ändern wollen, können Sie mit dem # Button die Zeile angeben und mit dem Schreibblock Button den zu ändernden Inhalt (Menge, Produkt) mitteilen. Außerdem können Sie eine einmalige Einkaufsliste oder eine dauerhafte Einkaufsliste erstellen und anfordern.</string>
     <string name="recommendation_person">In diesem Menü können Sie ihr Ernährungsprofil bearbeiten. Zur Einrichtung wird eine zusätzliche Person empfohlen, die bei Problemen helfen kann.</string>
+    <string name="product_incompatible_with_user">Sie vertragen dieses Produkt nicht&#8230;</string>
 
     <string name="home_info_text">Info: Diese App dient zur Aufnahme Ihrer Kaufwünsche in eine Liste, die danach einer gemeinwohlnützigen Organisation übermittelt wird. \nBitte bei erstmaliger Nutzung Profil anlegen!</string>
 

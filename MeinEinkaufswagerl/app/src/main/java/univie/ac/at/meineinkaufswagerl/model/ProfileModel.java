@@ -74,6 +74,36 @@ public class ProfileModel implements Serializable{ //extends UserModel
         }
     }
 
+    public boolean notInDisease(String searchedDisease){
+        for(int i=0; i<krankheitenListe.size();i++){
+            if(krankheitenListe.get(i).equals(searchedDisease) || krankheitenListe.get(i).contains(searchedDisease) ||krankheitenListe.get(i).contentEquals(searchedDisease)
+                    ||krankheitenListe.get(i).equalsIgnoreCase(searchedDisease)||searchedDisease.matches(krankheitenListe.get(i)) ||krankheitenListe.get(i).contains(searchedDisease.substring(1,3))){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean notInIntolerance(String searchedDisease){
+        for(int i=0; i<unvertraeglichkeitenListe.size();i++){
+            if(unvertraeglichkeitenListe.get(i).equals(searchedDisease) || unvertraeglichkeitenListe.get(i).contains(searchedDisease) ||unvertraeglichkeitenListe.get(i).contentEquals(searchedDisease)
+                    ||unvertraeglichkeitenListe.get(i).equalsIgnoreCase(searchedDisease)||searchedDisease.matches(unvertraeglichkeitenListe.get(i)) ||unvertraeglichkeitenListe.get(i).contains(searchedDisease.substring(1,3))){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean notInExtra(String searchedDisease){
+        for(int i=0; i<extraListe.size();i++){
+            if(extraListe.get(i).equals(searchedDisease) || extraListe.get(i).contains(searchedDisease) ||extraListe.get(i).contentEquals(searchedDisease)
+                    ||extraListe.get(i).equalsIgnoreCase(searchedDisease)||searchedDisease.matches(extraListe.get(i)) ||extraListe.get(i).contains(searchedDisease.substring(1,3))){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public  ArrayList<String> getKrankheitenListe() {
         return krankheitenListe;
     }

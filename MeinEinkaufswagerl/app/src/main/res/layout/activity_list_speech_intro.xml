@@ -22,7 +22,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.28"
         android:textSize="15dp"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="10dp" />
 
     <Button
         android:layout_width="192dp"
@@ -32,7 +32,7 @@
         android:onClick="goToListCreateSpeechActivity"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.14"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:textSize="15dp" />
 
 </LinearLayout>

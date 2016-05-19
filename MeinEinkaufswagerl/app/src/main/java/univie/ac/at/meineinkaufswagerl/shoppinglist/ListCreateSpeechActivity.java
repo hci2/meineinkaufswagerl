@@ -14,12 +14,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Locale;
 
 import univie.ac.at.meineinkaufswagerl.R;
+import univie.ac.at.meineinkaufswagerl.management.SerializableManager;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
+import univie.ac.at.meineinkaufswagerl.model.ProductModel;
+import univie.ac.at.meineinkaufswagerl.model.ProductNotFittingModel;
+import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
 import univie.ac.at.meineinkaufswagerl.model.StandingOrderListModel;
 import univie.ac.at.meineinkaufswagerl.model.TemporaryListModel;
 
@@ -47,6 +52,9 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
 
     private StandingOrderListModel standingOrderListModel;
     private TemporaryListModel tempList;
+    private ArrayList<ProductModel>currentAvailableProductList;
+    private ArrayList<String>currentListView;
+    private ProfileModel profileModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +67,16 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
             standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListSupportPage.EXTRA_MESSAGE);
         }
         tempList=new TemporaryListModel();
+        createProducts();
 
+
+        String pathToAppFolder = getExternalFilesDir(null).getAbsolutePath();
+        String filePathProfile = pathToAppFolder +File.separator + "profile.ser";
+        profileModel=new ProfileModel();
+        //profileModel=ProfileModel.getInstance();
+        if(new File(filePathProfile).exists()){
+            profileModel= SerializableManager.readSerializable(filePathProfile); //this,
+        }
 
 
         //initiate TextToSpeechManager
@@ -130,6 +147,45 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                 }
             }
         });
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, currentListView);
+        txtSpeechList.setAdapter(adapter);
+    }
+
+    private boolean isUserCompatibleWithProduct(String product){
+        ProductNotFittingModel productNotFittingModel=new ProductNotFittingModel();
+        String[][] productUnfitList=productNotFittingModel.getProductUnfitList();
+        for (int row =0;row<productUnfitList.length;row++){
+            int col=0;
+            if(productUnfitList[row][col].equals(product)){
+                for (col =1;col<productUnfitList[row].length;col++) {
+                    if(profileModel.notInIntolerance(productUnfitList[row][col]) && profileModel.notInDisease(productUnfitList[row][col]) && profileModel.notInExtra(product)){
+                        return true;
+                    }
+                }
+            }
+
+        }
+        return false;
+    }
+
+    private void createProducts() {
+        this.currentAvailableProductList = new ArrayList<ProductModel>();
+        this.currentAvailableProductList.add(new ProductModel("Milch", 1.0f, "Lebensmittel", 1.0f, "Liter", R.drawable.milch));
+        this.currentAvailableProductList.add(new ProductModel("Brot",0.50f,"Lebensmittel",1.0f,"Kilo", R.drawable.brot));
+        this.currentAvailableProductList.add(new ProductModel("Joghurt", 0.30f, "Lebensmittel", 0.25f, "Kilo", R.drawable.joghurt));
+        this.currentAvailableProductList.add(new ProductModel("Karotten",1.25f,"Lebensmittel",1.0f,"Kilo",R.drawable.karotten));
+        this.currentAvailableProductList.add(new ProductModel("Äpfel", 2.15f, "Lebensmittel", 2.0f, "Kilo", R.drawable.apfel));
+        this.currentAvailableProductList.add(new ProductModel("Cola",1.85f,"Lebensmittel",2.0f,"Liter",R.drawable.cola));
+        this.currentAvailableProductList.add(new ProductModel("Waschmittel",5.20f,"Haushalt",3.0f,"Kilo",R.drawable.waschmittel));
+        this.currentAvailableProductList.add(new ProductModel("Zahnpasta", 1.50f, "Haushalt", 0.20f, "Kilo", R.drawable.zahnpasta));
+        this.currentAvailableProductList.add(new ProductModel("Duschgel",2.0f,"Haushalt",0.03f,"Liter",R.drawable.duschgel));
+        this.currentAvailableProductList.add(new ProductModel("Staubsauger", 80.0f, "Haushalt", 1.0f, "Stück", R.drawable.staubsauger));
+        currentListView=new ArrayList<String>();
+        for(int i=0;i<currentAvailableProductList.size();i++){
+            currentListView.add(currentAvailableProductList.get(i).getName());
+        }
     }
 
     /**
@@ -195,14 +251,75 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                             index=false;
                             return;
                         }
-                        tempList.removeTextListElement(indexChange); //Integer.parseInt(number)
-                        tempList.changeTextListElement(resultString, indexChange); //resultString.substring(resultString.lastIndexOf(number)+1),Integer.parseInt(number)
-                        lastInputText.setText("Letzte Änderung: "+(indexChange+1)+" Zeile. "+resultString);
-                        change=false;
-                        index=false;
+                        String splitResult[];
+                        splitResult=resultString.split(" ");
+                        String product=splitResult[(splitResult.length)-1];
+                        boolean changeSuccess=false;
+                        check:
+                        {
+                            for (int i = 0; i < currentListView.size(); i++) {
+                                if (currentListView.get(i).equals(product) || currentListView.get(i).contains(product) || currentListView.get(i).contentEquals(product)
+                                        || currentListView.get(i).equalsIgnoreCase(product) || product.matches(currentListView.get(i)) || currentListView.get(i).contains(resultString.substring(1, 3))) {
+                                    //TODO: Prüfung User auf Intoleranzen,Krankheiten, Extras               MENGE PARSEN und SETTEN
+                                    if (isUserCompatibleWithProduct(product)) { //TODO: Methode if auslösendes currentListView.get(i).getName() übergeben
+                                        tempList.removeTextListElement(indexChange); //Integer.parseInt(number)
+                                        tempList.changeTextListElement(resultString, indexChange); //resultString.substring(resultString.lastIndexOf(number)+1),Integer.parseInt(number)
+
+                                        lastInputText.setText("Letzte Änderung: " + (indexChange + 1) + " Zeile. " + resultString);
+                                        change = false;
+                                        index = false;
+                                        changeSuccess = true;
+                                        break check;
+                                    } else{
+                                        Toast.makeText(getApplicationContext(),
+                                                getString(R.string.product_incompatible_with_user),
+                                                Toast.LENGTH_LONG).show();
+                                        break check;
+                                    }
+
+                                }
+                            }
+                        }
+                        if(!changeSuccess){
+                            Toast.makeText(getApplicationContext(),
+                                    getString(R.string.speech_index_missunderstand),
+                                    Toast.LENGTH_LONG).show();
+                        }
+
                     } else {
-                        lastInputText.setText("Letzte Eingabe: "+resultString);
-                        tempList.addTextList(resultString);
+                        String splitResult[];
+                        splitResult=resultString.split(" ");
+                        String product=splitResult[(splitResult.length)-1];
+                        boolean addSuccess=false;
+                        check:
+                        {
+                            for (int i = 0; i < currentListView.size(); i++) {
+                                if (currentListView.get(i).equals(product) || currentListView.get(i).contains(product) || currentListView.get(i).contentEquals(product)
+                                        || currentListView.get(i).equalsIgnoreCase(product) || product.matches(currentListView.get(i)) || currentListView.get(i).contains(resultString.substring(1, 3))) {
+                                    //TODO: Prüfung User auf Intoleranzen,Krankheiten, Extras               MENGE PARSEN und SETTEN
+                                    if (isUserCompatibleWithProduct(product)) { //TODO: Methode if auslösendes currentListView.get(i).getName() übergeben
+                                        lastInputText.setText("Letzte Eingabe: " + resultString);
+                                        tempList.addTextList(resultString);
+                                        addSuccess = true;
+                                        break check;
+                                    } else {
+                                        Toast.makeText(getApplicationContext(),
+                                                getString(R.string.product_incompatible_with_user),
+                                                Toast.LENGTH_LONG).show();
+                                        break check;
+                                    }
+
+
+                                }
+
+                            }
+                        }
+                        if(!addSuccess){
+                            Toast.makeText(getApplicationContext(),
+                                    getString(R.string.speech_index_missunderstand),
+                                    Toast.LENGTH_LONG).show();
+                        }
+
                     }
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
