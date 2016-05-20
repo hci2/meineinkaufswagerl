@@ -9,92 +9,64 @@
     android:paddingTop="@dimen/activity_vertical_margin">-->
 
 
-    <ListView
-        android:layout_width="231dp"
-        android:layout_height="324dp"
-        android:id="@+id/extraListe"
-        android:layout_marginLeft="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_x="18dp"
-        android:layout_y="22dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageButton
-        android:layout_width="97dp"
-        android:layout_height="97dp"
-        android:id="@+id/btnRead"
-        android:layout_marginRight="20dp"
-        android:src="@drawable/ear_icon"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/btnChange"
-        android:layout_x="260dp"
-        android:layout_y="28dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-    <TableLayout
-    android:layout_width="fill_parent"
-    android:layout_height="158dp"
-        android:layout_x="0dp"
-        android:layout_y="349dp">
-    <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-    <Button
-        android:layout_column="1"
-        android:layout_width="167dp"
-        android:layout_height="82dp"
-        android:text="Hinzufügen zur dauerhaften Liste"
-        android:id="@+id/addStandButton"
-        android:onClick="addStandButton"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.14"
-        android:layout_above="@+id/replaceStandButton"
-        android:layout_alignParentStart="true"
-        android:layout_x="184dp"
-        android:layout_y="364dp" />
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/extraListe"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_x="18dp"
+                android:layout_y="22dp"
+                android:layout_weight="1" />
+        </LinearLayout>
 
-    <Button
-        android:layout_column="2"
-        android:layout_width="167dp"
-        android:layout_height="82dp"
-        android:text="Ersetzen dieser Liste mit der dauerhaften Liste"
-        android:id="@+id/replaceStandButton"
-        android:onClick="replaceStandButton"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.14"
-        android:layout_below="@+id/btnChange"
-        android:layout_alignParentStart="true"
-        android:layout_x="10dp"
-        android:layout_y="359dp" />
-    </TableRow>
-    <TableRow>
-    <Button
-        android:layout_column="1"
-        android:layout_width="163dp"
-        android:layout_height="75dp"
-        android:text="Anfordern der einmaligen Liste"
-        android:id="@+id/finishTempButton"
-        android:onClick="goToFinishTempPage"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.14"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_x="186dp"
-        android:layout_y="437dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
 
-    <Button
-        android:layout_column="2"
-        android:layout_width="163dp"
-        android:layout_height="75dp"
-        android:text="Anfordern der dauerhaften Liste"
-        android:id="@+id/finishStandButton"
-        android:onClick="goToFinishStandPage"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.14"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_x="12dp"
-        android:layout_y="447dp" />
-    </TableRow>
-    </TableLayout>
+            <Button
+                android:layout_column="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Dauerauftrag"
+                android:id="@+id/finishStandButton"
+                android:onClick="goToFinishStandPage"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_x="12dp"
+                android:layout_y="447dp" />
+
+            <Button
+            android:layout_column="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Absenden"
+            android:id="@+id/finishTempButton"
+            android:onClick="goToFinishTempPage"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_x="186dp"
+            android:layout_y="437dp" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </AbsoluteLayout>
