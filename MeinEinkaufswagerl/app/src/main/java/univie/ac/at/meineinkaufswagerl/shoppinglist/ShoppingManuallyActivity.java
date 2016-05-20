@@ -67,7 +67,7 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
         this.lebensmittel.add(new ProductModel("Brot",0.50f,"Lebensmittel",1.0f,"Kilo", R.drawable.brot));
         this.lebensmittel.add(new ProductModel("Joghurt", 0.30f, "Lebensmittel", 0.25f, "Kilo", R.drawable.joghurt));
         this.lebensmittel.add(new ProductModel("Karotten",1.25f,"Lebensmittel",1.0f,"Kilo",R.drawable.karotten));
-        this.lebensmittel.add(new ProductModel("Äpfel", 2.15f, "Lebensmittel", 2.0f, "Kilo", R.drawable.apfel));
+        this.lebensmittel.add(new ProductModel("Apfel", 2.15f, "Lebensmittel", 2.0f, "Kilo", R.drawable.apfel));
         this.lebensmittel.add(new ProductModel("Cola",1.85f,"Lebensmittel",2.0f,"Liter",R.drawable.cola));
         this.haushalt.add(new ProductModel("Waschmittel",5.20f,"Haushalt",3.0f,"Kilo",R.drawable.waschmittel));
         this.haushalt.add(new ProductModel("Zahnpasta", 1.50f, "Haushalt", 0.20f, "Kilo", R.drawable.zahnpasta));

@@ -17,7 +17,7 @@
     <string name="btn_toList">Zur Einkaufsliste</string>
     <string name="btn_vorlesen">Vorlesen</string>
     <string name="btn_ergaenzen">Ergänzen</string>
-    <string name="btn_dauerauftrag">Dauerauftrag?</string>
+    <string name="btn_dauerauftrag">Dauerauftrag</string>
     <string name="btn_absenden">Absenden</string>
     <string name="txt_stueckanzahl">Stückanzahl:</string>
     <string name="btn_delete">Produkt löschen</string>

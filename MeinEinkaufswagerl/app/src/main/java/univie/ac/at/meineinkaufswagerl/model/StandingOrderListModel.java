@@ -23,8 +23,6 @@ public class StandingOrderListModel implements Serializable{
     */
     private  ArrayList<String> standingOrderList= new ArrayList<>();
 
-
-
     public StandingOrderListModel() {
         standingOrderList = new ArrayList<>();
     }
@@ -38,7 +36,7 @@ public class StandingOrderListModel implements Serializable{
     }
 
     public  void changeTextListElement(String speechInput, int index){
-        standingOrderList.add(index,speechInput);
+        standingOrderList.add(index, speechInput);
     }
 
     public  void removeTextListElement(int index){
@@ -47,5 +45,15 @@ public class StandingOrderListModel implements Serializable{
 
     public  int getSize(){
         return standingOrderList.size();
+    }
+
+    private  ArrayList<ProductModel> productList= new ArrayList<>();
+
+    public ArrayList<ProductModel> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(ArrayList<ProductModel> productList) {
+        this.productList = productList;
     }
 }
