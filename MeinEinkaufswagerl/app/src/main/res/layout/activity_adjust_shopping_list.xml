@@ -5,7 +5,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="univie.ac.at.meineinkaufswagerl.shoppinglist.AdjustShoppingListActivity">
+    tools:context="univie.ac.at.meineinkaufswagerl.shoppinglist.AdjustShoppingListActivity"
+    android:background="#f5f8d9">
 
     <LinearLayout
         android:orientation="vertical"
