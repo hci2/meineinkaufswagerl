@@ -5,6 +5,7 @@
     <string name="action_settings">Einstellungen</string>
     <string name="speech_prompt">Sagen Sie was (Menge,Produkt) sie kaufen wollen&#8230;</string>
     <string name="speech_change">Sagen Sie was (Menge,Produkt) sie ändern wollen&#8230;</string>
+    <string name="speech_remove">Sagen Sie welche Zeile sie löschen wollen&#8230;</string>
     <string name="speech_index">Sagen Sie welche Zeile sie ändern wollen&#8230;</string>
     <string name="speech_index_missunderstand">Es ist ein Fehler aufgetreten, versuchen Sie es nochmal!</string>
     <string name="speech_not_supported">Entschuldigung! Ihr Gerät unterstützt die Spracheingabe nicht!</string>

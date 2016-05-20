@@ -32,7 +32,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
 
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl.MESSAGE";
     public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl.LIST";
-    private TextView lastInputText;
+    public final static String EXTRA_PRODUCT = "univie.ac.at.meineinkaufswagerl.PRODUCT";
     private ImageButton btnSpeak;
     private ListView txtSpeechList;
     private ImageButton btnRead;
@@ -41,11 +41,8 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
     //SpeechToTextManager sttManager = null;
 
     //For Changing
-    private ImageButton btnChange;
-    private ImageButton btnIndex;
-    private boolean change=false;
-    private boolean index=false;
-    private int indexChange;
+    private ImageButton btnRemove;
+    private boolean remove=false;
 
     private int MY_DATA_CHECK_CODE = 0;
     private final int REQ_CODE_SPEECH_INPUT = 100;
@@ -53,6 +50,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
     private StandingOrderListModel standingOrderListModel;
     private TemporaryListModel tempList;
     private ArrayList<ProductModel>currentAvailableProductList;
+    private ArrayList<ProductModel>temporaryProductList;
     private ArrayList<String>currentListView;
     private ProfileModel profileModel;
 
@@ -90,27 +88,17 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
         checkSpeech();
 
         //initialize all the elements of the layout xml
-        lastInputText = (TextView) findViewById(R.id.lastInputText);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
         txtSpeechList = (ListView) findViewById(R.id.extraListe);
         btnRead = (ImageButton) findViewById(R.id.btnRead);
-        btnChange = (ImageButton) findViewById(R.id.btnChange);
-        btnIndex = (ImageButton) findViewById(R.id.btnIndex);
+        btnRemove = (ImageButton) findViewById(R.id.btnRemove);
         btnNext = (Button) findViewById(R.id.nextButton);
 
-        // This is used to Change an index of the List
-        btnChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                change=true;
-                speechText();
-            }
-        });
         // This is used to get the index for changing a line of the List
-        btnIndex.setOnClickListener(new View.OnClickListener() {
+        btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                index=true;
+                remove=true;
                 speechText();
             }
         });
@@ -120,16 +108,6 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
             @Override
             public void onClick(View v) {
                 speechText();
-                //promptSpeechInput();
-                /*TODO: Trying to use a own class for SpeechToText
-                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                sttManager.init(intent);
-                String spokenWords=sttManager.getSpokenWords();
-                txtTextView.setText(spokenWords);
-                list.addTextList(spokenWords);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(HomeActivity.this, android.R.layout.simple_spinner_dropdown_item, list.getTextList());
-                txtSpeechList.setAdapter(adapter);
-                */
             }
         });
 
@@ -171,6 +149,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
     }
 
     private void createProducts() {
+        temporaryProductList= new  ArrayList<ProductModel>();
         this.currentAvailableProductList = new ArrayList<ProductModel>();
         this.currentAvailableProductList.add(new ProductModel("Milch", 1.0f, "Lebensmittel", 1.0f, "Liter", R.drawable.milch));
         this.currentAvailableProductList.add(new ProductModel("Brot",0.50f,"Lebensmittel",1.0f,"Kilo", R.drawable.brot));
@@ -204,12 +183,9 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.GERMAN);
-        if(!change && index){
+        if(remove){
             intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                    getString(R.string.speech_index));
-        } else if(change && index){
-            intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                    getString(R.string.speech_change));
+                    getString(R.string.speech_remove));
         } else {
             intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
                     getString(R.string.speech_prompt));
@@ -235,57 +211,37 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String resultString=result.get(0);
-                    if(!change && index){
+                    if(remove){
+                        boolean changeSuccess=false;
                         try{
-                            indexChange=Integer.parseInt(resultString)-1;
+                            int removeLine=Integer.parseInt(resultString)-1;
+
+                            //To get just the number as String
+                            //String number=resultString.replaceAll("[^0-9]", "");
+                            if(tempList.getTextList().size()==0 || tempList.getTextList().size()<removeLine){
+                                remove=false;
+                                return;
+                            }
+
+
+                            tempList.removeTextListElement(removeLine); //Integer.parseInt(number)
+                            //tempList.changeTextListElement(resultString, indexChange); //resultString.substring(resultString.lastIndexOf(number)+1),Integer.parseInt(number)
+
+                            remove=false;
+                            changeSuccess = true;
+
+
                         } catch(Exception pe){
+                            remove=false;
                             Toast.makeText(getApplicationContext(),
                                     getString(R.string.speech_index_missunderstand),
                                     Toast.LENGTH_SHORT).show();
-                        }
-                    } else if(change && index){
-                        //To get just the number as String
-                        //String number=resultString.replaceAll("[^0-9]", "");
-                        if(tempList.getTextList().size()==0){
-                            change=false;
-                            index=false;
-                            return;
-                        }
-                        String splitResult[];
-                        splitResult=resultString.split(" ");
-                        String product=splitResult[(splitResult.length)-1];
-                        boolean changeSuccess=false;
-                        check:
-                        {
-                            for (int i = 0; i < currentListView.size(); i++) {
-                                if (currentListView.get(i).equals(product) || currentListView.get(i).contains(product) || currentListView.get(i).contentEquals(product)
-                                        || currentListView.get(i).equalsIgnoreCase(product) || product.matches(currentListView.get(i)) || currentListView.get(i).contains(resultString.substring(1, 3))) {
-                                    //TODO: Prüfung User auf Intoleranzen,Krankheiten, Extras               MENGE PARSEN und SETTEN
-                                    if (isUserCompatibleWithProduct(product)) { //TODO: Methode if auslösendes currentListView.get(i).getName() übergeben
-                                        tempList.removeTextListElement(indexChange); //Integer.parseInt(number)
-                                        tempList.changeTextListElement(resultString, indexChange); //resultString.substring(resultString.lastIndexOf(number)+1),Integer.parseInt(number)
-
-                                        lastInputText.setText("Letzte Änderung: " + (indexChange + 1) + " Zeile. " + resultString);
-                                        change = false;
-                                        index = false;
-                                        changeSuccess = true;
-                                        break check;
-                                    } else{
-                                        Toast.makeText(getApplicationContext(),
-                                                getString(R.string.product_incompatible_with_user),
-                                                Toast.LENGTH_LONG).show();
-                                        break check;
-                                    }
-
-                                }
-                            }
                         }
                         if(!changeSuccess){
                             Toast.makeText(getApplicationContext(),
                                     getString(R.string.speech_index_missunderstand),
                                     Toast.LENGTH_LONG).show();
                         }
-
                     } else {
                         String splitResult[];
                         splitResult=resultString.split(" ");
@@ -298,8 +254,17 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                                         || currentListView.get(i).equalsIgnoreCase(product) || product.matches(currentListView.get(i)) || currentListView.get(i).contains(resultString.substring(1, 3))) {
                                     //TODO: Prüfung User auf Intoleranzen,Krankheiten, Extras               MENGE PARSEN und SETTEN
                                     if (isUserCompatibleWithProduct(product)) { //TODO: Methode if auslösendes currentListView.get(i).getName() übergeben
-                                        lastInputText.setText("Letzte Eingabe: " + resultString);
                                         tempList.addTextList(resultString);
+
+                                        //Hinzufügen zur arraylist products
+                                        for(int u=0; i<currentAvailableProductList.size();u++){
+                                            if(currentListView.get(u).equals(currentAvailableProductList.get(u).getName())){
+                                                temporaryProductList.add(currentAvailableProductList.get(u));
+                                            }
+                                        }
+
+
+
                                         addSuccess = true;
                                         break check;
                                     } else {
@@ -347,6 +312,9 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
         }
         if(standingOrderListModel!=null){
             intent.putExtra(EXTRA_MESSAGE,standingOrderListModel);
+        }
+        if(temporaryProductList!=null){
+            intent.putExtra(EXTRA_PRODUCT,temporaryProductList);
         }
         startActivity(intent);
     }
