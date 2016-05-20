@@ -27,6 +27,7 @@ public class ListSupportPage extends AppCompatActivity implements Serializable {
     //This variable is used to get access to the TextToSpeech
     private TextToSpeechManager ttsManager = null;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -67,12 +68,15 @@ public class ListSupportPage extends AppCompatActivity implements Serializable {
         startActivity(intent);
     }
 
-    public void goToTextSupportedList(View v) {
-        Intent intent= new Intent(this, ListCreateTextActivity.class);
-        String message="";
-        intent.putExtra(EXTRA_MESSAGE,message);
+    public void goToShoppingManuallyActivity(View v) {
+        Intent intent= new Intent(this, ShoppingManuallyActivity.class);
+        if(standingOrderListModel!=null){
+            intent.putExtra(EXTRA_MESSAGE,standingOrderListModel);
+        }
         startActivity(intent);
     }
+
+
     public void readInfoText(View v){
         // Startet auf Knopfdruck die Sprachausgabe
         String text = infoText.getText().toString();

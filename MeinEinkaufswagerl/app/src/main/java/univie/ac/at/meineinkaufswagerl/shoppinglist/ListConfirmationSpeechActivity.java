@@ -62,7 +62,7 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
 
         //Unwrap the intent and get the temporary list.
         tempList=new TemporaryListModel();
-        temporaryProductList = new ArrayList<>();
+        temporaryProductList = new ArrayList<ProductModel>();
 
         //Unwrap the intent and get the temporary list.
         standingOrderListModel = new StandingOrderListModel();
@@ -86,6 +86,7 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
                 txtSpeechList.setAdapter(adapter);
             }*/
         }
+
         if(tempList!=null && tempList.getSize()!=0){
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
             txtSpeechList.setAdapter(adapter);
@@ -93,7 +94,6 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, standingOrderListModel.getTextList());
             txtSpeechList.setAdapter(adapter);
         }
-
         //check TTS version on executing device - needed for SpeechToText
         checkSpeech();
 
@@ -173,6 +173,11 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
 
         }
 
+        if(tempList.getSize()==0){
+            ttsManager.addQueue("Sie können keine leere Einkaufsliste bestellen! Bitte ergänzen Sie ihre Liste oder bestellen Sie eine dauerhafte Liste!");
+            return;
+        }
+
         ttsManager.addQueue("Sind Sie sicher, ob sie die eigene Liste kaufen wollen?");
         //This is used to make a 4 second pause
         final Handler handler1 = new Handler();
@@ -187,15 +192,37 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
     }
     public void goToFinishStandPage(View v) {
         ArrayList<String> textList=standingOrderListModel.getTextList();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, textList);
-        txtSpeechList.setAdapter(adapter);
+
 
         if(!(textList.size()==0)){
+            if(tempList.getSize()!=0){
+                ArrayList<String> temporaryList=tempList.getTextList();
+                for(int i=0;i<temporaryList.size();i++){
+                    textList.add(temporaryList.get(i));
+                }
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, textList);
+            txtSpeechList.setAdapter(adapter);
+
             ttsManager.initQueue(textList.get(0));
             for(int i=1;i<textList.size();i++){
                 ttsManager.addQueue(textList.get(i));
             }
 
+        }else{
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
+            txtSpeechList.setAdapter(adapter);
+
+            ttsManager.initQueue(textList.get(0));
+            for(int i=1;i<textList.size();i++){
+                ttsManager.addQueue(textList.get(i));
+            }
+        }
+
+
+        if(tempList.getSize()==0 && standingOrderListModel.getSize()==0){
+            ttsManager.addQueue("Sie können keine leere Einkaufsliste bestellen!");
+            return;
         }
 
         ttsManager.addQueue("Sind Sie sicher, ob sie die dauerhafte Liste kaufen wollen?");

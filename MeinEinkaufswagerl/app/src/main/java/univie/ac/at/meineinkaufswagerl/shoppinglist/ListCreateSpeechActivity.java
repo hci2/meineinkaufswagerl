@@ -122,6 +122,10 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                     for(int i=1;i<textList.size();i++){
                         ttsManager.addQueue(textList.get(i));
                     }
+                } else{
+                    for(int i=0;i<currentListView.size();i++){
+                        ttsManager.addQueue(currentListView.get(i));
+                    }
                 }
             }
         });
@@ -146,6 +150,53 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
 
         }
         return false;
+    }
+
+    private  boolean isInt(String str)
+    {
+        try
+        {
+            int d = Integer.parseInt(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private int getNumberFromWrittenForm(String number){
+        String [][] textToNumber = new String[][]{
+                //TODO: Überlegen zu welchen Produkten welche Unverträglichkeiten und Krankheiten sich nicht vertragen
+                {"ein", "1"},
+                {"zwei", "2"},
+                {"drei", "3"},
+                {"vier", "4"},
+                {"fünf", "5"},
+                {"sechs", "6"},
+                {"sieben", "7"},
+                {"acht", "8"},
+                {"neun", "9"},
+                {"zehn", "10"},
+                {"elf", "11"},
+                {"zwölf", "12"},
+                {"dreizehn", "13"},
+                {"vierzehn", "14"},
+                {"fünfzehn", "15"},
+                {"sechzehn", "16"},
+                {"siebzehn", "17"},
+                {"achtzehn", "18"},
+                {"neunzehn", "19"},
+                {"zwanzig", "20"},};
+
+        for(int row=0;row<textToNumber.length;row++){
+            int col=0;
+            if(textToNumber[row][col].equals(number) || textToNumber[row][col].contains(number)){
+                ++col;
+                return Integer.parseInt(textToNumber[row][col]);
+            }
+        }
+        return 0;
     }
 
     private void createProducts() {
@@ -245,7 +296,20 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                     } else {
                         String splitResult[];
                         splitResult=resultString.split(" ");
+                        if(splitResult.length<2){
+                            Toast.makeText(getApplicationContext(),
+                                    getString(R.string.speech_index_missunderstand),
+                                    Toast.LENGTH_LONG).show();
+                            return;
+                        }
                         String product=splitResult[(splitResult.length)-1];
+                        int amount;
+                        if(isInt(splitResult[0])){
+                            amount=Integer.parseInt(splitResult[0]);
+                        }else{
+                            amount=getNumberFromWrittenForm(splitResult[0]);
+                        }
+
                         boolean addSuccess=false;
                         check:
                         {
@@ -257,13 +321,15 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                                         tempList.addTextList(resultString);
 
                                         //Hinzufügen zur arraylist products
-                                        for(int u=0; i<currentAvailableProductList.size();u++){
-                                            if(currentListView.get(u).equals(currentAvailableProductList.get(u).getName())){
+                                        for(int u=0; u<currentAvailableProductList.size();u++){
+                                            if(currentListView.get(i).equals(currentAvailableProductList.get(u).getName())){
+                                                //Hinzufügen der Menge des Produktes zum ProductModel
+                                                if(amount!=0){
+                                                    currentAvailableProductList.get(u).setMenge((float)amount);
+                                                }
                                                 temporaryProductList.add(currentAvailableProductList.get(u));
                                             }
                                         }
-
-
 
                                         addSuccess = true;
                                         break check;

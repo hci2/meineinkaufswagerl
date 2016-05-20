@@ -1,6 +1,7 @@
 package univie.ac.at.meineinkaufswagerl.shoppinglist;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,7 +49,8 @@ public class ListSpeechIntroActivity extends AppCompatActivity implements Serial
         readButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                String text = infoText.getText().toString();
+                Resources res = getResources();
+                String text = res.getString(R.string.explaination_speech_full);
                 ttsManager.initQueue(text);
             }
         });

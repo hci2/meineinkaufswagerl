@@ -24,6 +24,30 @@ public class ProductModel implements Serializable{
         this.image = image;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setMenge(float menge) {
+        this.menge = menge;
+    }
+
+    public void setEinheit(String einheit) {
+        this.einheit = einheit;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
+
     public String getName() { return name; }
 
     public float getPrice() { return price; }

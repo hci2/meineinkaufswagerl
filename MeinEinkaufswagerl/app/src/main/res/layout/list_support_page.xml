@@ -13,13 +13,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Wählen Sie wie sie den Assistenten bedienen wollen"
+            android:text="Wählen sie wie sie den Assistenten bedienen wollen"
             android:id="@+id/infoText"
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:onClick="readInfoText"
             android:layout_weight="1"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:textSize="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
 
         <Button
             android:layout_width="match_parent"
@@ -30,7 +33,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_below="@+id/infoText"
             android:layout_alignEnd="@+id/manuellButton"
-            android:textSize="19dp"
+            android:textSize="22dp"
             android:layout_weight="1"
             android:layout_margin="40dp" />
 
@@ -39,11 +42,11 @@
             android:layout_height="match_parent"
             android:text="Manuelle Eingabe"
             android:id="@+id/manuellButton"
-            android:onClick="goToTextSupportedList"
             android:layout_gravity="center_horizontal"
             android:layout_below="@+id/infoText"
             android:layout_centerHorizontal="true"
-            android:textSize="19dp"
+            android:textSize="22dp"
+            android:onClick="goToShoppingManuallyActivity"
             android:layout_weight="1"
             android:layout_margin="40dp" />
     </LinearLayout>
