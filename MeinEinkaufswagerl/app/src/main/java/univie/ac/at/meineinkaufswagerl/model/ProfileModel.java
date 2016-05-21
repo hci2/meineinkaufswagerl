@@ -35,13 +35,13 @@ public class ProfileModel implements Serializable{ //extends UserModel
     Erstellen des Arrays um die Unverträglichkeiten zu speichern.
     Position 1: Lactose
     Position 2: Gluten
-    Position 3: Fructose
+    Position 3: Fructose http://www.ernaehrung.de/tipps/intoleranzen/intoleranz10.php
     Position 4: Ei
     Position 5: Fisch
     Position 6: Phenylalanin
-    Position 7: Histamin
-    Position 8: Sorbin
-    Position 9: Saccharose
+    Position 7: Histamin https://de.wikipedia.org/wiki/Histamin-Intoleranz
+    Position 8: Sorbin http://www.nahrungsmittel-intoleranz.com/sorbit-gluten-zucker/sorbit-aamp-ced-informationen-49/sorbit-tabelle.html
+    Position 9: Saccharose http://www.eucell.de/ernaehrung/ernaehrungslexikon/kohlenhydrate/lebensmittel/saccharose.html
     Position 10: Erdnüsse
      */
 

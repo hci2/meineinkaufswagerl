@@ -22,6 +22,7 @@ import java.util.Locale;
 import univie.ac.at.meineinkaufswagerl.R;
 import univie.ac.at.meineinkaufswagerl.management.SerializableManager;
 import univie.ac.at.meineinkaufswagerl.management.TextToSpeechManager;
+import univie.ac.at.meineinkaufswagerl.model.ProductModel;
 import univie.ac.at.meineinkaufswagerl.model.StandingOrderListModel;
 import univie.ac.at.meineinkaufswagerl.model.TemporaryListModel;
 import univie.ac.at.meineinkaufswagerl.model.UserModel;
@@ -32,12 +33,10 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
 
     private ListView txtSpeechList;
     private TemporaryListModel tempList;
+    private ArrayList<ProductModel> temporaryProductList;
     StandingOrderListModel standingOrderListModel;
     //private StandingOrderListModel standList = new StandingOrderListModel();
-    private ImageButton btnRead;
     private TextToSpeechManager ttsManager = null;
-    private Button addStandButton;
-    private Button replaceStandButton;
     private Button finishTempButton;
     private Button finishStandButton;
 
@@ -58,20 +57,19 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
 
         //initialize all the elements of the layout xml
         txtSpeechList = (ListView) findViewById(R.id.extraListe);
-        btnRead = (ImageButton) findViewById(R.id.btnRead);
-        addStandButton = (Button) findViewById(R.id.addStandButton);
-        replaceStandButton = (Button) findViewById(R.id.replaceStandButton);
         finishTempButton = (Button) findViewById(R.id.finishTempButton);
         finishStandButton = (Button) findViewById(R.id.finishStandButton);
 
         //Unwrap the intent and get the temporary list.
         tempList=new TemporaryListModel();
+        temporaryProductList = new ArrayList<ProductModel>();
 
         //Unwrap the intent and get the temporary list.
         standingOrderListModel = new StandingOrderListModel();
         if(getIntent() != null && getIntent().getExtras() != null){
             standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListCreateSpeechActivity.EXTRA_MESSAGE);
             tempList = (TemporaryListModel) getIntent().getExtras().getSerializable(ListCreateSpeechActivity.EXTRA_LIST);
+            temporaryProductList= (ArrayList<ProductModel>) getIntent().getExtras().getSerializable(ListCreateSpeechActivity.EXTRA_PRODUCT);
             /*ArrayList<String> stringList = getIntent().getStringArrayListExtra(ListCreateSpeechActivity.EXTRA_LIST);
             if (stringList != null){
                 if (stringList.size() != 0) {
@@ -88,6 +86,7 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
                 txtSpeechList.setAdapter(adapter);
             }*/
         }
+
         if(tempList!=null && tempList.getSize()!=0){
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
             txtSpeechList.setAdapter(adapter);
@@ -95,22 +94,6 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, standingOrderListModel.getTextList());
             txtSpeechList.setAdapter(adapter);
         }
-
-        // This is used for TextToSpeech
-        btnRead.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                //String text = txtTextView.getText().toString();
-                ArrayList<String> textList=tempList.getTextList();
-                if(!(textList.size()==0)){
-                    ttsManager.initQueue(textList.get(0));
-                    for(int i=1;i<textList.size();i++){
-                        ttsManager.addQueue(textList.get(i));
-                    }
-                }
-            }
-        });
-
         //check TTS version on executing device - needed for SpeechToText
         checkSpeech();
 
@@ -178,27 +161,78 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
 
     }
     public void goToFinishTempPage(View v) {
-        temp=true;
-        ttsManager.initQueue("Sind Sie sicher, ob sie die eigene Liste kaufen wollen?");
+        ArrayList<String> textList=tempList.getTextList();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, textList);
+        txtSpeechList.setAdapter(adapter);
+
+        if(!(textList.size()==0)){
+            ttsManager.initQueue(textList.get(0));
+            for(int i=1;i<textList.size();i++){
+                ttsManager.addQueue(textList.get(i));
+            }
+
+        }
+
+        if(tempList.getSize()==0){
+            ttsManager.addQueue("Sie können keine leere Einkaufsliste bestellen! Bitte ergänzen Sie ihre Liste oder bestellen Sie eine dauerhafte Liste!");
+            return;
+        }
+
+        ttsManager.addQueue("Sind Sie sicher, ob sie die eigene Liste kaufen wollen?");
         //This is used to make a 4 second pause
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        final Handler handler1 = new Handler();
+        handler1.postDelayed(new Runnable() {
             @Override
             public void run() {
                 //Do something after 4000ms
+                temp=true;
                 speechText();
             }
         }, 4000);
     }
     public void goToFinishStandPage(View v) {
-        temp=false;
-        ttsManager.initQueue("Sind Sie sicher, ob sie die dauerhafte Liste kaufen wollen?");
+        ArrayList<String> textList=standingOrderListModel.getTextList();
+
+
+        if(!(textList.size()==0)){
+            if(tempList.getSize()!=0){
+                ArrayList<String> temporaryList=tempList.getTextList();
+                for(int i=0;i<temporaryList.size();i++){
+                    textList.add(temporaryList.get(i));
+                }
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, textList);
+            txtSpeechList.setAdapter(adapter);
+
+            ttsManager.initQueue(textList.get(0));
+            for(int i=1;i<textList.size();i++){
+                ttsManager.addQueue(textList.get(i));
+            }
+
+        }else{
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
+            txtSpeechList.setAdapter(adapter);
+
+            ttsManager.initQueue(textList.get(0));
+            for(int i=1;i<textList.size();i++){
+                ttsManager.addQueue(textList.get(i));
+            }
+        }
+
+
+        if(tempList.getSize()==0 && standingOrderListModel.getSize()==0){
+            ttsManager.addQueue("Sie können keine leere Einkaufsliste bestellen!");
+            return;
+        }
+
+        ttsManager.addQueue("Sind Sie sicher, ob sie die dauerhafte Liste kaufen wollen?");
         //This is used to make a 4 second pause
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 //Do something after 4000ms
+                temp=false;
                 speechText();
             }
         }, 4000);
@@ -245,6 +279,16 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
                     if((!temp) && (resultString.equals("ja") || resultString.equals("Ja") || resultString.contains("ja") || resultString.contains("Ja"))){
                         //TODO: dauerhafte Einkaufsliste + Adresse des Empfängers der Hilfsorganisation übermitteln
                         //TODO: Dauerhafte Liste serialisieren!
+
+                        //Hinzufügen der Temporären Liste zur dauerhaften und dann abschicken und serialisieren
+                        for(int i=0;i<tempList.getSize();i++){
+                            standingOrderListModel.addTextList(tempList.getTextList().get(i));
+                        }
+
+                        //Hinzufügen der Produkte
+                        standingOrderListModel.setProductList(temporaryProductList);
+
+
                         String pathToAppFolder = getExternalFilesDir(null).getAbsolutePath();
                         String filePathStandingOrder = pathToAppFolder +File.separator + "standingorder.ser";
                         /*if(new File(filePathStandingOrder).exists()){
@@ -253,14 +297,14 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
                         */
                         SerializableManager.saveSerializable(standingOrderListModel,filePathStandingOrder); //this,
                         Intent intent= new Intent(this, ListFinishedSpeechActivity.class);
-                        String message="Ihr Auftrag der dauerhaften Liste wurde erfolgreich gesendet";
+                        String message="Ihr Auftrag der dauerhaften Liste wurde erfolgreich gesendet! Die Bezahlung erfolgt bar bei Warenannahme.";
                         intent.putExtra(EXTRA_MESSAGE,message);
                         startActivity(intent);
 
                     } else if ((temp) && (resultString.equals("ja") || resultString.equals("Ja") || resultString.contains("ja") || resultString.contains("Ja"))) {
                         //TODO: temporäre Einkaufsliste + Adresse des Empfängers der Hilfsorganisation übermitteln
                         Intent intent= new Intent(this, ListFinishedSpeechActivity.class);
-                        String message="Ihr Auftrag der eigenen Liste wurde erfolgreich gesendet";
+                        String message="Ihr Auftrag der eigenen Liste wurde erfolgreich gesendet! Die Bezahlung erfolgt bar bei Warenannahme.";
                         intent.putExtra(EXTRA_MESSAGE,message);
                         startActivity(intent);
                     } else {

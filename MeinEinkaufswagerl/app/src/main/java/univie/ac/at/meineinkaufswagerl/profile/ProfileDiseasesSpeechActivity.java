@@ -255,7 +255,7 @@ public class ProfileDiseasesSpeechActivity extends AppCompatActivity implements 
     private void initializeVariables() {
 
         readButton= (Button) findViewById(R.id.profilebutton);
-        nextButton= (Button) findViewById(R.id.shoppingbutton);
+        nextButton= (Button) findViewById(R.id.nextButton);
         speakDiseases= (ImageButton) findViewById(R.id.speakButton);
         readDiseases=(ImageButton) findViewById(R.id.readOneButton);
         infoText = (TextView) findViewById(R.id.infoText);

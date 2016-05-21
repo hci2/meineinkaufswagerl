@@ -1,5 +1,6 @@
 package univie.ac.at.meineinkaufswagerl;
 
+import android.content.res.Resources;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl.MESSAGE";
     public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl.LIST";
 
-    Button profilebutton, shoppingbutton;
+    Button profilebutton;
     Button listButton;
     Button leaveButton;
     TextView infoText;
@@ -51,7 +52,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         ttsManager.init(this);
 
         profilebutton.setOnClickListener(HomeActivity.this);
-        shoppingbutton.setOnClickListener(HomeActivity.this);
         // Felix Ende
 
 
@@ -88,11 +88,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     //Von Felix
     @Override
     public void onClick(View v){
-        if(v == shoppingbutton) {
-            Intent  intent= new Intent(this, ShoppingManuallyActivity.class);
-            startActivity(intent);
-        }
-        else if(v == profilebutton) {
             // Startet auf Knopfdruck die ProfileActivity
             Intent  intent= new Intent(this, ProfileActivity.class);
             if(profileModel!=null){
@@ -102,7 +97,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra(EXTRA_MESSAGE,userModel);
             }
             startActivity(intent);
-        }
+
     }
 
 
@@ -122,16 +117,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
+    /*
     public void goToLeaveApp(View v){
         // Verlässt auf Knopfdruck die App
         finish();
         System.exit(0);
     }
-
+    */
     public void readInfoText(View v){
         // Startet auf Knopfdruck die Sprachausgabe
-        String text = infoText.getText().toString();
+        Resources res = getResources();
+        String text = res.getString(R.string.home_info_text_full);
         ttsManager.initQueue(text);
     }
 
@@ -139,9 +135,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void initializeVariables() {
 
         profilebutton= (Button) findViewById(R.id.profilebutton);
-        shoppingbutton= (Button) findViewById(R.id.shoppingbutton);
         listButton= (Button) findViewById(R.id.listButton);
-        leaveButton= (Button) findViewById(R.id.leaveButton);
         infoText = (TextView) findViewById(R.id.infoText);
 
     }

@@ -5,6 +5,7 @@
     <string name="action_settings">Einstellungen</string>
     <string name="speech_prompt">Sagen Sie was (Menge,Produkt) sie kaufen wollen&#8230;</string>
     <string name="speech_change">Sagen Sie was (Menge,Produkt) sie ändern wollen&#8230;</string>
+    <string name="speech_remove">Sagen Sie welche Zeile sie löschen wollen&#8230;</string>
     <string name="speech_index">Sagen Sie welche Zeile sie ändern wollen&#8230;</string>
     <string name="speech_index_missunderstand">Es ist ein Fehler aufgetreten, versuchen Sie es nochmal!</string>
     <string name="speech_not_supported">Entschuldigung! Ihr Gerät unterstützt die Spracheingabe nicht!</string>
@@ -22,11 +23,14 @@
     <string name="txt_stueckanzahl">Stückanzahl:</string>
     <string name="btn_delete">Produkt löschen</string>
 
-    <string name="explaination_speech">Sie haben Spracheingabe gewählt. Bei dem Mund Button können Sie mitteilen was (Menge,Produkt) Sie kaufen wollen und beim Ohr Button können Sie sich das zuvor Gesprochene anhören. Falls Sie etwas ändern wollen, können Sie mit dem # Button die Zeile angeben und mit dem Schreibblock Button den zu ändernden Inhalt (Menge, Produkt) mitteilen. Außerdem können Sie eine einmalige Einkaufsliste oder eine dauerhafte Einkaufsliste erstellen und anfordern.</string>
+    <string name="explaination_speech">Der Mund Button dient zur Mitteilung von Menge und Produkt, der Ohr Button dient zum Anhören. Der # Button wird zum Löschen einer Zeile verwendet.</string>
+    <string name="explaination_speech_full">Sie haben Spracheingabe gewählt. Bei dem Mund Button können Sie mitteilen welche Menge und Produkt Sie kaufen wollen und beim Ohr Button können Sie sich das zuvor Gesprochene anhören. Falls Sie etwas löschen wollen, können Sie mit dem # Button die Zeile angeben, die gelöscht wird. Außerdem können Sie eine einmalige Einkaufsliste oder eine dauerhafte Einkaufsliste erstellen und anfordern.</string>
     <string name="recommendation_person">In diesem Menü können Sie ihr Ernährungsprofil bearbeiten. Zur Einrichtung wird eine zusätzliche Person empfohlen, die bei Problemen helfen kann.</string>
     <string name="product_incompatible_with_user">Sie vertragen dieses Produkt nicht&#8230;</string>
 
-    <string name="home_info_text">Info: Diese App dient zur Aufnahme Ihrer Kaufwünsche in eine Liste, die danach einer gemeinwohlnützigen Organisation übermittelt wird. \nBitte bei erstmaliger Nutzung Profil anlegen!</string>
+    <string name="home_info_text">Info: Diese App dient zur Aufnahme einer Einkaufsliste, die auf Sie eingeht und einer gemeinwohlnützigen Organisation übermittelt wird.</string>
+    <string name="home_info_text_full">Info: Diese App dient zur Aufnahme Ihrer Kaufwünsche in eine Einkaufsliste, die auch auf ihre Intoleranzen und Wünsche eingeht und danach einer gemeinwohlnützigen Organisation übermittelt wird. \nBitte bei erstmaliger Nutzung Profil anlegen!</string>
+
 
     <string name="finished_addStandingOrder">Ihre Liste wurde erfolgreich zu Ihrer dauerhaften Liste hinzugefügt!</string>
     <string name="notfinished_addStandingOrder">Ihre Liste konnte nicht erfolgreich zu Ihrer dauerhaften Liste hinzugefügt werden!</string>

@@ -284,7 +284,7 @@ public class ProfileUnvertragSpeechActivity extends AppCompatActivity implements
     private void initializeVariables() {
 
         readButton= (Button) findViewById(R.id.profilebutton);
-        nextButton= (Button) findViewById(R.id.shoppingbutton);
+        nextButton= (Button) findViewById(R.id.nextButton);
         speakIntolerances= (ImageButton) findViewById(R.id.speakButton);
         readIntolerances=(ImageButton) findViewById(R.id.readOneButton);
         infoText = (TextView) findViewById(R.id.infoText);

@@ -56,4 +56,16 @@ public class StandingOrderListModel implements Serializable{
     public void setProductList(ArrayList<ProductModel> productList) {
         this.productList = productList;
     }
+
+    public int getSizeProductList() {
+        return productList.size();
+    }
+
+    public ProductModel getElementProductList(int index) {
+        return productList.get(index);
+    }
+    public String getElementNameProductList(int index) {
+        return productList.get(index).getName();
+    }
+
 }

@@ -35,4 +35,7 @@ public class TemporaryListModel implements Serializable{
     public  int getSize(){
         return temporaryList.size();
     }
+
+    public  String get(int index){
+        return temporaryList.get(index);}
 }

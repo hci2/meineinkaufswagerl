@@ -11,15 +11,15 @@ public class ProductNotFittingModel {
         productUnfitList = new String[][]{
                 //TODO: Überlegen zu welchen Produkten welche Unverträglichkeiten und Krankheiten sich nicht vertragen
                 {"Milch", "Lactose"},
-                {"Brot", "Erdnüsse"},
+                {"Brot", "Erdnüsse", "Phenylalanin", "Gluten"}, //http://www.vitalstoff-lexikon.de/Aminosaeuren/-Phenylalanin/Lebensmittel.html
                 {"Joghurt", "Lactose","Saccharose"},
                 {"Karotten", "Histamin"},
-                {"Äpfel", "Fructose"},
+                {"Apfel", "Fructose", "Saccharose"},
                 {"Cola", "Saccharose","Diabetes"},
-                {"Waschmittel", "Rote Kreuz"},
-                {"Zahnpasta", "Care"},
-                {"Duschgel", "Essen auf Rädern"},
-                {"Staubsauger", "Life Call"}};
+                {"Waschmittel", "Duft"},
+                {"Zahnpasta", "Methylisothiazolinon "},
+                {"Duschgel", "Neurodermitis"},
+                {"Staubsauger", "Stauballergie"}};
 
         /*
         intolerances.add("Lactose");

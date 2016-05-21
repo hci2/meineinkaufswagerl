@@ -173,7 +173,7 @@ public class ProfileNameSpeechActivity extends AppCompatActivity implements Seri
     private void initializeVariables() {
 
         readButton= (Button) findViewById(R.id.profilebutton);
-        nextButton= (Button) findViewById(R.id.shoppingbutton);
+        nextButton= (Button) findViewById(R.id.nextButton);
         firstnameMouth= (ImageButton) findViewById(R.id.firstnameMouth);
         lastnameMouth= (ImageButton) findViewById(R.id.lastnameMouth);
         infoText = (TextView) findViewById(R.id.infoText);

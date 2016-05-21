@@ -9,75 +9,104 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="univie.ac.at.meineinkaufswagerl.HomeActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profil Editor"
-        android:id="@+id/profilebutton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="170dp"
-        android:textSize="19dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Einkaufsliste erstellen"
-        android:id="@+id/listButton"
-        android:onClick="goToListSupportPage"
-        android:layout_above="@+id/leaveButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:textSize="19dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Verlassen"
-        android:id="@+id/leaveButton"
-        android:onClick="goToLeaveApp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:textSize="19dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/home_info_text"
+                android:id="@+id/infoText"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:onClick="readInfoText"
+                android:textSize="22dp"
+                android:layout_weight="1" />
+        </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Shopping"
-        android:id="@+id/shoppingbutton"
-        android:layout_above="@+id/listButton"
-        android:layout_alignEnd="@+id/leaveButton"
-        android:textSize="19dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/personImage"
-        android:src="@drawable/person_home"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/profilebutton"
-        android:layout_alignBottom="@+id/shoppingbutton"
-        android:layout_marginBottom="70dp" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/personImage"
+                android:src="@drawable/person_home"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/profilebutton"
+                android:layout_above="@+id/listButton"
+                android:layout_weight="1" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/zettelImage"
-        android:src="@drawable/zettel_home"
-        android:layout_toStartOf="@+id/leaveButton"
-        android:layout_below="@+id/profilebutton"
-        android:layout_marginTop="37dp"
-        android:layout_marginBottom="110dp" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Profil Editor"
+                android:id="@+id/profilebutton"
+                android:layout_centerHorizontal="true"
+                android:textSize="19dp"
+                android:layout_weight="0.9"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/home_info_text"
-        android:id="@+id/infoText"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="readInfoText"
-        android:textSize="18dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Dauerauftrag bearbeiten"
+                android:id="@+id/standOrderButton"
+                android:layout_centerHorizontal="true"
+                android:textSize="19dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="150dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/zettelImage"
+                android:src="@drawable/zettel_home"
+                android:layout_below="@+id/profilebutton"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Einkaufsliste erstellen"
+                android:id="@+id/listButton"
+                android:onClick="goToListSupportPage"
+                android:layout_centerHorizontal="true"
+                android:textSize="19dp"
+                android:layout_weight="0.9"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp" />
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
