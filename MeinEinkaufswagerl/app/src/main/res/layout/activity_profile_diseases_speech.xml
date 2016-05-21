@@ -4,72 +4,109 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="univie.ac.at.meineinkaufswagerl.profile.ProfileDiseasesSpeechActivity">
-    <TextView
-        android:layout_width="314dp"
-        android:layout_height="118dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/intro_diseases"
-        android:id="@+id/infoText"
-        android:layout_x="19dp"
-        android:layout_y="0dp"
-        android:textSize="19dp"
-        android:onClick="readInfoText"/>
 
-    <ListView
-        android:layout_width="160dp"
-        android:layout_height="205dp"
-        android:id="@+id/listDiseases"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_x="13dp"
-        android:layout_y="125dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageButton
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:id="@+id/speakButton"
-        android:layout_x="210dp"
-        android:layout_y="230dp"
-        android:src="@drawable/mouth_icon"
-        android:onClick="speakDiseases"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/intro_diseases"
+            android:id="@+id/infoText"
+            android:layout_x="19dp"
+            android:layout_y="0dp"
+            android:textSize="19dp"
+            android:onClick="readInfoText"
+            android:layout_weight="5.5"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp" />
 
-    <Button
-        android:layout_width="347dp"
-        android:layout_height="74dp"
-        android:text="Krankheiten vorlesen"
-        android:id="@+id/readButton"
-        android:layout_x="10dp"
-        android:layout_y="320dp"
-        android:textSize="19dp"
-        android:onClick="readDiseases"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
 
-    <Button
-        android:layout_width="177dp"
-        android:layout_height="102dp"
-        android:text="Meine Krankheiten vorlesen"
-        android:id="@+id/readMyIntolerancesButton"
-        android:layout_x="10dp"
-        android:layout_y="392dp"
-        android:textSize="19dp"
-        android:onClick="readMyDiseases"/>
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/listDiseases"
+                android:layout_x="13dp"
+                android:layout_y="125dp"
+                android:layout_weight="1" />
 
-    <Button
-        android:layout_width="165dp"
-        android:layout_height="102dp"
-        android:text="Weiter"
-        android:id="@+id/nextButton"
-        android:layout_x="190dp"
-        android:layout_y="392dp"
-        android:textSize="19dp"
-        android:onClick="goToNextPage"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
 
-    <ImageButton
-        android:layout_width="97dp"
-        android:layout_height="97dp"
-        android:id="@+id/readOneButton"
-        android:layout_x="208dp"
-        android:layout_y="130dp"
-        android:src="@drawable/ear_icon"
-        android:onClick="readOneDisease" />
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/speakButton"
+                    android:layout_x="210dp"
+                    android:layout_y="230dp"
+                    android:src="@drawable/mouth_icon"
+                    android:onClick="speakDiseases"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/readOneButton"
+                    android:layout_x="208dp"
+                    android:layout_y="130dp"
+                    android:src="@drawable/ear_icon"
+                    android:onClick="readOneDisease"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Meine Krankheiten vorlesen"
+            android:id="@+id/readMyIntolerancesButton"
+            android:layout_x="10dp"
+            android:layout_y="392dp"
+            android:textSize="19dp"
+            android:onClick="readMyDiseases"
+            android:layout_weight="6" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Krankheiten vorlesen"
+                android:id="@+id/readButton"
+                android:layout_x="10dp"
+                android:layout_y="320dp"
+                android:textSize="19dp"
+                android:onClick="readDiseases"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Weiter"
+                android:id="@+id/nextButton"
+                android:layout_x="190dp"
+                android:layout_y="392dp"
+                android:textSize="19dp"
+                android:onClick="goToNextPage"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </AbsoluteLayout>

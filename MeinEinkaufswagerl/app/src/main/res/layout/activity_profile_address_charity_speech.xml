@@ -1,85 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="univie.ac.at.meineinkaufswagerl.profile.ProfileAddressCharitySpeechActivity">
-    <TextView
-        android:layout_width="347dp"
-        android:layout_height="118dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/intro_addressCharity"
-        android:id="@+id/infoText"
-        android:layout_x="10dp"
-        android:layout_y="5dp"
-        android:textSize="18dp"
-        android:onClick="readInfoText"/>
 
-    <ImageButton
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:id="@+id/speakButton"
-        android:layout_x="210dp"
-        android:layout_y="230dp"
-        android:src="@drawable/mouth_icon"
-        android:onClick="speakAddress"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="347dp"
-        android:layout_height="74dp"
-        android:text="Vorlesen"
-        android:id="@+id/readButton"
-        android:layout_x="10dp"
-        android:layout_y="320dp"
-        android:textSize="19dp"
-        android:onClick="readAddress"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/intro_addressCharity"
+            android:id="@+id/infoText"
+            android:layout_x="10dp"
+            android:layout_y="5dp"
+            android:textSize="18dp"
+            android:onClick="readInfoText"
+            android:layout_weight="4"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp" />
 
-    <Button
-        android:layout_width="177dp"
-        android:layout_height="102dp"
-        android:text="Mein Lieferant"
-        android:id="@+id/readCharity"
-        android:layout_x="10dp"
-        android:layout_y="392dp"
-        android:textSize="19dp"
-        android:onClick="readMyCharity"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
 
-    <Button
-        android:layout_width="165dp"
-        android:layout_height="102dp"
-        android:text="Weiter"
-        android:id="@+id/nextButton"
-        android:layout_x="190dp"
-        android:layout_y="392dp"
-        android:textSize="19dp"
-        android:onClick="goToNextPage"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-    <ImageButton
-        android:layout_width="97dp"
-        android:layout_height="97dp"
-        android:id="@+id/readOneButton"
-        android:layout_x="208dp"
-        android:layout_y="130dp"
-        android:src="@drawable/ear_icon"
-        android:onClick="readOneAddress" />
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/addressList"
+                    android:layout_x="10dp"
+                    android:layout_y="133dp"
+                    android:layout_weight="1" />
 
-    <ListView
-        android:layout_width="180dp"
-        android:layout_height="138dp"
-        android:id="@+id/addressList"
-        android:layout_x="10dp"
-        android:layout_y="133dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/charityOrganisation"
+                    android:layout_x="10dp"
+                    android:layout_y="285dp"
+                    android:text="Kein Lieferant"
+                    android:textSize="20dp"
+                    android:textColor="@color/abc_search_url_text_pressed"
+                    android:layout_weight="4"
+                    android:layout_marginLeft="5dp" />
+            </LinearLayout>
 
-    <TextView
-        android:layout_width="180dp"
-        android:layout_height="37dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/charityOrganisation"
-        android:layout_x="10dp"
-        android:layout_y="285dp"
-        android:text="Kein Lieferant"
-        android:textSize="20dp"
-        android:textColor="@color/abc_search_url_text_pressed" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_horizontal">
 
-</AbsoluteLayout>
+                <ImageButton
+                    android:layout_width="97dp"
+                    android:layout_height="97dp"
+                    android:id="@+id/readOneButton"
+                    android:layout_x="208dp"
+                    android:layout_y="130dp"
+                    android:src="@drawable/ear_icon"
+                    android:onClick="readOneAddress" />
+
+                <ImageButton
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:id="@+id/speakButton"
+                    android:layout_x="210dp"
+                    android:layout_y="230dp"
+                    android:src="@drawable/mouth_icon"
+                    android:onClick="speakAddress"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Vorlesen"
+            android:id="@+id/readButton"
+            android:layout_x="10dp"
+            android:layout_y="320dp"
+            android:textSize="19dp"
+            android:onClick="readAddress"
+            android:layout_weight="5" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Weiter"
+            android:id="@+id/nextButton"
+            android:layout_x="190dp"
+            android:layout_y="392dp"
+            android:textSize="19dp"
+            android:onClick="goToNextPage"
+            android:layout_weight="5" />
+
+    </LinearLayout>
+
+</RelativeLayout>
 
