@@ -67,7 +67,7 @@ public class ProfileSupportPage extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        Intent intent= new Intent(this, ProfileUnvertragActivity.class);
+        Intent intent= new Intent(this, ProfileNameManualActivity.class);
         String message="";
         intent.putExtra(EXTRA_MESSAGE,message);
         startActivity(intent);

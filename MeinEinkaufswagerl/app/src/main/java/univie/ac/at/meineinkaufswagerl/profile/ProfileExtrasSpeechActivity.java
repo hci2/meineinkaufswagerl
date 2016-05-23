@@ -101,7 +101,7 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
         extraListe = (ListView) findViewById(R.id.extraListe);
         btnRead = (ImageButton) findViewById(R.id.btnRead);
-        btnChange = (ImageButton) findViewById(R.id.btnChange);
+        //btnChange = (ImageButton) findViewById(R.id.btnChange);
         btnIndex = (ImageButton) findViewById(R.id.btnIndex);
         btnNext = (Button) findViewById(R.id.nextButton);
 

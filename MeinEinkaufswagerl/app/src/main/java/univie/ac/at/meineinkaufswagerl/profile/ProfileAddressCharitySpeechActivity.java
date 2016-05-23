@@ -309,7 +309,7 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity imple
     }
 
     private void initializeVariables() {
-        readCharityButton= (Button) findViewById(R.id.readCharity);
+        //readCharityButton= (Button) findViewById(R.id.readCharity);
         readAdressButton= (Button) findViewById(R.id.readButton);
         nextButton= (Button) findViewById(R.id.nextButton);
         speakAddress= (ImageButton) findViewById(R.id.speakButton);

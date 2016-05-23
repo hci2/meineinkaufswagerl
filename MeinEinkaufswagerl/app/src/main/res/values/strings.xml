@@ -22,6 +22,14 @@
     <string name="btn_absenden">Absenden</string>
     <string name="txt_stueckanzahl">Stückanzahl:</string>
     <string name="btn_delete">Produkt löschen</string>
+    <string name="input_vorname">Ihr Vorname:</string>
+    <string name="input_nachname">Ihr Nachname:</string>
+    <string name="input_strasse">Ihre Straße:</string>
+    <string name="input_hausnummer">Ihr Hausnummer:</string>
+    <string name="input_plz">Ihre Postleitzahl:</string>
+    <string name="btn_weiter">Weiter</string>
+    <string name="txt_unvertag">Ihre Unverträglichkeiten:</string>
+    <string name="txt_krankheiten">Ihre Krankheiten:</string>
 
     <string name="explaination_speech">Der Mund Button dient zur Mitteilung von Menge und Produkt, der Ohr Button dient zum Anhören. Der # Button wird zum Löschen einer Zeile verwendet.</string>
     <string name="explaination_speech_full">Sie haben Spracheingabe gewählt. Bei dem Mund Button können Sie mitteilen welche Menge und Produkt Sie kaufen wollen und beim Ohr Button können Sie sich das zuvor Gesprochene anhören. Falls Sie etwas löschen wollen, können Sie mit dem # Button die Zeile angeben, die gelöscht wird. Außerdem können Sie eine einmalige Einkaufsliste oder eine dauerhafte Einkaufsliste erstellen und anfordern.</string>

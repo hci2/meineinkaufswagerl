@@ -88,7 +88,6 @@ public class ProfileUnvertragSpeechActivity extends AppCompatActivity implements
         intolerances.add("Erdnüsse");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, intolerances);
         listIntolerances.setAdapter(adapter);
-
     }
 
 
