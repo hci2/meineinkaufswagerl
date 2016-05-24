@@ -43,7 +43,7 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
     //private ProfileModel profileModel;
 
     //For Changing
-    private ImageButton btnChange;
+    //private ImageButton btnChange;
     private ImageButton btnIndex;
     private boolean change=false;
     private boolean index=false;
@@ -106,13 +106,13 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
         btnNext = (Button) findViewById(R.id.nextButton);
 
         // This is used to Change an index of the List
-        btnChange.setOnClickListener(new View.OnClickListener() {
+        /*btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 change=true;
                 speechText();
             }
-        });
+        });*/
         // This is used to get the index for changing a line of the List
         btnIndex.setOnClickListener(new View.OnClickListener() {
             @Override

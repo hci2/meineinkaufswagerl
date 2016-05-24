@@ -18,7 +18,8 @@
             android:text="@string/txt_unvertag"
             android:id="@+id/textView7"
             android:layout_weight="1.5"
-            android:textSize="20dp" />
+            android:textSize="23dp"
+            android:textStyle="bold" />
 
         <ListView
             android:layout_width="match_parent"
@@ -32,8 +33,9 @@
             android:text="@string/txt_krankheiten"
             android:id="@+id/textView8"
             android:layout_weight="1.5"
+            android:textSize="23dp"
             android:layout_marginTop="5dp"
-            android:textSize="20dp" />
+            android:textStyle="bold" />
 
         <ListView
             android:layout_width="match_parent"

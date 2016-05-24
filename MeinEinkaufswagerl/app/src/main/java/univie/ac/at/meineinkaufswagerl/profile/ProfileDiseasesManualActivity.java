@@ -1,6 +1,7 @@
 package univie.ac.at.meineinkaufswagerl.profile;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,19 +10,29 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import univie.ac.at.meineinkaufswagerl.R;
+import univie.ac.at.meineinkaufswagerl.management.SerializableManager;
+import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
+import univie.ac.at.meineinkaufswagerl.model.UserModel;
 
-public class ProfileDiseasesManualActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener{
+public class ProfileDiseasesManualActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button buttonConitnue;
     ListView listDiseases, listUnvertrag;
     ArrayList<String> diseases,intolerances;
+    UserModel userModel;
+    ProfileModel profileModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_diseases_manual);
+
+        userModel = (UserModel)getIntent().getSerializableExtra("userModel");
+        System.out.println(userModel.getFirstname());
+        profileModel = new ProfileModel();
 
         listDiseases = (ListView)findViewById(R.id.listDiseases);
         diseases=new ArrayList<>();
@@ -31,7 +42,7 @@ public class ProfileDiseasesManualActivity extends AppCompatActivity implements 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, diseases);
         listDiseases.setAdapter(adapter1);
         listDiseases.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        listDiseases.setOnItemClickListener(this);
+        //listDiseases.setOnItemClickListener(this);
 
         listUnvertrag= (ListView)findViewById(R.id.listUnvertrag);
         intolerances=new ArrayList<>();
@@ -45,10 +56,10 @@ public class ProfileDiseasesManualActivity extends AppCompatActivity implements 
         intolerances.add("Sorbin");
         intolerances.add("Saccharose");
         intolerances.add("Erdnüsse");
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, intolerances);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, intolerances);
         listUnvertrag.setAdapter(adapter2);
         listUnvertrag.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        listUnvertrag.setOnItemClickListener(this);
+       // listUnvertrag.setOnItemClickListener(this);
         buttonConitnue = (Button)findViewById(R.id.buttonContinue);
         buttonConitnue.setOnClickListener(this);
     }
@@ -56,12 +67,66 @@ public class ProfileDiseasesManualActivity extends AppCompatActivity implements 
     @Override
     public void onClick(View v) {
         if(v==buttonConitnue){
-            
+            for(int i=0; i<listUnvertrag.getCheckedItemPositions().size(); i++) {
+                switch (listUnvertrag.getCheckedItemPositions().keyAt(i)) {
+                    case 0:
+                        profileModel.setLactose(0);
+                        break;
+                    case 1:
+                        profileModel.setGluten(0);
+                        break;
+                    case 2:
+                        profileModel.setFructose(0);
+                        break;
+                    case 3:
+                        profileModel.setEi(0);
+                        break;
+                    case 4:
+                        profileModel.setFisch(0);
+                        break;
+                    case 5:
+                        profileModel.setPhenylalanin(0);
+                        break;
+                    case 6:
+                        profileModel.setHistamin(0);
+                        break;
+                    case 7:
+                        profileModel.setSorbin(0);
+                        break;
+                    case 8:
+                        profileModel.setSaccharose(0);
+                        break;
+                    case 9:
+                        profileModel.setErdnüsse(0);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            for(int i=0; i<listDiseases.getCheckedItemPositions().size(); i++) {
+                switch (listDiseases.getCheckedItemPositions().keyAt(i)) {
+                    case 0: profileModel.setDiabetes(1);
+                        profileModel.addKrankheit(diseases.get(listDiseases.getCheckedItemPositions().keyAt(i)));
+                        break;
+                    case 1: profileModel.setMorbus(1);
+                        profileModel.addKrankheit(diseases.get(listDiseases.getCheckedItemPositions().keyAt(i)));
+                        break;
+                    case 2: profileModel.setGicht(1);
+                        profileModel.addKrankheit(diseases.get(listDiseases.getCheckedItemPositions().keyAt(i)));
+                        break;
+                    default: break;
+                }
+            }
+
+            userModel.setCreatedSuccessfullyProfile(true);
+            String pathToAppFolder = getExternalFilesDir(null).getAbsolutePath();
+            String filePathProfile = pathToAppFolder + File.separator + "profile.ser";
+            String filePathUser = pathToAppFolder +File.separator + "user.ser";
+            SerializableManager.saveSerializable(profileModel, filePathProfile);
+            SerializableManager.saveSerializable(userModel,filePathUser);
+
+            Intent intent= new Intent(this, ProfileFinishedSpeechActivity.class);
+            startActivity(intent);
         }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
     }
 }
