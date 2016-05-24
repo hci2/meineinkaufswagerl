@@ -317,7 +317,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                         {
                             for (int i = 0; i < currentListView.size(); i++) {
                                 if (currentListView.get(i).equals(product) || currentListView.get(i).contains(product) || currentListView.get(i).contentEquals(product)
-                                        || currentListView.get(i).equalsIgnoreCase(product) || product.matches(currentListView.get(i)) || currentListView.get(i).contains(resultString.substring(1, 3))) {
+                                        || currentListView.get(i).equalsIgnoreCase(product) || product.matches(currentListView.get(i)) || currentListView.get(i).contains(product.substring(1, 3))) {
                                     if (isUserCompatibleWithProduct(product)) {
                                         tempList.addTextList(amount+product);
 
@@ -326,10 +326,13 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                                             if(currentListView.get(i).equals(currentAvailableProductList.get(u).getName())){
                                                 //Hinzufügen der Menge des Produktes zum ProductModel
                                                 if(amount!=1 && amount!=0){
+                                                    currentListView.add(amount+".0 "+product);
+
                                                     temporaryProductList.add(currentAvailableProductList.get(u));
                                                     temporaryProductList.get(temporaryProductList.size()-1).setMenge((float)amount);
                                                     ttsManager.addQueue("Es wurden erfolgreich " +currentAvailableProductList.get(u).getMenge()+" "+currentAvailableProductList.get(u).getName()+" zur Einkaufsliste hinzugefügt!");
                                                 } else{
+                                                    currentListView.add(currentAvailableProductList.get(u).getMenge()+" "+product);
                                                     //Annahme der default Menge des Produktes
                                                     temporaryProductList.add(currentAvailableProductList.get(u));
                                                     //temporaryProductList.get(temporaryProductList.size()-1).setMenge(currentAvailableProductList.get(u).getMenge());

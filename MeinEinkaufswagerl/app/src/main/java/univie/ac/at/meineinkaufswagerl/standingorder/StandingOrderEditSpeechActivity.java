@@ -146,10 +146,6 @@ public class StandingOrderEditSpeechActivity extends AppCompatActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, currentListView);
             txtSpeechList.setAdapter(adapter);
         }else{
-            currentAllProductView=new ArrayList<String>();
-            for(int i=0;i<currentAvailableProductList.size();i++){
-                currentAllProductView.add(currentAvailableProductList.get(i).getName());
-            }
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, currentAllProductView);
             txtSpeechList.setAdapter(adapter);
         }
@@ -231,6 +227,10 @@ public class StandingOrderEditSpeechActivity extends AppCompatActivity {
         this.currentAvailableProductList.add(new ProductModel("Zahnpasta", 1.50f, "Haushalt", 0.20f, "Kilo", R.drawable.zahnpasta));
         this.currentAvailableProductList.add(new ProductModel("Duschgel",2.0f,"Haushalt",0.03f,"Liter",R.drawable.duschgel));
         this.currentAvailableProductList.add(new ProductModel("Staubsauger", 80.0f, "Haushalt", 1.0f, "Stück", R.drawable.staubsauger));
+        currentAllProductView=new ArrayList<String>();
+        for(int i=0;i<currentAvailableProductList.size();i++){
+            currentAllProductView.add(currentAvailableProductList.get(i).getName());
+        }
 
     }
 
@@ -293,6 +293,7 @@ public class StandingOrderEditSpeechActivity extends AppCompatActivity {
                             ttsManager.addQueue("Es wurde erfolgreich Zeile " +zeile+" mit dem Inhalt "+currentListView.get(removeLine)+" aus ihrer dauerhaften Einkaufsliste gelöscht!");
 
                             currentListView.remove(removeLine); //Integer.parseInt(number)
+                            standingOrderListModel.getProductList().remove(removeLine);
 
                             //tempList.changeTextListElement(resultString, indexChange); //resultString.substring(resultString.lastIndexOf(number)+1),Integer.parseInt(number)
 
@@ -331,21 +332,23 @@ public class StandingOrderEditSpeechActivity extends AppCompatActivity {
                         boolean addSuccess=false;
                         check:
                         {
-                            for (int i = 0; i < currentListView.size(); i++) {
-                                if (currentListView.get(i).equals(product) || currentListView.get(i).contains(product) || currentListView.get(i).contentEquals(product)
-                                        || currentListView.get(i).equalsIgnoreCase(product) || product.matches(currentListView.get(i)) || currentListView.get(i).contains(resultString.substring(1, 3))) {
+                            for (int i = 0; i < currentAllProductView.size(); i++) {
+                                if (currentAllProductView.get(i).equals(product) || currentAllProductView.get(i).contains(product) || currentAllProductView.get(i).contentEquals(product)
+                                        || currentAllProductView.get(i).equalsIgnoreCase(product) || product.matches(currentAllProductView.get(i)) || currentAllProductView.get(i).contains(product.substring(1, 3))) {
                                     if (isUserCompatibleWithProduct(product)) {
-                                        currentListView.add(amount+product);
 
                                         //Hinzufügen zur arraylist products
                                         for(int u=0; u<currentAvailableProductList.size();u++){
-                                            if(currentListView.get(i).equals(currentAvailableProductList.get(u).getName())){
+                                            if(currentAllProductView.get(i).equals(currentAvailableProductList.get(u).getName())){
                                                 //Hinzufügen der Menge des Produktes zum ProductModel
                                                 if(amount!=1&& amount!=0){
+                                                    currentListView.add(amount+".0 "+product);
+
                                                     standingOrderProductList.add(currentAvailableProductList.get(u));
                                                     standingOrderProductList.get(standingOrderProductList.size()-1).setMenge((float)amount);
                                                     ttsManager.addQueue("Es wurden erfolgreich " +currentAvailableProductList.get(u).getMenge()+" "+currentAvailableProductList.get(u).getName()+" zur dauerhaften Einkaufsliste hinzugefügt!");
                                                 } else{
+                                                    currentListView.add(currentAvailableProductList.get(u).getMenge()+" "+product);
                                                     //Annahme der default Menge des Produktes
                                                     standingOrderProductList.add(currentAvailableProductList.get(u));
                                                     //standingOrderProductList.get(standingOrderProductList.size()-1).setMenge(currentAvailableProductList.get(u).getMenge());
@@ -359,7 +362,7 @@ public class StandingOrderEditSpeechActivity extends AppCompatActivity {
                                         break check;
                                     } else {
                                         Toast.makeText(getApplicationContext(),
-                                                getString(R.string.product_incompatible_with_user),
+                                                getString(R.string.speech_index_missunderstand),
                                                 Toast.LENGTH_LONG).show();
                                         break check;
                                     }
