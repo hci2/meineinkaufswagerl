@@ -33,7 +33,7 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity imple
 
     TextView infoText, charityOrganisation;
     ImageButton speakAddress, readAddress;
-    Button readAdressButton,readCharityButton, nextButton;
+    Button readAdressButton, nextButton;
     ListView listViewAddress;
 
     CharityModel charityModel=null;
@@ -109,9 +109,6 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity imple
         adressList=new ArrayList<>();
         charityModel=new CharityModel();
 
-        //Test
-        charityOrganisation.setText(userModel.getFirstname()+" "+userModel.getLastname());
-
     }
 
 
@@ -181,13 +178,8 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity imple
 
             }
         }
+        ttsManager.addQueue("Ihre Einkaufsliste wird von der Organisation "+userModel.getCharity()+" ausgeliefert.");
 
-    }
-
-    public void readMyCharity(View v){
-        // Startet auf Knopfdruck die Sprachausgabe
-        charityOrganisation.setText(userModel.getCharity());
-        ttsManager.initQueue("Ihre Einkaufsliste wird von der Organisation "+userModel.getCharity()+" ausgeliefert.");
     }
 
     public void readInfoText(View v){
@@ -309,7 +301,6 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity imple
     }
 
     private void initializeVariables() {
-        //readCharityButton= (Button) findViewById(R.id.readCharity);
         readAdressButton= (Button) findViewById(R.id.readButton);
         nextButton= (Button) findViewById(R.id.nextButton);
         speakAddress= (ImageButton) findViewById(R.id.speakButton);

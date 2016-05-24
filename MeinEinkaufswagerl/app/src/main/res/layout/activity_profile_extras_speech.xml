@@ -77,7 +77,7 @@
                 <ImageButton
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/btnIndex"
+                    android:id="@+id/btnRemove"
                     android:src="@drawable/index_icon"
                     android:layout_alignBottom="@+id/extraListe"
                     android:layout_alignParentEnd="true"

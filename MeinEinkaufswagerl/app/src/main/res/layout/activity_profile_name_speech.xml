@@ -88,9 +88,7 @@
             android:layout_y="325dp"
             android:textSize="19dp"
             android:onClick="readNames"
-            android:layout_weight="1"
-            android:layout_marginRight="70dp"
-            android:layout_marginLeft="70dp" />
+            android:layout_weight="1" />
 
         <Button
             android:layout_width="match_parent"
