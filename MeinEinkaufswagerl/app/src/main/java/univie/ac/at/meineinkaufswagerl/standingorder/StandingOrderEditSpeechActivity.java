@@ -1,4 +1,4 @@
-package univie.ac.at.meineinkaufswagerl.shoppinglist;
+package univie.ac.at.meineinkaufswagerl.standingorder;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -11,11 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -27,8 +25,11 @@ import univie.ac.at.meineinkaufswagerl.model.ProductNotFittingModel;
 import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
 import univie.ac.at.meineinkaufswagerl.model.StandingOrderListModel;
 import univie.ac.at.meineinkaufswagerl.model.TemporaryListModel;
+import univie.ac.at.meineinkaufswagerl.model.UserModel;
+import univie.ac.at.meineinkaufswagerl.shoppinglist.ListConfirmationSpeechActivity;
+import univie.ac.at.meineinkaufswagerl.shoppinglist.ListSupportPage;
 
-public class ListCreateSpeechActivity extends AppCompatActivity implements Serializable {
+public class StandingOrderEditSpeechActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl.MESSAGE";
     public final static String EXTRA_LIST = "univie.ac.at.meineinkaufswagerl.LIST";
@@ -48,33 +49,44 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
     private StandingOrderListModel standingOrderListModel;
-    private TemporaryListModel tempList;
-    private ArrayList<ProductModel>currentAvailableProductList;
-    private ArrayList<ProductModel>temporaryProductList;
+    private ArrayList<ProductModel> currentAvailableProductList;
+    private ArrayList<ProductModel>standingOrderProductList;
     private ArrayList<String>currentListView;
+    private ArrayList<String>currentAllProductView;
     private ProfileModel profileModel;
+    private UserModel userModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_create_speech);
-
-        //Unwrap the intent and get the temporary list.
-        standingOrderListModel = new StandingOrderListModel();
-        if(getIntent() != null && getIntent().getExtras() != null){
-            standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListSupportPage.EXTRA_MESSAGE);
-        }
-        tempList=new TemporaryListModel();
-        createProducts();
-
+        setContentView(R.layout.activity_standing_order_edit_speech);
 
         String pathToAppFolder = getExternalFilesDir(null).getAbsolutePath();
         String filePathProfile = pathToAppFolder +File.separator + "profile.ser";
+        String filePathUser = pathToAppFolder +File.separator + "user.ser";
+        String filePathStandingOrder = pathToAppFolder +File.separator + "standingorder.ser";
+        userModel= new UserModel();
+        if(new File(filePathUser).exists()){
+            userModel=SerializableManager.readSerializable(filePathUser); // this,
+        }
+
         profileModel=new ProfileModel();
         //profileModel=ProfileModel.getInstance();
         if(new File(filePathProfile).exists()){
-            profileModel= SerializableManager.readSerializable(filePathProfile); //this,
+            profileModel=SerializableManager.readSerializable(filePathProfile); //this,
         }
+
+
+        standingOrderListModel=new StandingOrderListModel();
+        //standingOrderListModel=StandingOrderListModel.getInstance();
+        if(new File(filePathStandingOrder).exists()){
+            standingOrderListModel=SerializableManager.readSerializable(filePathStandingOrder); //this,
+
+        }
+
+        createProducts();
+        standingOrderProductList=new ArrayList<ProductModel>();
+        currentListView=new ArrayList<String>();
 
 
         //initiate TextToSpeechManager
@@ -117,23 +129,31 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
             @Override
             public void onClick(View arg0) {
                 //String text = txtTextView.getText().toString();
-                ArrayList<String> textList=tempList.getTextList();
-                if(!(textList.size()==0)){
-                    ttsManager.initQueue(textList.get(0));
-                    for(int i=1;i<textList.size();i++){
-                        ttsManager.addQueue(textList.get(i));
-                    }
-                } else{
-                    for(int i=0;i<currentListView.size();i++){
-                        ttsManager.addQueue(currentListView.get(i));
-                    }
+                ttsManager.initQueue(currentListView.get(0));
+                for(int i=1;i<currentListView.size();i++){
+                    ttsManager.addQueue(currentListView.get(i));
                 }
             }
         });
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, currentListView);
-        txtSpeechList.setAdapter(adapter);
+
+        if(standingOrderListModel.getSizeProductList()!=0){
+            standingOrderProductList=standingOrderListModel.getProductList();
+            for(int i=0;i<standingOrderListModel.getSizeProductList();i++){
+                currentListView.add(standingOrderProductList.get(i).getMenge()+" "+standingOrderProductList.get(i).getName());
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, currentListView);
+            txtSpeechList.setAdapter(adapter);
+        }else{
+            currentAllProductView=new ArrayList<String>();
+            for(int i=0;i<currentAvailableProductList.size();i++){
+                currentAllProductView.add(currentAvailableProductList.get(i).getName());
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, currentAllProductView);
+            txtSpeechList.setAdapter(adapter);
+        }
+
     }
 
     private boolean isUserCompatibleWithProduct(String product){
@@ -168,7 +188,6 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
 
     private int getNumberFromWrittenForm(String number){
         String [][] textToNumber = new String[][]{
-                //TODO: Überlegen zu welchen Produkten welche Unverträglichkeiten und Krankheiten sich nicht vertragen
                 {"ein", "1"},
                 {"zwei", "2"},
                 {"drei", "3"},
@@ -201,7 +220,6 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
     }
 
     private void createProducts() {
-        temporaryProductList= new  ArrayList<ProductModel>();
         this.currentAvailableProductList = new ArrayList<ProductModel>();
         this.currentAvailableProductList.add(new ProductModel("Milch", 1.0f, "Lebensmittel", 1.0f, "Liter", R.drawable.milch));
         this.currentAvailableProductList.add(new ProductModel("Brot",0.50f,"Lebensmittel",1.0f,"Kilo", R.drawable.brot));
@@ -213,10 +231,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
         this.currentAvailableProductList.add(new ProductModel("Zahnpasta", 1.50f, "Haushalt", 0.20f, "Kilo", R.drawable.zahnpasta));
         this.currentAvailableProductList.add(new ProductModel("Duschgel",2.0f,"Haushalt",0.03f,"Liter",R.drawable.duschgel));
         this.currentAvailableProductList.add(new ProductModel("Staubsauger", 80.0f, "Haushalt", 1.0f, "Stück", R.drawable.staubsauger));
-        currentListView=new ArrayList<String>();
-        for(int i=0;i<currentAvailableProductList.size();i++){
-            currentListView.add(currentAvailableProductList.get(i).getName());
-        }
+
     }
 
     /**
@@ -270,14 +285,15 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
 
                             //To get just the number as String
                             //String number=resultString.replaceAll("[^0-9]", "");
-                            if(tempList.getTextList().size()==0 || tempList.getTextList().size()<removeLine){
+                            if(currentListView.size()==0 || currentListView.size()<removeLine){
                                 remove=false;
                                 return;
                             }
                             int zeile=removeLine+1;
-                            ttsManager.addQueue("Es wurde erfolgreich Zeile " +zeile+" mit dem Inhalt "+tempList.get(removeLine)+" aus ihrer Einkaufsliste gelöscht!");
+                            ttsManager.addQueue("Es wurde erfolgreich Zeile " +zeile+" mit dem Inhalt "+currentListView.get(removeLine)+" aus ihrer dauerhaften Einkaufsliste gelöscht!");
 
-                            tempList.removeTextListElement(removeLine); //Integer.parseInt(number)
+                            currentListView.remove(removeLine); //Integer.parseInt(number)
+
                             //tempList.changeTextListElement(resultString, indexChange); //resultString.substring(resultString.lastIndexOf(number)+1),Integer.parseInt(number)
 
                             remove=false;
@@ -319,21 +335,21 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                                 if (currentListView.get(i).equals(product) || currentListView.get(i).contains(product) || currentListView.get(i).contentEquals(product)
                                         || currentListView.get(i).equalsIgnoreCase(product) || product.matches(currentListView.get(i)) || currentListView.get(i).contains(resultString.substring(1, 3))) {
                                     if (isUserCompatibleWithProduct(product)) {
-                                        tempList.addTextList(amount+product);
+                                        currentListView.add(amount+product);
 
                                         //Hinzufügen zur arraylist products
                                         for(int u=0; u<currentAvailableProductList.size();u++){
                                             if(currentListView.get(i).equals(currentAvailableProductList.get(u).getName())){
                                                 //Hinzufügen der Menge des Produktes zum ProductModel
-                                                if(amount!=1 && amount!=0){
-                                                    temporaryProductList.add(currentAvailableProductList.get(u));
-                                                    temporaryProductList.get(temporaryProductList.size()-1).setMenge((float)amount);
-                                                    ttsManager.addQueue("Es wurden erfolgreich " +currentAvailableProductList.get(u).getMenge()+" "+currentAvailableProductList.get(u).getName()+" zur Einkaufsliste hinzugefügt!");
+                                                if(amount!=1&& amount!=0){
+                                                    standingOrderProductList.add(currentAvailableProductList.get(u));
+                                                    standingOrderProductList.get(standingOrderProductList.size()-1).setMenge((float)amount);
+                                                    ttsManager.addQueue("Es wurden erfolgreich " +currentAvailableProductList.get(u).getMenge()+" "+currentAvailableProductList.get(u).getName()+" zur dauerhaften Einkaufsliste hinzugefügt!");
                                                 } else{
                                                     //Annahme der default Menge des Produktes
-                                                    temporaryProductList.add(currentAvailableProductList.get(u));
-                                                    //temporaryProductList.get(temporaryProductList.size()-1).setMenge(currentAvailableProductList.get(u).getMenge());
-                                                    ttsManager.addQueue("Es wurden erfolgreich " +currentAvailableProductList.get(u).getMenge()+" "+currentAvailableProductList.get(u).getName()+" zur Einkaufsliste hinzugefügt!");
+                                                    standingOrderProductList.add(currentAvailableProductList.get(u));
+                                                    //standingOrderProductList.get(standingOrderProductList.size()-1).setMenge(currentAvailableProductList.get(u).getMenge());
+                                                    ttsManager.addQueue("Es wurden erfolgreich " +currentAvailableProductList.get(u).getMenge()+" "+currentAvailableProductList.get(u).getName()+" zur  dauerhaften Einkaufsliste hinzugefügt!");
                                                 }
 
                                             }
@@ -361,7 +377,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
 
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, tempList.getTextList());
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, currentListView);
                     txtSpeechList.setAdapter(adapter);
                 }
                 break;
@@ -379,17 +395,24 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
     }
 
     public void goToNextPage(View v) {
-        Intent intent= new Intent(this, ListConfirmationSpeechActivity.class);
-        //intent.putExtra(EXTRA_LIST,tempList.getTextList());
-        if(tempList!=null){
-            intent.putExtra(EXTRA_LIST,tempList);
+        Intent intent= new Intent(this, StandingOrderFinishedActivity.class);
+
+        //Hinzufügen der Temporären Liste zur dauerhaften und dann abschicken und serialisieren
+        for(int i=0;i<currentListView.size();i++){
+            standingOrderListModel.addTextList(currentListView.get(i));
         }
-        if(standingOrderListModel!=null){
-            intent.putExtra(EXTRA_MESSAGE,standingOrderListModel);
-        }
-        if(temporaryProductList!=null){
-            intent.putExtra(EXTRA_PRODUCT,temporaryProductList);
-        }
+        //Hinzufügen der Produkte
+        standingOrderListModel.setProductList(standingOrderProductList);
+
+
+        String pathToAppFolder = getExternalFilesDir(null).getAbsolutePath();
+        String filePathStandingOrder = pathToAppFolder +File.separator + "standingorder.ser";
+        /*if(new File(filePathStandingOrder).exists()){
+             SerializableManager.removeSerializable(this,filePathStandingOrder);
+         }
+         */
+        SerializableManager.saveSerializable(standingOrderListModel,filePathStandingOrder); //this,
+
         startActivity(intent);
     }
 }

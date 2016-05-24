@@ -74,6 +74,7 @@
                 android:layout_height="match_parent"
                 android:text="Dauerauftrag bearbeiten"
                 android:id="@+id/standOrderButton"
+                android:onClick="goToEditStandingOrder"
                 android:layout_centerHorizontal="true"
                 android:textSize="19dp"
                 android:layout_weight="1"

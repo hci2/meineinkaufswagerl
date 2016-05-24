@@ -8,6 +8,7 @@
     <string name="speech_remove">Sagen Sie welche Zeile sie löschen wollen&#8230;</string>
     <string name="speech_index">Sagen Sie welche Zeile sie ändern wollen&#8230;</string>
     <string name="speech_index_missunderstand">Es ist ein Fehler aufgetreten, versuchen Sie es nochmal!</string>
+    <string name="speech_arguments_too_short">Es ist ein Fehler aufgetreten, Sie müssen zuerst Menge und danach Produkt sagen!</string>
     <string name="speech_not_supported">Entschuldigung! Ihr Gerät unterstützt die Spracheingabe nicht!</string>
     <string name="tap_on_ear">Drücken Sie auf das Ohr um die Eingabe zu hören</string>
     <string name="tap_on_mouth">Drücken Sie auf den Mund um zu sprechen</string>
@@ -74,4 +75,7 @@
     <string name="speech_noPlz">Entschuldigung! Wiederholen Sie bitte ihre Postleitzahl!</string>
 
     <string name="speech_profile_finished">Ihr Profil wurde erfolgreich eingerichtet. Die Daten können jederzeit nachträglich geändert werden. Die Bezahlung erfolgt bar beim Empfang der Ware.</string>
+
+
+    <string name="standing_order_finished">Ihr dauerhafte Liste wurde erfolgreich bearbeitet. Die Daten können jederzeit nachträglich geändert werden.</string>
 </resources>
