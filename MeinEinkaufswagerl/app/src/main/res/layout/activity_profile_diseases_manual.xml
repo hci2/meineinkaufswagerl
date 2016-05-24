@@ -34,7 +34,6 @@
             android:id="@+id/textView8"
             android:layout_weight="1.5"
             android:textSize="23dp"
-            android:layout_marginTop="5dp"
             android:textStyle="bold" />
 
         <ListView
@@ -46,7 +45,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="New Button"
+            android:text="@string/btn_weiter"
             android:id="@+id/buttonContinue"
             android:layout_weight="1.4" />
     </LinearLayout>
