@@ -2,6 +2,7 @@ package univie.ac.at.meineinkaufswagerl.profile;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
@@ -43,11 +44,8 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
     //private ProfileModel profileModel;
 
     //For Changing
-    //private ImageButton btnChange;
-    private ImageButton btnIndex;
-    private boolean change=false;
-    private boolean index=false;
-    private int indexChange;
+    private ImageButton btnRemove;
+    private boolean remove=false;
 
     private int MY_DATA_CHECK_CODE = 0;
     private final int REQ_CODE_SPEECH_INPUT = 100;
@@ -96,31 +94,25 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
         //check TTS version on executing device - needed for SpeechToText
         checkSpeech();
 
+        remove=false;
+
         //initialize all the elements of the layout xml
         infoText = (TextView) findViewById(R.id.infoText);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
         extraListe = (ListView) findViewById(R.id.extraListe);
         btnRead = (ImageButton) findViewById(R.id.btnRead);
-        //btnChange = (ImageButton) findViewById(R.id.btnChange);
-        btnIndex = (ImageButton) findViewById(R.id.btnIndex);
+        btnRemove = (ImageButton) findViewById(R.id.btnRemove);
         btnNext = (Button) findViewById(R.id.nextButton);
 
-        // This is used to Change an index of the List
-        /*btnChange.setOnClickListener(new View.OnClickListener() {
+        // This is used to remove an element at the spoken index of the List
+        btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                change=true;
-                speechText();
-            }
-        });*/
-        // This is used to get the index for changing a line of the List
-        btnIndex.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                index=true;
+                remove=true;
                 speechText();
             }
         });
+
 
         //This is used for SpeechToText
         btnSpeak.setOnClickListener(new View.OnClickListener() {
@@ -172,12 +164,9 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.GERMAN);
-        if(!change && index){
+        if(remove){
             intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                    getString(R.string.speech_index));
-        } else if(change && index){
-            intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                    getString(R.string.speech_change));
+                    getString(R.string.speech_remove));
         } else {
             intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
                     getString(R.string.speech_extra));
@@ -203,26 +192,32 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String resultString=result.get(0);
-                    if(!change && index){
-                        try{
-                            indexChange=Integer.parseInt(resultString)-1;
-                        } catch(Exception pe){
-                            Toast.makeText(getApplicationContext(),
-                                    getString(R.string.speech_index_missunderstand),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    } else if(change && index){
-                        //To get just the number as String
-                        //String number=resultString.replaceAll("[^0-9]", "");
+                    if(remove){
                         if(profileModel.getExtraListe().size()==0){
-                            change=false;
-                            index=false;
+                            remove=false;
                             return;
+                        } else{
+                            try{
+                                int index;
+                                if(isInt(resultString)){
+                                    index=Integer.parseInt(resultString)-1;
+                                    profileModel.removeExtra(index);
+                                }else{
+                                    Toast.makeText(getApplicationContext(),
+                                            getString(R.string.speech_index_missunderstand),
+                                            Toast.LENGTH_SHORT).show();
+                                    remove=false;
+                                    return;
+                                }
+                                remove=false;
+
+                            } catch(Exception pe){
+                                remove=false;
+                                Toast.makeText(getApplicationContext(),
+                                        getString(R.string.speech_index_missunderstand),
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        profileModel.removeExtra(indexChange); //Integer.parseInt(number)
-                        profileModel.changeExtra(resultString, indexChange); //resultString.substring(resultString.lastIndexOf(number)+1),Integer.parseInt(number)
-                        change=false;
-                        index=false;
                     } else {
                         profileModel.addExtra(resultString);
                     }
@@ -235,6 +230,19 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
             }
 
         }
+    }
+
+    private  boolean isInt(String str)
+    {
+        try
+        {
+            int d = Integer.parseInt(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
     }
 
     // This is used for SpeechToText
@@ -260,6 +268,8 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
     }
 
     public void readExtraInfoText(View v) {
-        ttsManager.initQueue(infoText.getText().toString());
+        Resources res = getResources();
+        String text = res.getString(R.string.intro_extras_full);
+        ttsManager.initQueue(text);
     }
 }

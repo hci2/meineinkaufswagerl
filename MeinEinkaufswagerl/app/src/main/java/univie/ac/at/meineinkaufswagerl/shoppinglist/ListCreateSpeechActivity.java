@@ -326,12 +326,16 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                                                 //Hinzufügen der Menge des Produktes zum ProductModel
                                                 if(amount!=0){
                                                     currentAvailableProductList.get(u).setMenge((float)amount);
+                                                    ttsManager.addQueue("Es wurden erfolgreich " +currentAvailableProductList.get(u).getMenge()+" "+currentAvailableProductList.get(u).getName()+" zur Einkaufsliste hinzugefügt!");
+                                                } else{
+                                                    //Annahme der default Menge des Produktes
+                                                    ttsManager.addQueue("Es wurden erfolgreich " +currentAvailableProductList.get(u).getMenge()+" "+currentAvailableProductList.get(u).getName()+" zur Einkaufsliste hinzugefügt!");
                                                 }
                                                 temporaryProductList.add(currentAvailableProductList.get(u));
                                             }
                                         }
-
                                         addSuccess = true;
+
                                         break check;
                                     } else {
                                         Toast.makeText(getApplicationContext(),

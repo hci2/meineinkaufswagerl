@@ -62,8 +62,9 @@
     <string name="speech_diseases">Sagen Sie zu der gehörten Krankheit ja oder nein&#8230;</string>
     <string name="speech_noOwnDiseases">Sie haben noch keine Krankheit angegeben&#8230;</string>
 
-    <string name="intro_extras">Sie können zusätzliche Dinge auf die geachtet werden soll mit dem Mund Button angeben und sich mit dem Ohr Button anhören. Mithilfe des # Button können Sie die Zeile angeben und mit dem Schreibblock Button den Inhalt der Zeile ändern.</string>
-    <string name="speech_extra">Sagen Sie auf was zusätzlich geachtet werden soll&#8230;</string>
+    <string name="intro_extras_full">Sie können zusätzliche Dinge auf die geachtet werden soll mit dem Mund Button angeben und sich mit dem Ohr Button anhören. Mithilfe des # Button können Sie die Zeile angeben und mit dem Schreibblock Button den Inhalt der Zeile ändern.</string>
+    <string name="intro_extras">Sie können zusätzliche Dinge auf die geachtet werden soll mit dem Mund Button angeben.</string>
+    <string name="speech_extra">Sagen Sie auf was zusätzlich (zum Beispiel Bananen) geachtet werden soll&#8230;</string>
 
     <string name="intro_addressCharity">Geben Sie ihre Adresse mit Hilfe des Mund Button an und beantworten Sie die mit dem Ohr Button jeweilig gehörte Frage. Danach wird Ihnen eine Hilfsorganisation zur Auslieferung zugeordnet.</string>
     <string name="speech_country">Sagen Sie in welchen Land Sie wohnen&#8230;</string>

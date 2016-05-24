@@ -48,6 +48,16 @@
                 <ImageButton
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:id="@+id/readOneButton"
+                    android:layout_x="208dp"
+                    android:layout_y="130dp"
+                    android:src="@drawable/ear_icon"
+                    android:onClick="readOneDisease"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:id="@+id/speakButton"
                     android:layout_x="210dp"
                     android:layout_y="230dp"
@@ -55,27 +65,18 @@
                     android:onClick="speakDiseases"
                     android:layout_weight="1" />
 
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/readOneButton"
-                    android:layout_x="208dp"
-                    android:layout_y="130dp"
-                    android:src="@drawable/ear_icon"
-                    android:onClick="readOneDisease"
-                    android:layout_weight="1" />
             </LinearLayout>
         </LinearLayout>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Meine Krankheiten vorlesen"
-            android:id="@+id/readMyIntolerancesButton"
+            android:text="Krankheiten vorlesen"
+            android:id="@+id/readButton"
             android:layout_x="10dp"
-            android:layout_y="392dp"
+            android:layout_y="320dp"
             android:textSize="19dp"
-            android:onClick="readMyDiseases"
+            android:onClick="readDiseases"
             android:layout_weight="6" />
 
         <LinearLayout
@@ -87,12 +88,12 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Krankheiten vorlesen"
-                android:id="@+id/readButton"
+                android:text="Meine Krankheiten vorlesen"
+                android:id="@+id/readMyIntolerancesButton"
                 android:layout_x="10dp"
-                android:layout_y="320dp"
+                android:layout_y="392dp"
                 android:textSize="19dp"
-                android:onClick="readDiseases"
+                android:onClick="readMyDiseases"
                 android:layout_weight="1" />
 
             <Button
