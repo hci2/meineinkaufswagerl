@@ -69,7 +69,9 @@
             android:name=".profile.ProfileExtrasSpeechActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
-        <activity android:name=".profile.ProfileFinishedSpeechActivity" />
+        <activity android:name=".profile.ProfileFinishedSpeechActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
         <activity android:name=".shoppinglist.AdjustShoppingListActivity" />
         <activity
             android:name=".profile.ProfileAddressCharitySpeechActivity"
@@ -77,9 +79,15 @@
             android:screenOrientation="portrait" />
         <activity android:name=".profile.ProfileNameManualActivity" />
         <activity android:name=".profile.ProfileDiseasesManualActivity" />
-        <activity android:name=".standingorder.StandingOrderSupportActivity" />
-        <activity android:name=".standingorder.StandingOrderEditSpeechActivity" />
-        <activity android:name=".standingorder.StandingOrderFinishedActivity"></activity>
+        <activity android:name=".standingorder.StandingOrderSupportActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".standingorder.StandingOrderEditSpeechActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".standingorder.StandingOrderFinishedActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
