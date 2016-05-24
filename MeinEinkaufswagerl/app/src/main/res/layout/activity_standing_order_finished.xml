@@ -7,8 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="univie.ac.at.meineinkaufswagerl.profile.ProfileFinishedSpeechActivity">
-
+    tools:context="univie.ac.at.meineinkaufswagerl.standingorder.StandingOrderFinishedActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -31,9 +30,10 @@
             android:id="@+id/showFinishedText"
             android:layout_x="25dp"
             android:layout_y="160dp"
-            android:text="@string/speech_profile_finished"
+            android:text="@string/standing_order_finished"
             android:textSize="19dp"
-            android:layout_weight="2" />
+            android:layout_weight="2"
+            android:layout_margin="20dp" />
 
         <ImageButton
             android:layout_width="match_parent"
@@ -64,4 +64,5 @@
             android:layout_marginRight="70dp" />
 
     </LinearLayout>
+
 </RelativeLayout>

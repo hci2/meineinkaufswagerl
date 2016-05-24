@@ -21,6 +21,7 @@ import univie.ac.at.meineinkaufswagerl.model.UserModel;
 import univie.ac.at.meineinkaufswagerl.profile.ProfileActivity;
 import univie.ac.at.meineinkaufswagerl.shoppinglist.ListSupportPage;
 import univie.ac.at.meineinkaufswagerl.shoppinglist.ShoppingManuallyActivity;
+import univie.ac.at.meineinkaufswagerl.standingorder.StandingOrderSupportActivity;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener,Serializable {
 
@@ -29,7 +30,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     Button profilebutton;
     Button listButton;
-    Button leaveButton;
+    Button standingOrderButton;
     TextView infoText;
 
     //This variable is used to get access to the TextToSpeech
@@ -101,6 +102,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    public void goToEditStandingOrder(View v){
+        //Prüft ob ein Profil angelegt worden ist, falls nein dann wird eine Fehler Meldung angezeigt. derzeigig für Test und Vorzeigezwecke DEAKTIVIERT
+        if(userModel.getCreatedSuccessfullyProfile()){
+            // Startet auf Knopfdruck die ListSupportPage
+            Intent  intent= new Intent(this, StandingOrderSupportActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.noProfileCreated),
+                    Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
     public void goToListSupportPage(View v){
         //Prüft ob ein Profil angelegt worden ist, falls nein dann wird eine Fehler Meldung angezeigt. derzeigig für Test und Vorzeigezwecke DEAKTIVIERT
         if(userModel.getCreatedSuccessfullyProfile()){
@@ -117,6 +133,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+
     /*
     public void goToLeaveApp(View v){
         // Verlässt auf Knopfdruck die App
@@ -135,6 +152,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void initializeVariables() {
 
         profilebutton= (Button) findViewById(R.id.profilebutton);
+        standingOrderButton = (Button) findViewById(R.id.standOrderButton);
         listButton= (Button) findViewById(R.id.listButton);
         infoText = (TextView) findViewById(R.id.infoText);
 

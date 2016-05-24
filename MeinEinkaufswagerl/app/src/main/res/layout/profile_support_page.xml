@@ -4,32 +4,38 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Wählen Sie wie sie den Assistenten bedienen wollen"
         android:id="@+id/infoText"
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"
-        android:layout_marginTop="20dp"
-        android:onClick="readInfoText"/>
+        android:onClick="readInfoText"
+        android:textSize="30dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp" />
 
     <Button
-        android:layout_width="230dp"
-        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="Sprachunterstützt"
         android:id="@+id/sprachButton"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
         android:textSize="19dp"
-        android:onClick="goToNextPage"/>
+        android:onClick="goToNextPage"
+        android:layout_weight="1"
+        android:layout_margin="35dp" />
 
     <Button
-        android:layout_width="230dp"
-        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="Manuelle Eingabe"
         android:id="@+id/manuellButton"
         android:layout_gravity="center_horizontal"
         android:textSize="19dp"
-        android:layout_marginTop="70dp" />
+        android:layout_weight="1"
+        android:layout_margin="35dp" />
 </LinearLayout>
