@@ -20,7 +20,7 @@ import univie.ac.at.meineinkaufswagerl.model.UserModel;
 
 public class ProfileDiseasesManualActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button buttonConitnue;
+    Button buttonContinue;
     ListView listDiseases, listUnvertrag;
     ArrayList<String> diseases,intolerances;
     UserModel userModel;
@@ -30,10 +30,22 @@ public class ProfileDiseasesManualActivity extends AppCompatActivity implements 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_diseases_manual);
 
+        //Unwrap the intent and get the objects
+        userModel = new UserModel();
+        profileModel = new ProfileModel();
+        if(getIntent() != null && getIntent().getExtras() != null){
+            userModel = (UserModel)getIntent().getExtras().getSerializable(ProfileNameSpeechActivity.EXTRA_MESSAGE);
+            profileModel = (ProfileModel)getIntent().getExtras().getSerializable(ProfileNameSpeechActivity.EXTRA_LIST);
+
+            //TODO: Bestehende Krankheiten von vorheriger Profileditierung in Checkboxen Häckchen setzen
+        }
+
+        /*
         userModel = (UserModel)getIntent().getSerializableExtra("userModel");
         System.out.println(userModel.getFirstname());
-        profileModel = new ProfileModel();
 
+        profileModel = new ProfileModel();
+        */
         listDiseases = (ListView)findViewById(R.id.listDiseases);
         diseases=new ArrayList<>();
         diseases.add("Diabetes");
@@ -60,44 +72,54 @@ public class ProfileDiseasesManualActivity extends AppCompatActivity implements 
         listUnvertrag.setAdapter(adapter2);
         listUnvertrag.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
        // listUnvertrag.setOnItemClickListener(this);
-        buttonConitnue = (Button)findViewById(R.id.buttonContinue);
-        buttonConitnue.setOnClickListener(this);
+        buttonContinue = (Button)findViewById(R.id.buttonContinue);
+        buttonContinue.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if(v==buttonConitnue){
+        if(v==buttonContinue){
             for(int i=0; i<listUnvertrag.getCheckedItemPositions().size(); i++) {
                 switch (listUnvertrag.getCheckedItemPositions().keyAt(i)) {
                     case 0:
-                        profileModel.setLactose(0);
+                        profileModel.setLactose(1);
+                        profileModel.addUnvertraeglichkeit(intolerances.get(listUnvertrag.getCheckedItemPositions().keyAt(i)));
                         break;
                     case 1:
-                        profileModel.setGluten(0);
+                        profileModel.setGluten(1);
+                        profileModel.addUnvertraeglichkeit(intolerances.get(listUnvertrag.getCheckedItemPositions().keyAt(i)));
                         break;
                     case 2:
-                        profileModel.setFructose(0);
+                        profileModel.setFructose(1);
+                        profileModel.addUnvertraeglichkeit(intolerances.get(listUnvertrag.getCheckedItemPositions().keyAt(i)));
                         break;
                     case 3:
-                        profileModel.setEi(0);
+                        profileModel.setEi(1);
+                        profileModel.addUnvertraeglichkeit(intolerances.get(listUnvertrag.getCheckedItemPositions().keyAt(i)));
                         break;
                     case 4:
-                        profileModel.setFisch(0);
+                        profileModel.setFisch(1);
+                        profileModel.addUnvertraeglichkeit(intolerances.get(listUnvertrag.getCheckedItemPositions().keyAt(i)));
                         break;
                     case 5:
-                        profileModel.setPhenylalanin(0);
+                        profileModel.setPhenylalanin(1);
+                        profileModel.addUnvertraeglichkeit(intolerances.get(listUnvertrag.getCheckedItemPositions().keyAt(i)));
                         break;
                     case 6:
-                        profileModel.setHistamin(0);
+                        profileModel.setHistamin(1);
+                        profileModel.addUnvertraeglichkeit(intolerances.get(listUnvertrag.getCheckedItemPositions().keyAt(i)));
                         break;
                     case 7:
-                        profileModel.setSorbin(0);
+                        profileModel.setSorbin(1);
+                        profileModel.addUnvertraeglichkeit(intolerances.get(listUnvertrag.getCheckedItemPositions().keyAt(i)));
                         break;
                     case 8:
-                        profileModel.setSaccharose(0);
+                        profileModel.setSaccharose(1);
+                        profileModel.addUnvertraeglichkeit(intolerances.get(listUnvertrag.getCheckedItemPositions().keyAt(i)));
                         break;
                     case 9:
-                        profileModel.setErdnüsse(0);
+                        profileModel.setErdnüsse(1);
+                        profileModel.addUnvertraeglichkeit(intolerances.get(listUnvertrag.getCheckedItemPositions().keyAt(i)));
                         break;
                     default:
                         break;

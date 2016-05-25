@@ -26,7 +26,7 @@
     <string name="input_vorname">Ihr Vorname:</string>
     <string name="input_nachname">Ihr Nachname:</string>
     <string name="input_strasse">Ihre Straße:</string>
-    <string name="input_hausnummer">Ihr Hausnummer:</string>
+    <string name="input_hausnummer">Ihre Hausnummer:</string>
     <string name="input_plz">Ihre Postleitzahl:</string>
     <string name="btn_weiter">Weiter</string>
     <string name="txt_unvertag">Ihre Unverträglichkeiten:</string>
