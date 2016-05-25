@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import univie.ac.at.meineinkaufswagerl.R;
@@ -18,7 +19,7 @@ import univie.ac.at.meineinkaufswagerl.management.SerializableManager;
 import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
 import univie.ac.at.meineinkaufswagerl.model.UserModel;
 
-public class ProfileDiseasesManualActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProfileDiseasesManualActivity extends AppCompatActivity implements View.OnClickListener,Serializable {
 
     Button buttonContinue;
     ListView listDiseases, listUnvertrag;
