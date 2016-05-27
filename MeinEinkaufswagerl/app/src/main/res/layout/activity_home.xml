@@ -57,9 +57,10 @@
                 android:id="@+id/profilebutton"
                 android:layout_centerHorizontal="true"
                 android:textSize="19dp"
-                android:layout_weight="0.9"
+                android:layout_weight="1"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp" />
+                android:layout_marginBottom="15dp"
+                android:background="#7dd0e5" />
 
         </LinearLayout>
 
@@ -68,6 +69,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
             <Button
                 android:layout_width="match_parent"
@@ -78,9 +84,8 @@
                 android:layout_centerHorizontal="true"
                 android:textSize="19dp"
                 android:layout_weight="1"
-                android:layout_marginLeft="150dp"
                 android:layout_marginBottom="15dp"
-                android:layout_marginTop="15dp" />
+                android:background="#7dd0e5" />
         </LinearLayout>
 
         <LinearLayout
@@ -105,9 +110,10 @@
                 android:onClick="goToListSupportPage"
                 android:layout_centerHorizontal="true"
                 android:textSize="19dp"
-                android:layout_weight="0.9"
+                android:layout_weight="1"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp" />
+                android:layout_marginBottom="15dp"
+                android:background="#7dd0e5" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

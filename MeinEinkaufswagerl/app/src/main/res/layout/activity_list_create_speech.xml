@@ -33,8 +33,7 @@
                     android:id="@+id/btnSpeak"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@null"
-                    android:src="@drawable/mouth_icon"
+                        android:src="@drawable/mouth_icon"
                         android:layout_x="28dp"
                         android:layout_y="406dp"
                         android:layout_weight="1" />
