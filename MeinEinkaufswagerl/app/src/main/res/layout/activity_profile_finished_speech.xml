@@ -31,11 +31,12 @@
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/showFinishedText"
-            android:layout_x="25dp"
-            android:layout_y="160dp"
             android:text="@string/speech_profile_finished"
             android:textSize="19dp"
-            android:layout_weight="2" />
+            android:layout_weight="2"
+            android:layout_gravity="center"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="20dp" />
 
         <ImageButton
             android:layout_width="match_parent"

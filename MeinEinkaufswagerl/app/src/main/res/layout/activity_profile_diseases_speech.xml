@@ -20,7 +20,7 @@
             android:layout_y="0dp"
             android:textSize="19dp"
             android:onClick="readInfoText"
-            android:layout_weight="5.5"
+            android:layout_weight="6.4"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp" />
@@ -29,7 +29,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3">
+            android:layout_weight="3.5">
 
             <ListView
                 android:layout_width="match_parent"

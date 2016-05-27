@@ -38,7 +38,7 @@
     <string name="product_incompatible_with_user">Sie vertragen dieses Produkt nicht&#8230;</string>
 
     <string name="home_info_text">Info: Diese App dient zur Aufnahme einer Einkaufsliste, die auf Sie eingeht und einer gemeinwohlnützigen Organisation übermittelt wird.</string>
-    <string name="home_info_text_full">Info: Diese App dient zur Aufnahme Ihrer Kaufwünsche in eine Einkaufsliste, die auch auf ihre Intoleranzen und Wünsche eingeht und danach einer gemeinwohlnützigen Organisation übermittelt wird. \nBitte bei erstmaliger Nutzung Profil anlegen!</string>
+    <string name="home_info_text_full">Info: Diese App dient zur Aufnahme Ihrer Kaufwünsche in eine Einkaufsliste, die auch auf ihre Intoleranzen und Wünsche eingeht und danach einer gemeinwohlnützigen Organisation übermittelt wird. Die Informationstexte der kommenden Seiten lassen sich mit anklicken vorlesen. \nBitte bei erstmaliger Nutzung Profil anlegen!</string>
 
 
     <string name="finished_addStandingOrder">Ihre Liste wurde erfolgreich zu Ihrer dauerhaften Liste hinzugefügt!</string>
@@ -55,16 +55,18 @@
     <string name="speech_defaultcase_name">Sagen Sie ihren Namen&#8230;</string>
 
 
-    <string name="intro_unvertrag">Geben Sie ihre Intoleranzen an, indem Sie sich zuerst mit den Ohr Button die jeweilige Intoleranz anhören und dann mithilfe des Mund Buttons bejahen oder verneinen</string>
+    <string name="intro_unvertrag">Geben Sie ihre Intoleranzen mit Hilfe des Ohr und Mund Button an</string>
+    <string name="intro_unvertrag_full">Geben Sie ihre Intoleranzen an, indem Sie sich zuerst mit den Ohr Button die jeweilige Intoleranz anhören und dann mithilfe des Mund Buttons bejahen oder verneinen</string>
     <string name="speech_intolerances">Sagen Sie zu der gehörten Intoleranz ja oder nein&#8230;</string>
     <string name="speech_noOwnIntolerances">Sie haben noch keine Intoleranzen angegeben&#8230;</string>
 
-    <string name="intro_diseases">Geben Sie ihre Krankheiten an, indem Sie sich zuerst mit den Ohr Button die jeweilige Krankheit anhören und dann mithilfe des Mund Buttons bejahen oder verneinen</string>
+    <string name="intro_diseases">Geben Sie ihre Krankheiten mit Hilfe des Ohr und Mund Buttons an</string>
+    <string name="intro_diseases_full">Geben Sie ihre Krankheiten an, indem Sie sich zuerst mit den Ohr Button die jeweilige Krankheit anhören und dann mithilfe des Mund Buttons bejahen oder verneinen</string>
     <string name="speech_diseases">Sagen Sie zu der gehörten Krankheit ja oder nein&#8230;</string>
     <string name="speech_noOwnDiseases">Sie haben noch keine Krankheit angegeben&#8230;</string>
 
     <string name="intro_extras_full">Sie können zusätzliche Dinge auf die geachtet werden soll mit dem Mund Button angeben und sich mit dem Ohr Button anhören. Mithilfe des # Button können Sie die Zeile angeben und mit dem Schreibblock Button den Inhalt der Zeile ändern.</string>
-    <string name="intro_extras">Sie können zusätzliche Dinge auf die geachtet werden soll mit dem Mund Button angeben.</string>
+    <string name="intro_extras">Sie können zusätzliche Dinge auf die geachtet werden soll mit dem Mund Button angeben</string>
     <string name="speech_extra">Sagen Sie auf was zusätzlich (zum Beispiel Bananen) geachtet werden soll&#8230;</string>
 
     <string name="intro_addressCharity">Geben Sie ihre Adresse mit Hilfe des Mund Button an und beantworten Sie die mit dem Ohr Button jeweilig gehörte Frage. Danach wird Ihnen eine Hilfsorganisation zur Auslieferung zugeordnet.</string>

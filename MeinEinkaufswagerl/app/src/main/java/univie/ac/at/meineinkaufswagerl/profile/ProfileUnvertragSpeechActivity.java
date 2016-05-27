@@ -2,6 +2,7 @@ package univie.ac.at.meineinkaufswagerl.profile;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
@@ -161,7 +162,8 @@ public class ProfileUnvertragSpeechActivity extends AppCompatActivity implements
 
     public void readInfoText(View v){
         // Startet auf Knopfdruck die Sprachausgabe
-        String text = infoText.getText().toString();
+        Resources res = getResources();
+        String text = res.getString(R.string.intro_unvertrag_full);
         ttsManager.initQueue(text);
     }
 
