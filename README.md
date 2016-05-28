@@ -10,7 +10,7 @@ Framework:	[Android]
 API-Version:	[Android Lollipop 5.1]
 
 Gerät(e), auf dem(denen) getestet wurde:
-[Nexus 5X, Nexus 5, Sony Xperia Z3]
+[Nexus 5X, Nexus 5, Sony Xperia Z3, Samsung Galaxy S2]
 
 Externe Libraries und Frameworks:
 [Google Speech API]
