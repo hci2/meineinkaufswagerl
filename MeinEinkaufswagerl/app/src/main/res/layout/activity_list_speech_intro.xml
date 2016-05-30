@@ -43,7 +43,8 @@
                 android:id="@+id/readButton"
                 android:layout_weight="1"
                 android:textSize="22dp"
-                android:layout_margin="30dp" />
+                android:layout_margin="30dp"
+                android:background="#7dd0e5"/>
         </LinearLayout>
 
         <LinearLayout
@@ -60,7 +61,8 @@
             android:onClick="goToListCreateSpeechActivity"
             android:layout_weight="1"
             android:textSize="22dp"
-                android:layout_margin="30dp" />
+                android:layout_margin="30dp"
+                android:background="#7dd0e5"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

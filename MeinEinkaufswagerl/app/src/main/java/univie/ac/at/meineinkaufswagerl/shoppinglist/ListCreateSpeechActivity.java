@@ -274,8 +274,9 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                                 remove=false;
                                 return;
                             }
-                            int zeile=removeLine+1;
-                            ttsManager.addQueue("Es wurde erfolgreich Zeile " +zeile+" mit dem Inhalt "+tempList.get(removeLine)+" aus ihrer Einkaufsliste gelöscht!");
+                            int line=removeLine+1;
+                            ttsManager.addQueue("Es wurde erfolgreich Zeile " +line+" mit dem Inhalt "+tempList.get(removeLine)+" aus ihrer Einkaufsliste gelöscht!");
+                            temporaryProductList.remove(removeLine);
 
                             tempList.removeTextListElement(removeLine); //Integer.parseInt(number)
                             //tempList.changeTextListElement(resultString, indexChange); //resultString.substring(resultString.lastIndexOf(number)+1),Integer.parseInt(number)
@@ -319,31 +320,35 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                                 if (currentListView.get(i).equals(product) || currentListView.get(i).contains(product) || currentListView.get(i).contentEquals(product)
                                         || currentListView.get(i).equalsIgnoreCase(product) || product.matches(currentListView.get(i)) || currentListView.get(i).contains(product.substring(1, 3))) {
                                     if (isUserCompatibleWithProduct(product)) {
-                                        tempList.addTextList(amount+product);
-
                                         //Hinzufügen zur arraylist products
                                         for(int u=0; u<currentAvailableProductList.size();u++){
                                             if(currentListView.get(i).equals(currentAvailableProductList.get(u).getName())){
                                                 //Hinzufügen der Menge des Produktes zum ProductModel
-                                                if(amount!=1 && amount!=0){
-                                                    currentListView.add(amount+".0 "+product);
+                                                if(amount>0){
+                                                    //currentListView.add(amount+".0 "+product);
 
                                                     temporaryProductList.add(currentAvailableProductList.get(u));
                                                     temporaryProductList.get(temporaryProductList.size()-1).setMenge((float)amount);
-                                                    ttsManager.addQueue("Es wurden erfolgreich " +currentAvailableProductList.get(u).getMenge()+" "+currentAvailableProductList.get(u).getName()+" zur Einkaufsliste hinzugefügt!");
+                                                    temporaryProductList.get(temporaryProductList.size()-1).setName(product);
+                                                    tempList.addTextList(amount+" "+product);
+                                                    ttsManager.addQueue("Es wurden erfolgreich " +((int)currentAvailableProductList.get(u).getMenge())+" "+currentAvailableProductList.get(u).getName()+" zur Einkaufsliste hinzugefügt!");
+                                                    addSuccess = true;
+                                                    break check;
                                                 } else{
-                                                    currentListView.add(currentAvailableProductList.get(u).getMenge()+" "+product);
+                                                    //currentListView.add(currentAvailableProductList.get(u).getMenge()+" "+product);
                                                     //Annahme der default Menge des Produktes
                                                     temporaryProductList.add(currentAvailableProductList.get(u));
+                                                    temporaryProductList.get(temporaryProductList.size()-1).setName(product);
                                                     //temporaryProductList.get(temporaryProductList.size()-1).setMenge(currentAvailableProductList.get(u).getMenge());
-                                                    ttsManager.addQueue("Es wurden erfolgreich " +currentAvailableProductList.get(u).getMenge()+" "+currentAvailableProductList.get(u).getName()+" zur Einkaufsliste hinzugefügt!");
+                                                    tempList.addTextList(((int)currentAvailableProductList.get(u).getMenge())+" "+product);
+                                                    ttsManager.addQueue("Es wurden erfolgreich " +((int)currentAvailableProductList.get(u).getMenge())+" "+currentAvailableProductList.get(u).getName()+" zur Einkaufsliste hinzugefügt!");
+                                                    addSuccess = true;
+                                                    break check;
                                                 }
 
                                             }
                                         }
-                                        addSuccess = true;
 
-                                        break check;
                                     } else {
                                         Toast.makeText(getApplicationContext(),
                                                 getString(R.string.product_incompatible_with_user),

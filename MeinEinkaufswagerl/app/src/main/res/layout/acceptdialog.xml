@@ -44,13 +44,15 @@
             android:layout_height="wrap_content"
             android:id="@+id/buttonAccept"
             android:layout_gravity="center_horizontal"
-            android:text="@string/btn_accept" />
+            android:text="@string/btn_accept"
+            />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btn_decline"
             android:id="@+id/buttonDecline"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            />
     </LinearLayout>
 </RelativeLayout>
