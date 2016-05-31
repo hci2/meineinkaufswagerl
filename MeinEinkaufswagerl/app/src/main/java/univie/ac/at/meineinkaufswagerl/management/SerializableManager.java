@@ -2,6 +2,7 @@ package univie.ac.at.meineinkaufswagerl.management;
 
 import android.content.Context;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -173,12 +174,16 @@ public class SerializableManager {
     /**
      * Removes a specified file.
      *
-     * @param context The application context.
-     //* @param filename The name of the file.
+     //* @param context The application context.
+     * @param fileName The name of the file.
      */
-    /*
-    public static void removeSerializable(Context context,String fileName) { //Parameter: String filename
-        context.deleteFile(fileName);
+
+    public static void removeSerializable(String fileName) { //Parameter: Context context, String filename
+        //context.deleteFile(fileName);
+        File toDelete = new File(fileName);
+        if (toDelete.exists()) {
+            toDelete.delete();
+        }
     }
-    */
+
 }

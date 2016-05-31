@@ -27,7 +27,8 @@
         android:textSize="19dp"
         android:onClick="goToNextPage"
         android:layout_weight="1"
-        android:layout_margin="35dp" />
+        android:layout_margin="35dp"
+        android:background="#7dd0e5"/>
 
     <Button
         android:layout_width="match_parent"
@@ -37,5 +38,6 @@
         android:layout_gravity="center_horizontal"
         android:textSize="19dp"
         android:layout_weight="1"
-        android:layout_margin="35dp" />
+        android:layout_margin="35dp"
+        android:background="#7dd0e5"/>
 </LinearLayout>

@@ -291,10 +291,9 @@ public class ListConfirmationSpeechActivity extends AppCompatActivity implements
 
                         String pathToAppFolder = getExternalFilesDir(null).getAbsolutePath();
                         String filePathStandingOrder = pathToAppFolder +File.separator + "standingorder.ser";
-                        /*if(new File(filePathStandingOrder).exists()){
-                            SerializableManager.removeSerializable(this,filePathStandingOrder);
-                        }
-                        */
+
+                        //delete old standing order class
+                        SerializableManager.removeSerializable(filePathStandingOrder);
                         SerializableManager.saveSerializable(standingOrderListModel,filePathStandingOrder); //this,
                         Intent intent= new Intent(this, ListFinishedSpeechActivity.class);
                         String message="Ihr Auftrag der dauerhaften Liste wurde erfolgreich gesendet! Die Bezahlung erfolgt bar bei Warenannahme.";

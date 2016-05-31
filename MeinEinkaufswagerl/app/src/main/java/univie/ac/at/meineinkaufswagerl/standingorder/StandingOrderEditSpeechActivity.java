@@ -410,10 +410,9 @@ public class StandingOrderEditSpeechActivity extends AppCompatActivity {
 
         String pathToAppFolder = getExternalFilesDir(null).getAbsolutePath();
         String filePathStandingOrder = pathToAppFolder +File.separator + "standingorder.ser";
-        /*if(new File(filePathStandingOrder).exists()){
-             SerializableManager.removeSerializable(this,filePathStandingOrder);
-         }
-         */
+
+        //delete old standing order class
+        SerializableManager.removeSerializable(filePathStandingOrder);
         SerializableManager.saveSerializable(standingOrderListModel,filePathStandingOrder); //this,
 
         startActivity(intent);

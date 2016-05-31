@@ -48,8 +48,11 @@
             android:layout_x="127dp"
             android:layout_y="290dp"
             android:layout_weight="2"
-            android:layout_marginRight="110dp"
-            android:layout_marginLeft="110dp" />
+            android:layout_marginRight="70dp"
+            android:layout_marginLeft="70dp"
+            android:background="#7dd0e5"
+            android:layout_marginTop="18.5dp"
+            android:layout_marginBottom="18.5dp" />
 
         <Button
             android:layout_width="match_parent"
@@ -64,7 +67,9 @@
             android:textSize="17dp"
             android:layout_weight="2.3"
             android:layout_marginLeft="70dp"
-            android:layout_marginRight="70dp" />
+            android:layout_marginRight="70dp"
+            android:background="#7dd0e5"
+            android:layout_marginTop="3.5dp" />
 
     </LinearLayout>
 </RelativeLayout>

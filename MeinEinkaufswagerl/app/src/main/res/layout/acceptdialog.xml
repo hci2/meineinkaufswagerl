@@ -45,7 +45,8 @@
             android:id="@+id/buttonAccept"
             android:layout_gravity="center_horizontal"
             android:text="@string/btn_accept"
-            />
+            android:background="#7dd0e5"
+            android:layout_marginBottom="3.5dp" />
 
         <Button
             android:layout_width="match_parent"
@@ -53,6 +54,7 @@
             android:text="@string/btn_decline"
             android:id="@+id/buttonDecline"
             android:layout_gravity="center_horizontal"
-            />
+            android:background="#7dd0e5"
+            android:layout_marginTop="3.5dp" />
     </LinearLayout>
 </RelativeLayout>

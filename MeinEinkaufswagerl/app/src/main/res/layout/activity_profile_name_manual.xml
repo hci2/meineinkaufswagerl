@@ -99,7 +99,8 @@
                 android:text="@string/btn_weiter"
                 android:id="@+id/buttonContinue"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="#7dd0e5"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

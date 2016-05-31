@@ -31,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:text="Search"
                 android:id="@+id/buttonSearch"
-                android:layout_weight="3" />
+                android:layout_weight="3"
+                android:background="#7dd0e5"/>
         </LinearLayout>
 
         <LinearLayout
@@ -46,14 +47,18 @@
                 android:layout_height="wrap_content"
                 android:text="@string/btn_lebensmittel"
                 android:id="@+id/buttonLebensmittel"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="#7dd0e5"
+                android:layout_marginRight="3.5dp" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_haushalt"
                 android:id="@+id/buttonHaushalt"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="#7dd0e5"
+                android:layout_marginLeft="3.5dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -72,7 +77,8 @@
                 android:layout_height="match_parent"
                 android:text="@string/btn_toList"
                 android:id="@+id/buttonToList"
-                android:layout_weight="6" />
+                android:layout_weight="6"
+                android:background="#7dd0e5"/>
         </LinearLayout>
 
     </LinearLayout>

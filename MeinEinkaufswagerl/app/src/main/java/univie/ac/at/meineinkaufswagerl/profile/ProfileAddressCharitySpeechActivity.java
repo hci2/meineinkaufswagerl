@@ -143,15 +143,14 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity imple
         String pathToAppFolder = getExternalFilesDir(null).getAbsolutePath();
         String filePathProfile = pathToAppFolder +File.separator + "profile.ser";
         String filePathUser = pathToAppFolder +File.separator + "user.ser";
-        /*if(new File(filePathProfile).exists()){
-            SerializableManager.removeSerializable(this,filePathProfile);
-        }
-        */
+
+        //delete old profile class
+        SerializableManager.removeSerializable(filePathProfile);
         SerializableManager.saveSerializable(profileModel,filePathProfile); //this,
-        /*if(new File(filePathUser).exists()){
-            SerializableManager.removeSerializable(this,filePathUser);
-        }
-        */
+
+
+        //delete old user class
+        SerializableManager.removeSerializable(filePathUser);
         SerializableManager.saveSerializable(userModel,filePathUser); //this,
 
         //stellt sicher dass das Profil erfolgreich erstellt wurde, muss beim Listen erstellen geprüft werden

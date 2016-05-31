@@ -143,6 +143,8 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
                     for(int i=1;i<textList.size();i++){
                         ttsManager.addQueue(textList.get(i));
                     }
+                } else{
+                    ttsManager.addQueue("Hier können Sie etwas Zusätzliches angeben, dass sie nicht vertragen wie zum Beispiel Bananen");
                 }
             }
         });
