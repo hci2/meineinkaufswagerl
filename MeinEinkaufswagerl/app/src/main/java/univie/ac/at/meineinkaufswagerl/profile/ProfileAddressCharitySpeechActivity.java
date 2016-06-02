@@ -139,7 +139,7 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity imple
         // Startet auf Knopfdruck die ListSupportPage
         Intent intent= new Intent(this, ProfileFinishedSpeechActivity.class);
         userModel.setCreatedSuccessfullyProfile(true);
-        //TODO: Daten des Profiles serialisieren um sie persistent zu speichern
+
         String pathToAppFolder = getExternalFilesDir(null).getAbsolutePath();
         String filePathProfile = pathToAppFolder +File.separator + "profile.ser";
         String filePathUser = pathToAppFolder +File.separator + "user.ser";
@@ -148,6 +148,7 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity imple
         SerializableManager.removeSerializable(filePathProfile);
         SerializableManager.saveSerializable(profileModel,filePathProfile); //this,
 
+        userModel.setCreatedSuccessfullyProfile(true);
 
         //delete old user class
         SerializableManager.removeSerializable(filePathUser);

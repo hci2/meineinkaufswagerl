@@ -26,7 +26,7 @@ public class UserModel implements Serializable {
     //private static String username;
     //private static String password;
     private String charity= "Caritas";
-    private boolean createdSuccessfullyProfile=true; //Derzeitig DEAKTIVIERT
+    private boolean createdSuccessfullyProfile=false; //Derzeitig AKTIVIERT
 
     //Felix Addition Platzhalter
 
@@ -143,6 +143,7 @@ public class UserModel implements Serializable {
     public  void setCharity(String charity) {
         this.charity = charity;
     }
+
     public  boolean getCreatedSuccessfullyProfile() {
         return createdSuccessfullyProfile;
     }

@@ -81,11 +81,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/standingOrderImage"
-                android:src="@drawable/list_timeclock_icon"
+                android:src="@drawable/kalender_icon"
                 android:layout_alignParentStart="true"
                 android:layout_toStartOf="@+id/profilebutton"
                 android:layout_above="@+id/listButton"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:layout_marginTop="10dp" />
 
             <Button
                 android:layout_width="match_parent"

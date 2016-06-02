@@ -120,7 +120,7 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
             public void onClick(View v) {
                 speechText();
                 //promptSpeechInput();
-                /*TODO: Trying to use a own class for SpeechToText
+                /*TODO: Trying to use a own class for SpeechToText - nicht geklappt
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 sttManager.init(intent);
                 String spokenWords=sttManager.getSpokenWords();
