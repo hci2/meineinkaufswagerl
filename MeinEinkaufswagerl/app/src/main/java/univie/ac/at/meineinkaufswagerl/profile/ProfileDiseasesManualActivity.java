@@ -1,11 +1,9 @@
 package univie.ac.at.meineinkaufswagerl.profile;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -34,13 +32,6 @@ public class ProfileDiseasesManualActivity extends AppCompatActivity implements 
         //Unwrap the intent and get the objects
         userModel = new UserModel();
         profileModel = new ProfileModel();
-        if(getIntent() != null && getIntent().getExtras() != null){
-            userModel = (UserModel)getIntent().getExtras().getSerializable(ProfileNameSpeechActivity.EXTRA_MESSAGE);
-            profileModel = (ProfileModel)getIntent().getExtras().getSerializable(ProfileNameSpeechActivity.EXTRA_LIST);
-
-            //TODO: Bestehende Krankheiten von vorheriger Profileditierung in Checkboxen Häckchen setzen
-        }
-
         /*
         userModel = (UserModel)getIntent().getSerializableExtra("userModel");
         System.out.println(userModel.getFirstname());
@@ -55,7 +46,6 @@ public class ProfileDiseasesManualActivity extends AppCompatActivity implements 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, diseases);
         listDiseases.setAdapter(adapter1);
         listDiseases.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        //listDiseases.setOnItemClickListener(this);
 
         listUnvertrag= (ListView)findViewById(R.id.listUnvertrag);
         intolerances=new ArrayList<>();
@@ -72,9 +62,24 @@ public class ProfileDiseasesManualActivity extends AppCompatActivity implements 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, intolerances);
         listUnvertrag.setAdapter(adapter2);
         listUnvertrag.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-       // listUnvertrag.setOnItemClickListener(this);
         buttonContinue = (Button)findViewById(R.id.buttonContinue);
         buttonContinue.setOnClickListener(this);
+
+        if(getIntent() != null && getIntent().getExtras() != null){
+            userModel = (UserModel)getIntent().getExtras().getSerializable(ProfileNameSpeechActivity.EXTRA_MESSAGE);
+            profileModel = (ProfileModel)getIntent().getExtras().getSerializable(ProfileNameSpeechActivity.EXTRA_LIST);
+
+            for(int i=0; i<profileModel.getKrankheitenListe().size(); i++)
+                for(int u=0; u<diseases.size(); u++)
+                    if(profileModel.getKrankheitenListe().get(i).equals(diseases.get(u)))
+                        listDiseases.setItemChecked(u,true);
+            for(int i=0; i<profileModel.getUnvertraeglichkeitenListe().size(); i++)
+                for(int u=0; u<intolerances.size(); u++)
+                    if(profileModel.getUnvertraeglichkeitenListe().get(i).equals(intolerances.get(u)))
+                        listUnvertrag.setItemChecked(u,true);
+        }
+
+
     }
 
     @Override
