@@ -194,15 +194,18 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String resultString=result.get(0);
+                    int index;
+                    index=Integer.parseInt(resultString)-1;
                     if(remove){
-                        if(profileModel.getExtraListe().size()==0){
+                        if(profileModel.getExtraListe().size()==0|| profileModel.getExtraListe().size()<index){
+                            ttsManager.addQueue("Sie können keinen Bereich löschen der nicht vorhanden ist!");
                             remove=false;
                             return;
                         } else{
                             try{
-                                int index;
                                 if(isInt(resultString)){
-                                    index=Integer.parseInt(resultString)-1;
+                                    int line= index+1;
+                                    ttsManager.addQueue("Es wurde erfolgreich Zeile " +line+" mit dem Inhalt "+profileModel.getExtraListe().get(index)+" aus ihrer Liste, die zusätzlich zu beachten ist, gelöscht!");
                                     profileModel.removeExtra(index);
                                 }else{
                                     Toast.makeText(getApplicationContext(),
@@ -221,7 +224,9 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
                             }
                         }
                     } else {
+                        ttsManager.addQueue("Es wurde erfolgreich " +resultString+" zur Liste, die zusätzlich zu beachten ist, hinzugefügt!");
                         profileModel.addExtra(resultString);
+
                     }
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, profileModel.getExtraListe());

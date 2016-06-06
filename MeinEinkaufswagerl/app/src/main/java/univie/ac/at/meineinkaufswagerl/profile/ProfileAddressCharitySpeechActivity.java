@@ -233,6 +233,7 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity imple
                                     adressList.remove(positionSpeech);
                                 }
                                 adressList.add(positionSpeech, resultString);
+                                ttsManager.addQueue("Es wurde erfolgreich " +resultString+" hinzugefügt!");
                                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, adressList);
                                 listViewAddress.setAdapter(adapter);
                                 sprachausgabe=false;
@@ -243,6 +244,7 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity imple
                                     adressList.remove(positionSpeech);
                                 }
                                 adressList.add(positionSpeech, resultString);
+                                ttsManager.addQueue("Es wurde erfolgreich " +resultString+" hinzugefügt!");
                                 ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, adressList);
                                 listViewAddress.setAdapter(adapter1);
                                 sprachausgabe=false;
@@ -253,6 +255,7 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity imple
                                     adressList.remove(positionSpeech);
                                 }
                                 adressList.add(positionSpeech, resultString);
+                                ttsManager.addQueue("Es wurde erfolgreich " +resultString+" hinzugefügt!");
                                 ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, adressList);
                                 listViewAddress.setAdapter(adapter2);
                                 sprachausgabe=false;
@@ -269,6 +272,7 @@ public class ProfileAddressCharitySpeechActivity extends AppCompatActivity imple
                                     adressList.remove(positionSpeech);
                                 }
                                 adressList.add(positionSpeech, resultString);
+                                ttsManager.addQueue("Es wurde erfolgreich " +resultString+" hinzugefügt!");
                                 ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, adressList);
                                 listViewAddress.setAdapter(adapter3);
                                 userModel.setCharity(charityModel.getCharityForPLZ(resultString));

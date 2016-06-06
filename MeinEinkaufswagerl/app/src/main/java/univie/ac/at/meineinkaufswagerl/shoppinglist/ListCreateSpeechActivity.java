@@ -168,7 +168,6 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
 
     private int getNumberFromWrittenForm(String number){
         String [][] textToNumber = new String[][]{
-                //TODO: Überlegen zu welchen Produkten welche Unverträglichkeiten und Krankheiten sich nicht vertragen
                 {"ein", "1"},
                 {"zwei", "2"},
                 {"drei", "3"},
@@ -271,6 +270,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                             //To get just the number as String
                             //String number=resultString.replaceAll("[^0-9]", "");
                             if(tempList.getTextList().size()==0 || tempList.getTextList().size()<removeLine){
+                                ttsManager.addQueue("Sie können keinen Bereich löschen der nicht vorhanden ist!");
                                 remove=false;
                                 return;
                             }
@@ -313,7 +313,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                             amount=getNumberFromWrittenForm(splitResult[0]);
                         }
 
-                        boolean addSuccess=false;
+                        //boolean addSuccess=false;
                         check:
                         {
                             for (int i = 0; i < currentListView.size(); i++) {
@@ -332,7 +332,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                                                     temporaryProductList.get(temporaryProductList.size()-1).setName(product);
                                                     tempList.addTextList(amount+" "+product);
                                                     ttsManager.addQueue("Es wurden erfolgreich " +((int)currentAvailableProductList.get(u).getMenge())+" "+currentAvailableProductList.get(u).getName()+" zur Einkaufsliste hinzugefügt!");
-                                                    addSuccess = true;
+                                                    //addSuccess = true;
                                                     break check;
                                                 } else{
                                                     //currentListView.add(currentAvailableProductList.get(u).getMenge()+" "+product);
@@ -342,7 +342,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                                                     //temporaryProductList.get(temporaryProductList.size()-1).setMenge(currentAvailableProductList.get(u).getMenge());
                                                     tempList.addTextList(((int)currentAvailableProductList.get(u).getMenge())+" "+product);
                                                     ttsManager.addQueue("Es wurden erfolgreich " +((int)currentAvailableProductList.get(u).getMenge())+" "+currentAvailableProductList.get(u).getName()+" zur Einkaufsliste hinzugefügt!");
-                                                    addSuccess = true;
+                                                    //addSuccess = true;
                                                     break check;
                                                 }
 
@@ -350,6 +350,7 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                                         }
 
                                     } else {
+                                        ttsManager.addQueue(getString(R.string.product_incompatible_with_user));
                                         Toast.makeText(getApplicationContext(),
                                                 getString(R.string.product_incompatible_with_user),
                                                 Toast.LENGTH_LONG).show();
@@ -359,12 +360,16 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                                 }
 
                             }
+                            ttsManager.addQueue(getString(R.string.product_not_available));
+                            Toast.makeText(getApplicationContext(),
+                                    getString(R.string.product_not_available),
+                                    Toast.LENGTH_LONG).show();
                         }
-                        if(!addSuccess){
+                        /*if(!addSuccess){
                             Toast.makeText(getApplicationContext(),
                                     getString(R.string.speech_index_missunderstand),
                                     Toast.LENGTH_LONG).show();
-                        }
+                        }*/
 
                     }
 
