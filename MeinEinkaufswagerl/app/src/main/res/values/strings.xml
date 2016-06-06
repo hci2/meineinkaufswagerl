@@ -36,6 +36,7 @@
     <string name="explaination_speech_full">Sie haben Spracheingabe gewählt. Bei dem Mund Button können Sie mitteilen welche Menge und Produkt Sie kaufen wollen und beim Ohr Button können Sie sich das zuvor Gesprochene anhören. Falls Sie etwas löschen wollen, können Sie mit dem # Button die Zeile angeben, die gelöscht wird. Außerdem können Sie eine einmalige Einkaufsliste oder eine dauerhafte Einkaufsliste erstellen und anfordern.</string>
     <string name="recommendation_person">In diesem Menü können Sie ihr Ernährungsprofil bearbeiten. Zur Einrichtung wird eine zusätzliche Person empfohlen, die bei Problemen helfen kann.</string>
     <string name="product_incompatible_with_user">Sie vertragen dieses Produkt nicht&#8230;</string>
+    <string name="product_not_available">Dieses Produkt ist nicht in der App vorhanden, versuchen Sie ein anderes&#8230;</string>
 
     <string name="home_info_text">Info: Diese App dient zur Aufnahme einer Einkaufsliste, die auf Sie eingeht und einer gemeinwohlnützigen Organisation übermittelt wird.</string>
     <string name="home_info_text_full">Info: Diese App dient zur Aufnahme Ihrer Kaufwünsche in eine Einkaufsliste, die auch auf ihre Intoleranzen und Wünsche eingeht und danach einer gemeinwohlnützigen Organisation übermittelt wird. Die Informationstexte der kommenden Seiten lassen sich mit anklicken vorlesen. \nBitte bei erstmaliger Nutzung Profil anlegen!</string>

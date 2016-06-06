@@ -286,6 +286,7 @@ public class StandingOrderEditSpeechActivity extends AppCompatActivity {
                             //To get just the number as String
                             //String number=resultString.replaceAll("[^0-9]", "");
                             if(currentListView.size()==0 || currentListView.size()<removeLine){
+                                ttsManager.addQueue("Sie können keinen Bereich löschen der nicht vorhanden ist!");
                                 remove=false;
                                 return;
                             }
@@ -329,7 +330,7 @@ public class StandingOrderEditSpeechActivity extends AppCompatActivity {
                             amount=getNumberFromWrittenForm(splitResult[0]);
                         }
 
-                        boolean addSuccess=false;
+                        //boolean addSuccess=false;
                         check:
                         {
                             for (int i = 0; i < currentAllProductView.size(); i++) {
@@ -342,27 +343,27 @@ public class StandingOrderEditSpeechActivity extends AppCompatActivity {
                                             if(currentAllProductView.get(i).equals(currentAvailableProductList.get(u).getName())){
                                                 //Hinzufügen der Menge des Produktes zum ProductModel
                                                 if(amount!=1&& amount!=0){
-                                                    currentListView.add(amount+".0 "+product);
+                                                    currentListView.add(amount+" "+product);
 
                                                     standingOrderProductList.add(currentAvailableProductList.get(u));
                                                     standingOrderProductList.get(standingOrderProductList.size()-1).setMenge((float)amount);
-                                                    ttsManager.addQueue("Es wurden erfolgreich " +currentAvailableProductList.get(u).getMenge()+" "+currentAvailableProductList.get(u).getName()+" zur dauerhaften Einkaufsliste hinzugefügt!");
+                                                    ttsManager.addQueue("Es wurden erfolgreich " +((int)currentAvailableProductList.get(u).getMenge())+" "+currentAvailableProductList.get(u).getName()+" zur dauerhaften Einkaufsliste hinzugefügt!");
                                                 } else{
                                                     currentListView.add(currentAvailableProductList.get(u).getMenge()+" "+product);
                                                     //Annahme der default Menge des Produktes
                                                     standingOrderProductList.add(currentAvailableProductList.get(u));
                                                     //standingOrderProductList.get(standingOrderProductList.size()-1).setMenge(currentAvailableProductList.get(u).getMenge());
-                                                    ttsManager.addQueue("Es wurden erfolgreich " +currentAvailableProductList.get(u).getMenge()+" "+currentAvailableProductList.get(u).getName()+" zur  dauerhaften Einkaufsliste hinzugefügt!");
+                                                    ttsManager.addQueue("Es wurden erfolgreich " +((int)currentAvailableProductList.get(u).getMenge())+" "+currentAvailableProductList.get(u).getName()+" zur  dauerhaften Einkaufsliste hinzugefügt!");
                                                 }
 
                                             }
                                         }
-                                        addSuccess = true;
+                                        //addSuccess = true;
 
                                         break check;
                                     } else {
                                         Toast.makeText(getApplicationContext(),
-                                                getString(R.string.speech_index_missunderstand),
+                                                getString(R.string.product_incompatible_with_user),
                                                 Toast.LENGTH_LONG).show();
                                         break check;
                                     }
@@ -371,12 +372,15 @@ public class StandingOrderEditSpeechActivity extends AppCompatActivity {
                                 }
 
                             }
+                            Toast.makeText(getApplicationContext(),
+                                    getString(R.string.product_not_available),
+                                    Toast.LENGTH_LONG).show();
                         }
-                        if(!addSuccess){
+                        /*if(!addSuccess){
                             Toast.makeText(getApplicationContext(),
                                     getString(R.string.speech_index_missunderstand),
                                     Toast.LENGTH_LONG).show();
-                        }
+                        }*/
 
                     }
 

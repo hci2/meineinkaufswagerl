@@ -146,10 +146,12 @@ public class ProfileNameSpeechActivity extends AppCompatActivity implements Seri
                     if(firstname && !lastname){
                         userModel.setFirstname(resultString);
                         firstnameText.setText(resultString);
+                        ttsManager.addQueue("Es wurde erfolgreich der Vorname " +resultString+" hinzugefügt!");
                         firstname=false;
                     } else if(!firstname && lastname){
                         userModel.setLastname(resultString);
                         lastnameText.setText(resultString);
+                        ttsManager.addQueue("Es wurde erfolgreich der Nachname " +resultString+" hinzugefügt!");
                         lastname=false;
                     }
                 }
