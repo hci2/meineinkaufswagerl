@@ -24,6 +24,7 @@ import univie.ac.at.meineinkaufswagerl.model.ProductModel;
 import univie.ac.at.meineinkaufswagerl.model.ProductNotFittingModel;
 import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
 import univie.ac.at.meineinkaufswagerl.model.ShoppingListModel;
+import univie.ac.at.meineinkaufswagerl.model.StandingOrderListModel;
 
 public class ShoppingManuallyActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, AcceptDialog.OnDialogButtonEvent{
 
@@ -36,6 +37,8 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
     private ShoppingListModel shoppingList = null;
     private int currentPos = 0;
     private ProfileModel profileModel;
+    private StandingOrderListModel standingOrderListModel;
+    public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +67,17 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
         this.currentList = this.lebensmittel;
         prodAmounts = new ArrayList<Integer>();
 
+        if(getIntent() != null && getIntent().getExtras() != null)
+            standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(ListSupportPage.EXTRA_MESSAGE);
+        if(standingOrderListModel == null)
+            standingOrderListModel = new StandingOrderListModel();
+
         String pathToAppFolder = getExternalFilesDir(null).getAbsolutePath();
         String filePathProfile = pathToAppFolder + File.separator + "profile.ser";
         profileModel=new ProfileModel();
         if(new File(filePathProfile).exists())
             profileModel= SerializableManager.readSerializable(filePathProfile);
+        System.out.println("GROOOOOOOOOEEEESSSE_1: " + standingOrderListModel.getProductList().size());
     }
 
     private void createProducts() {
@@ -124,7 +133,10 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
             Toast.makeText(this,"Kein passendes Produkt gefunden !", Toast.LENGTH_LONG).show();
         }
         else if(v == this.buttonToList) {
-            Intent intent= new Intent(this, AdjustShoppingListActivity.class); //ListCreateSpeechActivity.class
+            Intent intent= new Intent(this, AdjustShoppingListActivity.class);
+            if(standingOrderListModel!=null){
+                intent.putExtra(EXTRA_MESSAGE,standingOrderListModel);
+            }
             intent.putExtra("list", this.shoppingList);
             startActivity(intent);
         }

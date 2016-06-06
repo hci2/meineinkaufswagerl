@@ -78,8 +78,6 @@ public class ProfileDiseasesManualActivity extends AppCompatActivity implements 
                     if(profileModel.getUnvertraeglichkeitenListe().get(i).equals(intolerances.get(u)))
                         listUnvertrag.setItemChecked(u,true);
         }
-
-
     }
 
     @Override

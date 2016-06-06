@@ -356,7 +356,6 @@ public class ListCreateSpeechActivity extends AppCompatActivity implements Seria
                                         break check;
                                     }
 
-
                                 }
 
                             }
