@@ -110,7 +110,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else {
             Toast.makeText(getApplicationContext(),
-                    getString(R.string.noProfileCreated),
+                    getString(R.string.noProfileCreated_standOrder),
                     Toast.LENGTH_SHORT).show();
         }
 

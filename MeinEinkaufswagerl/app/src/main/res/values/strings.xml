@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Mein Einkaufswagerl</string>
     <string name="noProfileCreated">Sie können keine Einkaufsliste erstellen vor einmaliger Profilerstellung&#8230;</string>
+    <string name="noProfileCreated_standOrder">Sie können keinen Dauerauftrag bearbeiten vor einmaliger Profilerstellung&#8230;</string>
 
     <string name="action_settings">Einstellungen</string>
     <string name="speech_prompt">Sagen Sie was (Menge,Produkt) sie kaufen wollen&#8230;</string>
