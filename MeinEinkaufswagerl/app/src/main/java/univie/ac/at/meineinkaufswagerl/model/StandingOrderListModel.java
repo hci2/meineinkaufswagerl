@@ -68,4 +68,12 @@ public class StandingOrderListModel implements Serializable{
         return productList.get(index).getName();
     }
 
+    private ShoppingListModel shoppingListModel = new ShoppingListModel();
+    public ShoppingListModel getShoppingListModel() { return shoppingListModel; }
+    public void addProductToList(ProductModel product, int anzahl) {
+        shoppingListModel.addProduct(product);
+        shoppingListModel.addAmount(anzahl);
+    }
+    public void setShoppingListModel(ShoppingListModel list) { shoppingListModel = list; }
+
 }

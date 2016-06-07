@@ -65,6 +65,7 @@ public class AdjustShoppingListActivity extends AppCompatActivity implements Vie
         if(v == this.buttonErgaenzen) {
             Intent intent= new Intent(this, ShoppingManuallyActivity.class);
             intent.putExtra("list", this.shoppingList);
+            intent.putExtra("standingorder", false);
             startActivity(intent);
         }
         if(v == this.buttonAbsenden) {
@@ -82,7 +83,8 @@ public class AdjustShoppingListActivity extends AppCompatActivity implements Vie
                 Toast.makeText(this,"Sie können keine leere Einkaufsliste absenden !", Toast.LENGTH_LONG).show();
             else {
                 ArrayList<ProductModel> list = standingOrderListModel.getProductList();
-
+                for(int i=0; i<shoppingList.getProducts().size(); i++)
+                    standingOrderListModel.addProductToList(shoppingList.getProducts().get(i), shoppingList.getAmounts().get(i));
                 for(int i=0; i<shoppingList.getProducts().size(); i++)
                     list.add(shoppingList.getProducts().get(i));
                 for(int i=0; i<shoppingList.getProducts().size(); i++)
@@ -109,7 +111,7 @@ public class AdjustShoppingListActivity extends AppCompatActivity implements Vie
         Bundle bundle = new Bundle();
         bundle.putSerializable("productName", this.shoppingList.getProducts().get(this.currentPos).getName());
         deleteDialog.setArguments(bundle);
-        deleteDialog.show(manager, "Produkt hinzufügen?");
+        deleteDialog.show(manager, "Produkt löschen?");
     }
 
     @Override

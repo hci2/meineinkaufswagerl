@@ -23,6 +23,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".standingorder.StandingOrderAdjustManual"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".profile.ProfileActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />

@@ -12,20 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/btn_vorlesen"
-            android:id="@+id/button"
-            android:layout_weight="4"
-            android:background="#7dd0e5"/>
-
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/listShoppingFinish"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="2" />
+            android:layout_weight="1.5" />
 
         <Button
             android:layout_width="match_parent"

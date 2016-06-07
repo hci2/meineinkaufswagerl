@@ -39,7 +39,6 @@ public class ListSupportPage extends AppCompatActivity implements Serializable {
         if(getIntent() != null && getIntent().getExtras() != null){
             standingOrderListModel = (StandingOrderListModel)getIntent().getExtras().getSerializable(HomeActivity.EXTRA_MESSAGE);
         }
-        System.out.println("GROOOOOOOOOEEEESSSE_0: " + standingOrderListModel.getProductList().size());
         /*
         ArrayList<String> stringList = getIntent().getStringArrayListExtra(ListCreateSpeechActivity.EXTRA_MESSAGE);
         for(int i=0;i<stringList.size();i++){

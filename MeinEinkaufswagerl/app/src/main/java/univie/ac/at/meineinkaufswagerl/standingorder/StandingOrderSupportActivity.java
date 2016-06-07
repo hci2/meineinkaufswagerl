@@ -50,8 +50,7 @@ public class StandingOrderSupportActivity extends AppCompatActivity {
     }
 
     public void goToShoppingManuallyActivity(View v) {
-        Intent intent= new Intent(this, StandingOrderEditSpeechActivity.class); // TODO: StandingOrderEditManuallyActivity oder so
-
+        Intent intent= new Intent(this, StandingOrderAdjustManual.class);
         startActivity(intent);
     }
 

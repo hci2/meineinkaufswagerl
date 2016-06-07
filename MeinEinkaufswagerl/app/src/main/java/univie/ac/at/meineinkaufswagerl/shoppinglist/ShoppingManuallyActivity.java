@@ -25,6 +25,7 @@ import univie.ac.at.meineinkaufswagerl.model.ProductNotFittingModel;
 import univie.ac.at.meineinkaufswagerl.model.ProfileModel;
 import univie.ac.at.meineinkaufswagerl.model.ShoppingListModel;
 import univie.ac.at.meineinkaufswagerl.model.StandingOrderListModel;
+import univie.ac.at.meineinkaufswagerl.standingorder.StandingOrderAdjustManual;
 
 public class ShoppingManuallyActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, AcceptDialog.OnDialogButtonEvent{
 
@@ -39,6 +40,7 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
     private ProfileModel profileModel;
     private StandingOrderListModel standingOrderListModel;
     public final static String EXTRA_MESSAGE = "univie.ac.at.meineinkaufswagerl";
+    private boolean standingorder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,9 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
         setContentView(R.layout.activity_shopping_manually);
 
         this.shoppingList = (ShoppingListModel)getIntent().getSerializableExtra("list");
+        this.standingorder = getIntent().getBooleanExtra("standingorder",false);
+        System.out.println("BOOOOLEEEEAAAN: "+this.standingorder);
+
         if(this.shoppingList == null)
             this.shoppingList = new ShoppingListModel();
 
@@ -133,7 +138,11 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
             Toast.makeText(this,"Kein passendes Produkt gefunden !", Toast.LENGTH_LONG).show();
         }
         else if(v == this.buttonToList) {
-            Intent intent= new Intent(this, AdjustShoppingListActivity.class);
+            Intent intent;
+            if(this.standingorder)
+                intent= new Intent(this, StandingOrderAdjustManual.class);
+            else
+                intent= new Intent(this, AdjustShoppingListActivity.class);
             if(standingOrderListModel!=null){
                 intent.putExtra(EXTRA_MESSAGE,standingOrderListModel);
             }
