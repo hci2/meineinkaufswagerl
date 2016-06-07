@@ -82,7 +82,6 @@ public class ShoppingManuallyActivity extends AppCompatActivity implements View.
         profileModel=new ProfileModel();
         if(new File(filePathProfile).exists())
             profileModel= SerializableManager.readSerializable(filePathProfile);
-        System.out.println("GROOOOOOOOOEEEESSSE_1: " + standingOrderListModel.getProductList().size());
     }
 
     private void createProducts() {
