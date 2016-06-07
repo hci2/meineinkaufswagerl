@@ -52,11 +52,11 @@ public class StandingOrderAdjustManual extends AppCompatActivity implements Adap
         this.shoppingList = (ShoppingListModel)getIntent().getSerializableExtra("list");
         String pathToAppFolder = getExternalFilesDir(null).getAbsolutePath();
         String filePathStandingOrder = pathToAppFolder + File.separator + "standingorder.ser";
-        standingOrderListModel = new StandingOrderListModel();
         if (new File(filePathStandingOrder).exists())
             standingOrderListModel = SerializableManager.readSerializable(filePathStandingOrder);
-        if(this.shoppingList == null)
-            this.shoppingList = this.standingOrderListModel.getShoppingListModel();
+        if(standingOrderListModel == null)
+            standingOrderListModel = new StandingOrderListModel();
+        this.shoppingList = this.standingOrderListModel.getShoppingListModel();
 
         this.adapter = new ListAdapter(this, shoppingList.getProducts(), null, shoppingList.getAmounts());
         this.adapter.showAmount(true);

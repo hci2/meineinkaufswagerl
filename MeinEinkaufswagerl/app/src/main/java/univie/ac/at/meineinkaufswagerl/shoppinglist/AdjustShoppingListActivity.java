@@ -93,7 +93,7 @@ public class AdjustShoppingListActivity extends AppCompatActivity implements Vie
                 //Hinzufügen der Produkte
                 String pathToAppFolder = getExternalFilesDir(null).getAbsolutePath();
                 String filePathStandingOrder = pathToAppFolder + File.separator + "standingorder.ser";
-                //delete old standing order class 
+                //delete old standing order class
                 SerializableManager.removeSerializable(filePathStandingOrder);
                 SerializableManager.saveSerializable(standingOrderListModel, filePathStandingOrder);
 
