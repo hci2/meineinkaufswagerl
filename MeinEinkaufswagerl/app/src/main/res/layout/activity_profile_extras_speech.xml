@@ -67,7 +67,7 @@
                     android:layout_marginBottom="3.5dp" />
 
                 <ImageButton
-                    android:id="@+id/btnSpeak"
+                    android:id="@+id/btnSpeakExtra"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/mouth_icon"

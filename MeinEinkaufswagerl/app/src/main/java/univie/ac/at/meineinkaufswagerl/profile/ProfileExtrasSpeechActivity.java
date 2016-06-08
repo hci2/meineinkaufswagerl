@@ -98,7 +98,7 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
 
         //initialize all the elements of the layout xml
         infoText = (TextView) findViewById(R.id.infoText);
-        btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
+        btnSpeak = (ImageButton) findViewById(R.id.btnSpeakExtra);
         extraListe = (ListView) findViewById(R.id.extraListe);
         btnRead = (ImageButton) findViewById(R.id.btnRead);
         btnRemove = (ImageButton) findViewById(R.id.btnRemove);
@@ -194,34 +194,39 @@ public class ProfileExtrasSpeechActivity extends AppCompatActivity implements Se
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String resultString=result.get(0);
-                    int index;
-                    index=Integer.parseInt(resultString)-1;
                     if(remove){
-                        if(profileModel.getExtraListe().size()==0|| profileModel.getExtraListe().size()<index){
-                            ttsManager.addQueue("Sie können keinen Bereich löschen der nicht vorhanden ist!");
-                            remove=false;
-                            return;
-                        } else{
-                            try{
-                                if(isInt(resultString)){
-                                    int line= index+1;
-                                    ttsManager.addQueue("Es wurde erfolgreich Zeile " +line+" mit dem Inhalt "+profileModel.getExtraListe().get(index)+" aus ihrer Liste, die zusätzlich zu beachten ist, gelöscht!");
-                                    profileModel.removeExtra(index);
-                                }else{
-                                    Toast.makeText(getApplicationContext(),
-                                            getString(R.string.speech_index_missunderstand),
-                                            Toast.LENGTH_SHORT).show();
-                                    remove=false;
-                                    return;
-                                }
+                        try{
+                            int index;
+                            index=Integer.parseInt(resultString)-1;
+                            if(profileModel.getExtraListe().size()==0|| profileModel.getExtraListe().size()<index){
+                                ttsManager.addQueue("Sie können keinen Bereich löschen der nicht vorhanden ist!");
                                 remove=false;
+                                return;
+                            } else{
 
-                            } catch(Exception pe){
-                                remove=false;
-                                Toast.makeText(getApplicationContext(),
-                                        getString(R.string.speech_index_missunderstand),
-                                        Toast.LENGTH_SHORT).show();
+                                    if(isInt(resultString)){
+                                        int line= index+1;
+                                        ttsManager.addQueue("Es wurde erfolgreich Zeile " +line+" mit dem Inhalt "+profileModel.getExtraListe().get(index)+" aus ihrer Liste, die zusätzlich zu beachten ist, gelöscht!");
+                                        profileModel.removeExtra(index);
+                                        remove=false;
+                                    }else{
+                                        Toast.makeText(getApplicationContext(),
+                                                getString(R.string.speech_index_missunderstand),
+                                                Toast.LENGTH_SHORT).show();
+                                        remove=false;
+                                        return;
+                                    }
                             }
+                        } catch(NumberFormatException nfe){
+                            remove=false;
+                            Toast.makeText(getApplicationContext(),
+                                    getString(R.string.speech_index_missunderstand),
+                                    Toast.LENGTH_SHORT).show();
+                        } catch(Exception pe){
+                            remove=false;
+                            Toast.makeText(getApplicationContext(),
+                                    getString(R.string.speech_index_missunderstand),
+                                    Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         ttsManager.addQueue("Es wurde erfolgreich " +resultString+" zur Liste, die zusätzlich zu beachten ist, hinzugefügt!");
