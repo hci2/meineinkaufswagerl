@@ -141,7 +141,7 @@ public class StandingOrderEditSpeechActivity extends AppCompatActivity {
         if(standingOrderListModel.getSizeProductList()!=0){
             standingOrderProductList=standingOrderListModel.getProductList();
             for(int i=0;i<standingOrderListModel.getSizeProductList();i++){
-                currentListView.add(standingOrderProductList.get(i).getMenge()+" "+standingOrderProductList.get(i).getName());
+                currentListView.add(((int)standingOrderProductList.get(i).getMenge())+" "+standingOrderProductList.get(i).getName());
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, currentListView);
             txtSpeechList.setAdapter(adapter);
