@@ -1,9 +1,15 @@
+# MeinEinkaufswagerl - M3
+
+![app_einkaufswagerl_icon](https://user-images.githubusercontent.com/19223435/134473800-c3b56d66-fbc7-405d-adfa-c8b4b3262b94.png)
+
 ## Readme - M3
 
 * Gruppe:	[Montag]
 * Team-Nr.: 2
 * Projektthema: Projekt 2: Senioren-Smartphone (App zum Erstellen einer Einkaufsliste für Menschen über 55 Jahren mit Einschränkungen/Behinderung)
-### Implementierung
+
+
+## Implementierung
 
 Framework:	[Android]
 
